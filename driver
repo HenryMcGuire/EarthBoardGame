@@ -1,0 +1,3 @@
+//the primary menu system for interacting with the game
+//keeps track of the turn order and external properties outside of the players
+//takes input from the user and sends it to the other classes to perform functions
