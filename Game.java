@@ -10,12 +10,24 @@ import java.util.ArrayList;
 public class Game {
     
     private static ArrayList<Player> players = new ArrayList<>();
-    private static ArrayList<Card> fauna = new ArrayList<>();
 
     private static ArrayList<Card> faunaCards = new ArrayList<>();
     private static ArrayList<Card> islandCards = new ArrayList<>();
     private static ArrayList<Card> climateCards = new ArrayList<>();
     private static ArrayList<Card> earthCards = new ArrayList<>();
+
+    private final static int PLANT = 1,
+            COMPOST = 2,
+            WATER = 3,
+            GROW = 4;
+
+
+    private final static String[] ACTIONS = {
+        PLANT + ". Plant",
+        COMPOST + ". Compost",
+        WATER + ". Water",
+        GROW + ". Grow"
+    };
 
     public static void main(String[] args) {
         // Intro
@@ -54,13 +66,12 @@ public class Game {
         initializeCards();
 
         // Pick and display fauna
+        Card[] fauna = new Card[4];
         System.out.println("Fauna Cards: ");
 
-        for (int i = 0; i < 4; i++) {
-            int fi = (int)(Math.random() * faunaCards.size());
-            Card toAdd = faunaCards.get(fi);
-            fauna.add(toAdd);
-            faunaCards.remove(fi);
+        for (int i = 0; i < fauna.length; i++) {
+            Card toAdd = drawCard(faunaCards);
+            fauna[i] = toAdd;
             System.out.println(toAdd.toString());
         }
 
@@ -71,21 +82,13 @@ public class Game {
             Card[] islandChoices = new Card[2];
             Card[] climateChoices = new Card[2];
 
-            int iOne = (int)(Math.random() * islandCards.size());
-            islandChoices[0] = islandCards.get(iOne);
-            islandCards.remove(iOne);
-            
-            int iTwo = (int)(Math.random() * islandCards.size());
-            islandChoices[1] = islandCards.get(iTwo);
-            islandCards.remove(iTwo);
+            for (int j = 0; j < islandChoices.length; j++) {
+                islandChoices[j] = drawCard(islandCards);
+            }
 
-            int cOne = (int)(Math.random() * climateCards.size());
-            climateChoices[0] = climateCards.get(cOne);
-            climateCards.remove(cOne);
-            
-            int cTwo = (int)(Math.random() * climateCards.size());
-            climateChoices[1] = climateCards.get(cTwo);
-            climateCards.remove(cTwo);
+            for (int j = 0; j < climateChoices.length; j++) {
+                climateChoices[j] = drawCard(climateCards);
+            }
 
             System.out.println("Player " + (i + 1) + "'s choices for island and climate cards: ");
             System.out.println("Island Cards: ");
@@ -155,16 +158,73 @@ public class Game {
         System.out.println();
 
         // Player actions
-        while (true) {
+        boolean play = true;
+
+        while (play) {
             for (int i = 0; i < playerCount; i++) {
                 // List actions
                 // Player choose action
+                for (String action : ACTIONS) {
+                    System.out.println(action);
+                }
+
+                System.out.print("Player " + (i + 1) + ", choose an action (1-" + Integer.toString(ACTIONS.length-1) + "): ");
+                int action = stdin.nextInt();
+                
+                switch(action) {
+                    case PLANT:
+                        // ACTIVE 
+                        // Plant up to two cards to tableau, must spend soil in upper left of card(flaura and terrain cards, not event)
+                        // Draw 4 Earth cards and select 1 for hand, discard 3
+
+                        // OTHER
+                        // Plant one card, or draw one card
+
+                        // IF Player plants 16th card game is over until the remaining moves are completed(+7 points)
+
+                        // All players activate green abilities
+                        
+                        // Check if tableau full and if so play = false;
+                        break;
+                    case COMPOST:
+                        // ACTIVE
+                        // +5 soil +2 compost cards from deck
+
+                        // OTHER
+                        // +2 soil or +2 compost cards from deck
+
+                        // Red or multicolored abilities
+                        break;
+                    case WATER:
+                        // ACTIVE
+                        // Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
+                        // 3 sprouts can be converted from tableau cards to +2 soil
+
+                        // OTHER
+                        // +2 sprouts or +2 soil
+
+                        // Blue or multicolored abilites
+
+                        break;
+                    case GROW:
+                        // ACTIVE
+                        // +4 cards to hand from deck, +2 growth tokens on tableau cards
+
+                        // OTHER
+                        // +2 cards to hand from deck or +2 growth tokens
+
+                        // Yellow or multicolored abilities
+                        break;
+                }
             }
         }
 
+        // Determine winner
+
+        stdin.close();
     }
 
-    // Set decks of cards
+    // Initializes all decks
     private static void initializeCards() {
         /* To be added
         for (Card c : cards) {
@@ -239,5 +299,14 @@ public class Game {
                 earthCards.add(earthCards.get(i));
             }
         }
+    }
+
+    // Returns a random card from the deck input
+    // Card is removed from the deck
+    private static Card drawCard(ArrayList<Card> deck) {
+        int index = (int)(Math.random() * deck.size());
+        Card card = deck.get(index);
+        deck.remove(index);
+        return card;
     }
 }
