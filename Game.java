@@ -15,6 +15,8 @@ public class Game {
     private static ArrayList<Card> islandCards = new ArrayList<>();
     private static ArrayList<Card> climateCards = new ArrayList<>();
     private static ArrayList<Card> earthCards = new ArrayList<>();
+    
+    public final static Scanner stdin = new Scanner(System.in);
 
     private final static int PLANT = 1,
             COMPOST = 2,
@@ -42,8 +44,6 @@ public class Game {
         System.out.println("");
         System.out.println("For game information visit: https://www.youtube.com/watch?v=GQ9rFntr5s4");
         System.out.println("");
-
-        Scanner stdin = new Scanner(System.in);
 
         // Prompt for player count
         int playerCount;
@@ -164,58 +164,77 @@ public class Game {
             for (int i = 0; i < playerCount; i++) {
                 // List actions
                 // Player choose action
+                System.out.println("Action List");
+
                 for (String action : ACTIONS) {
                     System.out.println(action);
                 }
 
-                System.out.print("Player " + (i + 1) + ", choose an action (1-" + Integer.toString(ACTIONS.length-1) + "): ");
-                int action = stdin.nextInt();
+                Player active = players.get(i);
+                int action;
+
+                while (true) {
+                    System.out.print("Player " + (i + 1) + ", choose an action (1-" + Integer.toString(ACTIONS.length) + "): ");
+                    action = stdin.nextInt();
+                    
+                    if (action >= 1 && action <= ACTIONS.length) {
+                        break;
+                    }
+                    else {
+                        System.out.println("Invalid input! Try again!");
+                    }
+                }
+
+                System.out.println();
                 
                 switch(action) {
                     case PLANT:
-                        // ACTIVE 
-                        // Plant up to two cards to tableau, must spend soil in upper left of card(flaura and terrain cards, not event)
-                        // Draw 4 Earth cards and select 1 for hand, discard 3
+                        activePlant(i);
 
-                        // OTHER
-                        // Plant one card, or draw one card
-
-                        // IF Player plants 16th card game is over until the remaining moves are completed(+7 points)
-
-                        // All players activate green abilities
+                        for (int j = i + 1; j < i + playerCount; j++) {
+                            secondaryPlant(j % playerCount);
+                        }
                         
-                        // Check if tableau full and if so play = false;
+                        for (int j = i; j < i + playerCount; j++) {
+                            activateCards(j, "Green");
+                        }
                         break;
                     case COMPOST:
-                        // ACTIVE
-                        // +5 soil +2 compost cards from deck
+                        activeCompost(i);
 
-                        // OTHER
-                        // +2 soil or +2 compost cards from deck
-
-                        // Red or multicolored abilities
+                        for (int j = i + 1; j < i + playerCount; j++) {
+                            secondaryCompost(j % playerCount);
+                        }
+                        
+                        for (int j = i; j < i + playerCount; j++) {
+                            activateCards(j, "Red");
+                        }
                         break;
                     case WATER:
-                        // ACTIVE
-                        // Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
-                        // 3 sprouts can be converted from tableau cards to +2 soil
+                        activeWater(i);
 
-                        // OTHER
-                        // +2 sprouts or +2 soil
-
-                        // Blue or multicolored abilites
-
+                        for (int j = i + 1; j < i + playerCount; j++) {
+                            secondaryWater(j % playerCount);
+                        }
+                        
+                        for (int j = i; j < i + playerCount; j++) {
+                            activateCards(j, "Blue");
+                        }
                         break;
                     case GROW:
-                        // ACTIVE
-                        // +4 cards to hand from deck, +2 growth tokens on tableau cards
+                        activeGrow(i);
 
-                        // OTHER
-                        // +2 cards to hand from deck or +2 growth tokens
-
-                        // Yellow or multicolored abilities
+                        for (int j = i + 1; j < i + playerCount; j++) {
+                            secondaryGrow(j % playerCount);
+                        }
+                        
+                        for (int j = i; j < i + playerCount; j++) {
+                            activateCards(j, "Yellow");
+                        }
                         break;
                 }
+
+                System.out.println();
             }
         }
 
@@ -308,5 +327,87 @@ public class Game {
         Card card = deck.get(index);
         deck.remove(index);
         return card;
+    }
+
+    
+    // Plant up to two cards to tableau, must spend soil in upper left of card(flaura and terrain cards, not event)
+    // Draw 4 Earth cards and select 1 for hand, discard 3
+    private static void activePlant(int playerIndex) {
+
+    }
+
+    // Plant one card, or draw one card
+    private static void secondaryPlant(int playerIndex) {
+
+    }
+
+    // +5 soil +2 compost cards from deck
+    private static void activeCompost(int playerIndex) {
+        Player player = players.get(playerIndex);
+        player.addSoil(5);
+        drawCard(earthCards);
+        drawCard(earthCards);
+        player.addCompost(2);
+
+        System.out.println("You now have " + player.getSoil() + " soil and " + player.getCompost() + " compost.");
+        System.out.println();
+    }
+    
+    // +2 soil or +2 compost cards from deck
+    private static void secondaryCompost(int playerIndex) {
+        Player player = players.get(playerIndex);
+        int secondaryAction;
+
+        while (true) {
+            System.out.println("Secondary Action List");
+            System.out.println("1. +2 soil");
+            System.out.println("2. +2 compost");
+            System.out.print("Player " + (playerIndex + 1) + ", choose an action (1 or 2): ");
+            secondaryAction = stdin.nextInt();
+            
+            if (secondaryAction == 1) {
+                player.addSoil(2);
+                System.out.println();
+                System.out.println("You now have " + player.getSoil() + " soil.");
+                break;
+            } 
+            else if (secondaryAction == 2) {
+                player.addCompost(2);
+                drawCard(earthCards);
+                drawCard(earthCards);
+                System.out.println();
+                System.out.println("You now have " + player.getCompost() + " compost.");
+                break;
+            }
+            else {
+                System.out.println("Invalid input! Try again!");
+            }
+        }
+    }
+    
+    // Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
+    // 3 sprouts can be converted from tableau cards to +2 soil
+    private static void activeWater(int playerIndex) {
+
+    }
+    
+    // +2 sprouts or +2 soil
+    private static void secondaryWater(int playerIndex) {
+
+    }
+    
+    // +4 cards to hand from deck, +2 growth tokens on tableau cards
+    private static void activeGrow(int playerIndex) {
+
+    }
+    
+    // +2 cards to hand from deck or +2 growth tokens
+    private static void secondaryGrow(int playerIndex) {
+
+    }
+
+    // Activate all cards for players[playerIndex] that action is related to color
+    private static void activateCards(int playerIndex, String color) {
+
     }
 }
