@@ -1,10 +1,11 @@
 //
-// Handles function of the game.
+// Group 3
+// 03/03/23
+// Earth Board Game
 //
 
 import java.util.Scanner;
 import java.util.ArrayList;
-
 
 public class Game {
     
