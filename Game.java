@@ -46,19 +46,7 @@ public class Game {
         System.out.println("");
 
         // Prompt for player count
-        int playerCount;
-
-        while (true) {
-            System.out.print("Please enter the number of players(2-5): ");
-            playerCount = stdin.nextInt();
-            
-            if (playerCount >= 2 && playerCount <= 5) {
-                break;
-            }
-            else {
-                System.out.println("Invalid input! Try again!");
-            }
-        }
+        int playerCount = getPlayerChoice("", new String[]{}, "Please enter the number of players(2-5): ", 2, 5);
 
         System.out.println();
 
@@ -66,10 +54,11 @@ public class Game {
         initializeCards();
 
         // Pick and display fauna
-        Card[] fauna = new Card[4];
+        int faunaCount = 4;
+        Card[] fauna = new Card[faunaCount];
         System.out.println("Fauna Cards: ");
 
-        for (int i = 0; i < fauna.length; i++) {
+        for (int i = 0; i < faunaCount; i++) {
             Card toAdd = drawCard(faunaCards);
             fauna[i] = toAdd;
             System.out.println(toAdd.toString());
@@ -78,73 +67,56 @@ public class Game {
         System.out.println();
         
         // Player setup
-        for (int i = 0; i < playerCount; i++) {
-            Card[] islandChoices = new Card[2];
-            Card[] climateChoices = new Card[2];
+        int islandCount = 2; // Number of island cards that a player can choose from
+        int climateCount = 2; // Number of climate cards that a player can choose from
 
-            for (int j = 0; j < islandChoices.length; j++) {
+        for (int i = 0; i < playerCount; i++) {
+            Card[] islandChoices = new Card[islandCount];
+            Card[] climateChoices = new Card[climateCount];
+
+            for (int j = 0; j < islandCount; j++) {
                 islandChoices[j] = drawCard(islandCards);
             }
 
-            for (int j = 0; j < climateChoices.length; j++) {
+            for (int j = 0; j < climateCount; j++) {
                 climateChoices[j] = drawCard(climateCards);
             }
 
-            System.out.println("Player " + (i + 1) + "'s choices for island and climate cards: ");
-            System.out.println("Island Cards: ");
+            String[] islandChoicesAsString = new String[islandCount];
 
-            for (int j = 0; j < islandChoices.length; j++) {
-                System.out.println((j + 1) + ". " + islandChoices[j].toString());
+            for (int j = 0; j < islandCount; j++) {
+                islandChoicesAsString[j] = islandChoices[j].toString();
             }
 
-            System.out.println("Climate Cards: ");
+            int islandIndex = getPlayerChoice("Player " + (i + 1) + "'s choices for island cards: ", islandChoicesAsString, "Player " + (i + 1) + ", select an island card(1 or 2): ", 1, islandCount);
+            Card islandSelection = islandChoices[islandIndex - 1];
 
-            for (int j = 0; j < climateChoices.length; j++) {
-                System.out.println((j + 1) + ". " + climateChoices[j].toString());
-            }
-
-            Card islandSelection;
-            Card climateSelection;
-
-            while (true) {
-                System.out.print("Player " + (i + 1) + ", select an island card(1 or 2): ");
-                int islandIndex = stdin.nextInt();
-                
-                if (islandIndex >= 1 && islandIndex <= 2) {
-                    islandSelection = islandChoices[islandIndex - 1];
-
-                    for (Card c : islandChoices) {
-                        if (c != islandSelection) {
-                            islandCards.add(c);
-                        }
-                    }
-
-                    break;
-                }
-                else {
-                    System.out.println("Invalid input! Try again!");
+            // Add unselected cards back to deck
+            for (Card c : islandChoices) {
+                if (c != islandSelection) {
+                    islandCards.add(c);
                 }
             }
 
-            while (true) {
-                System.out.print("Player " + (i + 1) + ", select a climate card(1 or 2): ");
-                int climateIndex = stdin.nextInt();
-                
-                if (climateIndex >= 1 && climateIndex <= 2) {
-                    climateSelection = climateChoices[climateIndex - 1];
+            System.out.println();
+            
+            String[] climateChoicesAsString = new String[climateCount];
 
-                    for (Card c : climateChoices) {
-                        if (c != climateSelection) {
-                            islandCards.add(c);
-                        }
-                    }
+            for (int j = 0; j < climateCount; j++) {
+                climateChoicesAsString[j] = climateChoices[j].toString();
+            }
 
-                    break;
-                }
-                else {
-                    System.out.println("Invalid input! Try again!");
+            int climateIndex = getPlayerChoice("Player " + (i + 1) + "'s choices for climate cards: ", climateChoicesAsString, "Player " + (i + 1) + ", select a climate card(1 or 2): ", 1, climateCount);
+            Card climateSelection = climateChoices[climateIndex - 1];
+
+            // Add unselected cards back to deck
+            for (Card c : climateChoices) {
+                if (c != climateSelection) {
+                    climateCards.add(c);
                 }
             }
+
+            System.out.println();
             
             players.add(new Player(islandSelection, climateSelection));
 
@@ -171,19 +143,7 @@ public class Game {
                 }
 
                 Player active = players.get(i);
-                int action;
-
-                while (true) {
-                    System.out.print("Player " + (i + 1) + ", choose an action (1-" + Integer.toString(ACTIONS.length) + "): ");
-                    action = stdin.nextInt();
-                    
-                    if (action >= 1 && action <= ACTIONS.length) {
-                        break;
-                    }
-                    else {
-                        System.out.println("Invalid input! Try again!");
-                    }
-                }
+                int action = getPlayerChoice("", new String[]{}, "Player " + (i + 1) + ", choose an action (1-" + Integer.toString(ACTIONS.length) + "): ", 1, ACTIONS.length);
 
                 System.out.println();
                 
@@ -320,6 +280,32 @@ public class Game {
         }
     }
 
+    private static int getPlayerChoice(String header, String[] options, String prompt, int min, int max) {
+        int choice;
+
+        while (true) {
+            if (!header.equals("")) {
+                System.out.println(header);
+            }
+
+            for (int i = 0; i < options.length; i++) {
+                System.out.println((i + 1) + ". " + options[i]);
+            }
+            
+            System.out.print(prompt);
+            choice = stdin.nextInt();
+            
+            if (choice >= min && choice <= max) {
+                break;
+            }
+            else {
+                System.out.println("Invalid input! Try again!");
+            }
+        }
+
+        return choice;
+    }
+
     // Returns a random card from the deck input
     // Card is removed from the deck
     private static Card drawCard(ArrayList<Card> deck) {
@@ -356,32 +342,20 @@ public class Game {
     // +2 soil or +2 compost cards from deck
     private static void secondaryCompost(int playerIndex) {
         Player player = players.get(playerIndex);
-        int secondaryAction;
 
-        while (true) {
-            System.out.println("Secondary Action List");
-            System.out.println("1. +2 soil");
-            System.out.println("2. +2 compost");
-            System.out.print("Player " + (playerIndex + 1) + ", choose an action (1 or 2): ");
-            secondaryAction = stdin.nextInt();
-            
-            if (secondaryAction == 1) {
-                player.addSoil(2);
-                System.out.println();
-                System.out.println("You now have " + player.getSoil() + " soil.");
-                break;
-            } 
-            else if (secondaryAction == 2) {
-                player.addCompost(2);
-                drawCard(earthCards);
-                drawCard(earthCards);
-                System.out.println();
-                System.out.println("You now have " + player.getCompost() + " compost.");
-                break;
-            }
-            else {
-                System.out.println("Invalid input! Try again!");
-            }
+        int secondaryAction = getPlayerChoice("Secondary Action List", new String[]{"+2 soil", "+2 compost"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
+
+        if (secondaryAction == 1) {
+            player.addSoil(2);
+            System.out.println();
+            System.out.println("You now have " + player.getSoil() + " soil.");
+        } 
+        else {
+            player.addCompost(2);
+            drawCard(earthCards);
+            drawCard(earthCards);
+            System.out.println();
+            System.out.println("You now have " + player.getCompost() + " compost.");
         }
     }
     
