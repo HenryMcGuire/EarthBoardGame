@@ -17,9 +17,8 @@ public class Player {
 	private int score = 0; //
 	
 	//constructor that takes two arguments
-	
 	Player(){
-		
+		//default does nothing
 	}
 	
 	Player(Card island, Card climate){
@@ -39,9 +38,14 @@ public class Player {
 		soil+=0; //placeholder. will add soil as given by island
 	}
 	
+	//if the card is already constructed, this can add it to the hand manually
+	void drawCard(Card newCard) {
+		this.handList.add(newCard);
+	}
+	
 	//draw a card and add it to hand
 	void drawCard() {
-		Card newCard = new Card();
+		Card newCard = new Card(); //the constructor in the card class would randomize which card it is
 		this.handList.add(newCard);
 	}
 	
@@ -126,11 +130,8 @@ public class Player {
 	
 	//get sprout count, return value
 	int getSprouts() {
-		
 		return sproutCount;
 	}
-	
-	//choose a position within the tableau
 	
 	//remove card from hand
 	void handRemove(int x) {
@@ -205,6 +206,7 @@ public class Player {
 	//takes an action color as an argument, called upon when other players do their action
 	//iterates through the tableau checking if that card matches the action color
 	//asks user if they'd like to use the ability when it finds a valid card
+    //may be obsolete from what game.java uses
 	void resolveAbilities(int action) {
 		//1 = plant action 2 = compost action 3 = water action 4 = grow action
 		switch(action) {
@@ -238,7 +240,7 @@ public class Player {
 		compost+=1;
 	}
 	
-	//delete a card from memory
+	//delete a card from memory, might be obsolete later
 	void deleteCard(Card card) {
 		//TODO
 	}
@@ -247,9 +249,46 @@ public class Player {
 	//the player's entire hand, and all of their resources
 	@Override
 	public String toString() {
-		//for each loop
-		//TODO
-		return "placeholder";
+		String str = "Tableau: \n";
+		//tableau should appear like:
+		// "Name, Name, ____, Name"
+		// "____, Name, Name, ____" etc.
+		for(int r = 0; r<4; r++) { //row
+			for (int c = 0; r<4; c++) { //column
+				if(tableauList[r][c]!= null) {
+					str+=tableauList[r][c].getName();
+				}
+				else {
+					str+="____";
+				}
+				if(r < 3) {
+					str+=", ";
+				}
+			}
+			str += "\n";
+		}
+		//hand should appear like:
+		// "Name, Name, Name, Name, Name"
+		String str2 = "Hand: \n";
+		for(int i=0; i<handList.size(); i++) {
+			str2+=handList.get(i).getName();
+			if(i<handList.size()-1) {
+				str2+=", ";
+			}
+		}
+		//resources
+		String str3 = ("Resources: " +soil+" Soil, " +compost+ " Compost, " +sproutCount+ " Sprouts");
+		return str+str2+str3;
+	}
+	
+	//for printing card information in the player's hand
+	public String toString(int x) {
+		return handList.get(x).toString();
+	}
+	
+	//for printing card information in the player's tableau
+	public String toString(int x, int y) {
+		return tableauList[x][y].toString();
 	}
 }
 
