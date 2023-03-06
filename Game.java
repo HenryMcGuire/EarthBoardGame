@@ -119,8 +119,6 @@ public class Game {
             System.out.println();
             
             players.add(new Player(islandSelection, climateSelection));
-
-            System.out.println();
         }
 
         for (int i = 0; i < playerCount; i++) {
@@ -319,11 +317,48 @@ public class Game {
     // Plant up to two cards to tableau, must spend soil in upper left of card(flaura and terrain cards, not event)
     // Draw 4 Earth cards and select 1 for hand, discard 3
     private static void activePlant(int playerIndex) {
+        Player player = players.get(playerIndex);
+        // NEED TO IMPLEMENT PLANTING
 
+        Card[] cardChoices = new Card[4];
+        String[] cardChoicesAsString = new String[4];
+ 
+        for (int i = 0; i < cardChoices.length; i++) {
+            cardChoices[i] = drawCard(earthCards);
+            cardChoicesAsString[i] = cardChoices[i].toString();
+        }
+
+        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards: ", cardChoicesAsString, "Player " + (playerIndex + 1) + ", select a card(1-4): ", 1, 4);
+        Card cardSelection = cardChoices[cardIndex - 1];
+        player.addCardToHand(cardSelection);
+
+        // Add unselected cards back to deck
+        for (Card c : cardChoices) {
+            if (c != cardSelection) {
+                earthCards.add(c);
+            }
+        }
+
+        System.out.println();
+        System.out.println(player.toString());
     }
 
     // Plant one card, or draw one card
     private static void secondaryPlant(int playerIndex) {
+        Player player = players.get(playerIndex);
+
+        int secondaryAction = getPlayerChoice("Secondary Plant Action List", new String[]{"Plant 1 Card", "+1 card"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
+
+        if (secondaryAction == 1) {
+            // NEED TO IMPLEMENT
+            System.out.println();
+            System.out.println(player.toString());
+        } 
+        else {
+            player.addCardToHand(drawCard(earthCards));
+            System.out.println();
+            System.out.println(player.toString());
+        }
 
     }
 
@@ -335,7 +370,7 @@ public class Game {
         drawCard(earthCards);
         player.addCompost(2);
 
-        System.out.println("You now have " + player.getSoil() + " soil and " + player.getCompost() + " compost.");
+        System.out.println(player.toString());
         System.out.println();
     }
     
@@ -343,41 +378,77 @@ public class Game {
     private static void secondaryCompost(int playerIndex) {
         Player player = players.get(playerIndex);
 
-        int secondaryAction = getPlayerChoice("Secondary Action List", new String[]{"+2 soil", "+2 compost"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
+        int secondaryAction = getPlayerChoice("Secondary Compost Action List", new String[]{"+2 soil", "+2 compost"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
 
         if (secondaryAction == 1) {
             player.addSoil(2);
             System.out.println();
-            System.out.println("You now have " + player.getSoil() + " soil.");
+            System.out.println(player.toString());
         } 
         else {
             player.addCompost(2);
             drawCard(earthCards);
             drawCard(earthCards);
             System.out.println();
-            System.out.println("You now have " + player.getCompost() + " compost.");
+            System.out.println(player.toString());
         }
     }
     
     // Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
     // 3 sprouts can be converted from tableau cards to +2 soil
     private static void activeWater(int playerIndex) {
-
+        // NEED TO IMPLEMENT SPROUTS
     }
     
     // +2 sprouts or +2 soil
     private static void secondaryWater(int playerIndex) {
+        Player player = players.get(playerIndex);
 
+        int secondaryAction = getPlayerChoice("Secondary Grow Action List", new String[]{"+2 cards", "+2 growth tokens"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
+
+        if (secondaryAction == 1) {
+            // NEEED TO IMPLEMENT +2 Sprouts
+            System.out.println();
+            System.out.println(player.toString());
+        } 
+        else {
+            player.addSoil(2);
+            System.out.println();
+            System.out.println(player.toString());
+        }
     }
     
     // +4 cards to hand from deck, +2 growth tokens on tableau cards
     private static void activeGrow(int playerIndex) {
+        Player player = players.get(playerIndex);
 
+        player.addCardToHand(drawCard(earthCards));
+        player.addCardToHand(drawCard(earthCards));
+        player.addCardToHand(drawCard(earthCards));
+        player.addCardToHand(drawCard(earthCards));
+
+        // NEED TO IMPLEMENT GROWTH TOKENS
+        System.out.println(player.toString());
+        System.out.println();
     }
     
     // +2 cards to hand from deck or +2 growth tokens
     private static void secondaryGrow(int playerIndex) {
+        Player player = players.get(playerIndex);
 
+        int secondaryAction = getPlayerChoice("Secondary Grow Action List", new String[]{"+2 cards", "+2 growth tokens"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
+
+        if (secondaryAction == 1) {
+            player.addCardToHand(drawCard(earthCards));
+            player.addCardToHand(drawCard(earthCards));
+            System.out.println();
+            System.out.println(player.toString());
+        } 
+        else {
+            // NEED TO IMPLEMENT +2 Growth tokens
+            System.out.println();
+            System.out.println(player.toString());
+        }
     }
 
     // Activate all cards for players[playerIndex] that action is related to color
