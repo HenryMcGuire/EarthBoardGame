@@ -204,7 +204,7 @@ public class Player {
     public void addCompost(int count) {
         compost += count;
     }
-	
+ 
 	public int getSoil() {
         return soil;
     }
