@@ -6,3 +6,30 @@
 //for construction, references the cardList file which contains all possible cards and picks one at random
 //contains an in-depth toString() function that displays all the information of the card without displaying irrelevant data
 //can use a template for cards that have simple abilities so the same function can be called just with different values based on the card parameters
+
+public class Card {
+    private String name;
+    private String type;
+    public int sprouts;
+    public int sproutMax;
+    public int growth;
+    public int growthMax;
+    
+    public Card() {
+    	
+    }
+    
+    public Card(String n, String t) {
+        name = n;
+        type = t;
+    }
+    
+    void ability() {
+    	
+    }
+    
+    @Override
+    public String toString() {
+        return name + " " + type;
+    }
+}
