@@ -1,33 +1,48 @@
-//includes card object constructor
-//all types of cards are in this class, separated by an integer variable denoting what kind of card it is
-//has many parameters for every possible attribute a card can have, such as color, resource cost, resource gain, trunks, etc.
-//some parameters will be left at 0 or empty dependent on the card type
-//all functions will check the card type first to only perform actions relevant to that card
-//for construction, references the cardList file which contains all possible cards and picks one at random
-//contains an in-depth toString() function that displays all the information of the card without displaying irrelevant data
-//can use a template for cards that have simple abilities so the same function can be called just with different values based on the card parameters
-
 public class Card {
     private String name;
     private String type;
-    public int sprouts;
-    public int sproutMax;
-    public int growth;
-    public int growthMax;
 
-    public Card() {
-
-    }
-
-    public Card(String n, String t) {
+    public Card(String n, String t) { //Default constructor for Card Class.
         name = n;
         type = t;
+        if(type == "Fauna") {
+        	FaunaCard();
+        }
+        else if(type == "Island") {
+        	IslandCard();
+        }
+        else if(type == "Climate") {
+        	ClimateCard();
+        }
+        else if(type == "Earth") {
+        	EarthCard();
+        }
+        else {
+        	System.out.println("Card has an invalid type.");
+        	System.out.println("Only valid card types are: ");
+        	System.out.println("Fauna");
+        	System.out.println("Island");
+        	System.out.println("Climate");
+        	System.out.println("Earth");
+        }
     }
-
-    void ability() {
-
+    
+    public void FaunaCard() { //Creates attributes for a Fauna-type card.
+    	
     }
-
+    
+    public void IslandCard() { //Creates attributes for a Island-type card.
+    	
+    }
+    
+    public void ClimateCard() { //Creates attributes for a Climate-type card.
+    	
+    }
+    
+    public void EarthCard() { //Creates attributes for a Earth-type card.
+    	
+    }
+    
     @Override
     public String toString() {
         return name + " " + type;
