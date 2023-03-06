@@ -140,12 +140,12 @@ public class Player {
 	}
 	
 	//choose a position within the tableau
-	
+
     public void addCardToHand(Card card) {
         handList.add(card);
     }
-
-    //remove card from hand
+	
+	//remove card from hand
 	void handRemove(int x) {
 		handList.remove(x);
 	}
@@ -204,7 +204,7 @@ public class Player {
     public void addCompost(int count) {
         compost += count;
     }
-		
+ 
 	public int getSoil() {
         return soil;
     }
