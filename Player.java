@@ -9,6 +9,8 @@ public class Player {
     private int soil = 0;
     private int compost = 0;
 
+    private int points = 0;
+
     public Player(Card i, Card c) {
         island = i;
         climate = c;
@@ -31,11 +33,19 @@ public class Player {
         hand.add(card);
     }
 
+    public void addPoints(int count) {
+        points += count;
+    }
+
     public int getSoil() {
         return soil;
     }
 
     public int getCompost() {
         return compost;
+    }
+
+    public int getPoints() {
+        return points;
     }
 }

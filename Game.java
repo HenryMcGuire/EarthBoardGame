@@ -197,6 +197,12 @@ public class Game {
         }
 
         // Determine winner
+        ArrayList<Integer> winnerIndexes = getWinners();
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            System.out.println("Congratulations Player " + (winnerIndexes.get(i) + 1) + "! You won!");
+        }
+
 
         stdin.close();
     }
@@ -454,5 +460,95 @@ public class Game {
     // Activate all cards for players[playerIndex] that action is related to color
     private static void activateCards(int playerIndex, String color) {
 
+    }
+
+    // Determines the winners and returns the player's index
+    private static ArrayList<Integer> getWinners() {
+        ArrayList<Integer> winnerIndexes = new ArrayList<>();
+
+        for (int i = 0; i < players.size(); i++) {
+            winnerIndexes.add(i);
+        }
+
+        ArrayList<Integer> indexesToRemove = new ArrayList<>();
+
+        // Most points
+        int maximumPoints = 0;
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            if (maximumPoints <= players.get(winnerIndexes.get(i)).getPoints()) {
+                maximumPoints = players.get(winnerIndexes.get(i)).getPoints();
+            }
+        }
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            if (maximumPoints != players.get(winnerIndexes.get(i)).getPoints())
+            {
+                indexesToRemove.add(i);
+            }
+        }
+
+        for (int i = 0; i < indexesToRemove.size(); i++) {
+            winnerIndexes.remove(indexesToRemove.get(i));
+        }
+
+        if (winnerIndexes.size() == 1) {
+            return winnerIndexes;
+        }
+
+        // Soil
+        int maximumSoil = 0;
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            if (maximumSoil <= players.get(winnerIndexes.get(i)).getSoil()) {
+                maximumSoil = players.get(winnerIndexes.get(i)).getSoil();
+            }
+        }
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            if (maximumSoil != players.get(winnerIndexes.get(i)).getSoil())
+            {
+                indexesToRemove.add(i);
+            }
+        }
+
+        for (int i = 0; i < indexesToRemove.size(); i++) {
+            winnerIndexes.remove(indexesToRemove.get(i));
+        }
+
+        if (winnerIndexes.size() == 1) {
+            return winnerIndexes;
+        }
+        // hand 
+        // REQUIRES getHand or getHandCount in Player
+        // growth
+        // REQUIRES getGrowth in Player
+        // sprouts
+        // REQUIRES getSprouts in Player
+        // composted cards
+        int maximumCompost = 0;
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            if (maximumCompost <= players.get(winnerIndexes.get(i)).getCompost()) {
+                maximumCompost = players.get(winnerIndexes.get(i)).getCompost();
+            }
+        }
+
+        for (int i = 0; i < winnerIndexes.size(); i++) {
+            if (maximumCompost != players.get(winnerIndexes.get(i)).getCompost())
+            {
+                indexesToRemove.add(i);
+            }
+        }
+
+        for (int i = 0; i < indexesToRemove.size(); i++) {
+            winnerIndexes.remove(indexesToRemove.get(i));
+        }
+
+        if (winnerIndexes.size() == 1) {
+            return winnerIndexes;
+        }
+
+        return winnerIndexes;
     }
 }
