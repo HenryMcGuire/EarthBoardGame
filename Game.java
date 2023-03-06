@@ -476,13 +476,13 @@ public class Game {
         int maximumPoints = 0;
 
         for (int i = 0; i < winnerIndexes.size(); i++) {
-            if (maximumPoints <= players.get(winnerIndexes.get(i)).getPoints()) {
-                maximumPoints = players.get(winnerIndexes.get(i)).getPoints();
+            if (maximumPoints <= players.get(winnerIndexes.get(i)).getScore()) {
+                maximumPoints = players.get(winnerIndexes.get(i)).getScore();
             }
         }
 
         for (int i = 0; i < winnerIndexes.size(); i++) {
-            if (maximumPoints != players.get(winnerIndexes.get(i)).getPoints())
+            if (maximumPoints != players.get(winnerIndexes.get(i)).getScore())
             {
                 indexesToRemove.add(i);
             }
