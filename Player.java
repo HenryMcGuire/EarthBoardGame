@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+
 public class Player {
     private Card island;
     private Card climate;
+
+    private ArrayList<Card> hand = new ArrayList<>();
 
     private int soil = 0;
     private int compost = 0;
@@ -21,6 +25,10 @@ public class Player {
 
     public void addCompost(int count) {
         compost += count;
+    }
+
+    public void addCardToHand(Card card) {
+        hand.add(card);
     }
 
     public int getSoil() {
