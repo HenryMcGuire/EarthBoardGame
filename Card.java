@@ -1,35 +1,196 @@
-//includes card object constructor
-//all types of cards are in this class, separated by an integer variable denoting what kind of card it is
-//has many parameters for every possible attribute a card can have, such as color, resource cost, resource gain, trunks, etc.
-//some parameters will be left at 0 or empty dependent on the card type
-//all functions will check the card type first to only perform actions relevant to that card
-//for construction, references the cardList file which contains all possible cards and picks one at random
-//contains an in-depth toString() function that displays all the information of the card without displaying irrelevant data
-//can use a template for cards that have simple abilities so the same function can be called just with different values based on the card parameters
-
 public class Card {
     private String name;
     private String type;
-    public int sprouts;
-    public int sproutMax;
-    public int growth;
-    public int growthMax;
+    private int plant_cost;
+	private int victory_value;
+	private String habitable_elements; 
+	private String scientific_name;
+	private String growth_space;
+	private String maximum_growth_number;
+	private String canopy_completion_vp;
+	private int ability_color;
+	private String ability1;
+	private String ability2;
+	private String flavour_text;
 
-    public Card() {
-
-    }
-
-    public Card(String n, String t) {
+    public Card(String n, String t) { //Default constructor for Card Class.
         name = n;
         type = t;
+        if(type == "Flora") {
+        	FloraCard();
+        }
+        else if(type == "Fauna") {
+        	FaunaCard();
+        }
+        else if(type == "Island") {
+        	IslandCard();
+        }
+        else if(type == "Climate") {
+        	ClimateCard();
+        }
+        else if(type == "Earth") {
+        	EarthCard();
+        }
+        else if(type == "Ecosystem") {
+        	EcosystemCard();
+        }
+        else if(type == "Event") {
+        	EventCard();
+        }
+        else {
+        	System.out.println("Card has an invalid type.");
+        	System.out.println("Only valid card types are: ");
+        	System.out.println("Flora");
+        	System.out.println("Fauna");
+        	System.out.println("Island");
+        	System.out.println("Climate");
+        	System.out.println("Earth");
+        	System.out.println("Ecosystem");
+        	System.out.println("Event");
+        }
     }
-
-    void ability() {
-
+    
+    public void FloraCard() { //Creates attributes for a Flora-type card.
+    	int plant_cost;
+    	int victory_value;
+    	String habitable_elements; 
+    	String scientific_name;
+    	String growth_space;
+    	String maximum_growth_number;
+    	String canopy_completion_vp;
+    	int ability_color;
+    	String ability1;
+    	String ability2;
+    	String flavour_text;
     }
-
+    
+    public void FaunaCard() { //Creates attributes for a Fauna-type card.
+    	String scientific_name;
+    	int ability_color;
+    	String ability;
+    	String flavour_text;
+    }
+    
+    public void IslandCard() { //Creates attributes for a Island-type card.
+    	String scientific_name;
+    	int ability_color;
+    	String ability;
+    	String flavour_text;
+    }
+    
+    public void ClimateCard() { //Creates attributes for a Climate-type card.
+    	String scientific_name;
+    	int ability_color;
+    	String ability;
+    	String flavour_text;
+    }
+    
+    public void EarthCard() { //Creates attributes for a Earth-type card.
+    	int plant_cost;
+    	int victory_value;
+    	String habitable_elements; 
+    	String scientific_name;
+    	int ability_color;
+    	String ability1;
+    	String ability2;
+    	String flavour_text;
+    }
+    
+    public void EcosystemCard() { //Creates attributes for a Ecosystem-type card.
+    	String scientific_name;
+    	int ability_color;
+    	String ability;
+    	String flavour_text;
+    }
+    
+    public void EventCard() { //Creates attributes for a Event-type card.
+    	String scientific_name;
+    	int ability_color;
+    	String ability;
+    	String flavour_text;
+    }
+    
     @Override
     public String toString() {
-        return name + " " + type;
+        if(type == "Flora") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+        	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+        	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+        	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+        	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+        	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+        	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+        	"Flavour Text: " + flavour_text + "\n";
+        }
+        else if(type == "Fauna") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
+        else if(type == "Island") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
+        else if(type == "Climate") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
+        else if(type == "Earth") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
+        else if(type == "Ecosystem") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
+        else if(type == "Event") {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
+        else {
+        	return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
+                	plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
+                	+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
+                	"Growth space: " + growth_space + "\n" + "Maximum growth number: " + 
+                	maximum_growth_number + " \n" + "Canopy completion victory points" + 
+                	canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +  
+                	"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
+                	"Flavour Text: " + flavour_text + "\n";
+        }
     }
 }
