@@ -193,4 +193,8 @@ public class Card {
                 	"Flavour Text: " + flavour_text + "\n";
         }
     }
+
+    public String getName() {
+        return name;
+    }
 }

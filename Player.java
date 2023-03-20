@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player {
 
 	//represents hand, dynamic
@@ -37,13 +39,7 @@ public class Player {
 	}
 	
 	//if the card is already constructed, this can add it to the hand manually
-	void drawCard(Card newCard) {
-		this.handList.add(newCard);
-	}
-	
-	//draw a card and add it to hand
-	void drawCard() {
-		Card newCard = new Card(); //the constructor in the card class would randomize which card it is
+	void addCardToHand(Card newCard) {
 		this.handList.add(newCard);
 	}
 	
@@ -182,10 +178,18 @@ public class Player {
 			tableauList[x][y].growth = 0;
 		}
 	}
+
+	public void addSoil(int value) {
+		soil += value;
+	}
 	
 	public int getSoil() {
         return soil;
     }
+
+	public void addCompost(int value) {
+		compost += value;
+	}
 
     public int getCompost() {
         return compost;
