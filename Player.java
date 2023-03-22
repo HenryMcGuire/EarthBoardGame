@@ -314,5 +314,37 @@ public class Player {
 	public String toString(int x, int y) {
 		return tableauList[x][y].toString();
 	}
+
+	// returns list of cards that can have growth applied
+	public ArrayList<Card> getGrowthCards() {
+		ArrayList<Card> growthCards = new ArrayList<Card>();
+		
+		for (Card[] row : tableauList) {
+			for (Card c : row) 
+			{
+				if (c.getMaximumGrowth() > 0 && c.getMaximumGrowth() > c.getGrowthSpace()) {
+					growthCards.add(c);
+				}
+			}
+		}
+
+		return growthCards;
+	}
+
+	// returns list of cards that can have sprouts applied
+	public ArrayList<Card> getSproutCards() {
+		ArrayList<Card> growthCards = new ArrayList<Card>();
+		
+		for (Card[] row : tableauList) {
+			for (Card c : row) 
+			{
+				if (c.getMaximumGrowth() > 0 && c.getMaximumGrowth() > c.getGrowthSpace()) {
+					growthCards.add(c);
+				}
+			}
+		}
+
+		return growthCards;
+	}
 }
 

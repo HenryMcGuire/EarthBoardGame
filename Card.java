@@ -5,8 +5,10 @@ public class Card {
 	private int victory_value;
 	private String habitable_elements; 
 	private String scientific_name;
-	private String growth_space;
-	private String maximum_growth_number;
+	private int growth_space;
+	private int maximum_growth_number;
+	private int numSprouts;
+	private int maxSprouts;
 	private String canopy_completion_vp;
 	private int ability_color;
 	private String ability1;
@@ -55,8 +57,8 @@ public class Card {
     	int victory_value;
     	String habitable_elements; 
     	String scientific_name;
-    	String growth_space;
-    	String maximum_growth_number;
+    	int growth_space;
+    	int maximum_growth_number;
     	String canopy_completion_vp;
     	int ability_color;
     	String ability1;
@@ -213,4 +215,27 @@ public class Card {
 		return this.name.equals(c.getName());
 	}
 
+	public int getMaximumGrowth() {
+		return maximum_growth_number;
+	}
+
+	public int getGrowthSpace() {
+		return growth_space;
+	}
+
+	public void addGrowth(int val) {
+		growth_space += val;
+	}
+
+	public int getNumSprouts() {
+		return numSprouts;
+	}
+
+	public int getMaxSprouts() {
+		return maxSprouts;
+	}
+
+	public void addSprouts(int val) {
+		numSprouts += val;
+	}
 }
