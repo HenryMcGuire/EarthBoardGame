@@ -331,6 +331,20 @@ public class Player {
 		return growthCards;
 	}
 
+	// returns the total number of growth on tableau cards 
+	public int getTotalGrowth() {
+		int totalGrowth = 0;
+
+		for (Card[] row : tableauList) {
+			for (Card c : row) 
+			{
+				totalGrowth += c.getGrowthSpace();
+			}
+		}
+
+		return totalGrowth;
+	}
+
 	// returns list of cards that can have sprouts applied
 	public ArrayList<Card> getSproutCards() {
 		ArrayList<Card> sproutCards = new ArrayList<Card>();
