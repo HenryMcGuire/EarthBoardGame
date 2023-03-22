@@ -333,18 +333,32 @@ public class Player {
 
 	// returns list of cards that can have sprouts applied
 	public ArrayList<Card> getSproutCards() {
-		ArrayList<Card> growthCards = new ArrayList<Card>();
+		ArrayList<Card> sproutCards = new ArrayList<Card>();
 		
 		for (Card[] row : tableauList) {
 			for (Card c : row) 
 			{
-				if (c.getMaximumGrowth() > 0 && c.getMaximumGrowth() > c.getGrowthSpace()) {
-					growthCards.add(c);
+				if (c.getMaximumSprouts() > 0 && c.getMaximumSprouts() > c.getNumSprouts()) {
+					sproutCards.add(c);
 				}
 			}
 		}
 
-		return growthCards;
+		return sproutCards;
+	}
+
+	// returns the total number of sprouts on tableau cards
+	public int getTotalSprouts() {
+		int totalSprouts = 0;
+
+		for (Card[] row : tableauList) {
+			for (Card c : row) 
+			{
+				totalSprouts += c.getNumSprouts();
+			}
+		}
+
+		return totalSprouts;
 	}
 }
 

@@ -146,10 +146,20 @@ public class Game {
                 
                 switch(action) {
                     case PLANT:
-                        activePlant(i);
+                        boolean triggerEnd = activePlant(i);
+
+                        if (triggerEnd) {
+                            System.out.println("Player " + (i + 1) + ", has completed their tableau. The game will end after this round of moves is completed.");
+                            play = false;
+                        }
 
                         for (int j = i + 1; j < i + playerCount; j++) {
-                            secondaryPlant(j % playerCount);
+                            triggerEnd = secondaryPlant(j % playerCount);
+
+                            if (triggerEnd) {
+                                System.out.println("Player " + (i + 1) + ", has completed their tableau. The game will end after this round of moves is completed.");
+                                play = false;
+                            }
                         }
                         
                         for (int j = i; j < i + playerCount; j++) {
@@ -309,7 +319,7 @@ public class Game {
         return choice;
     }
 
-    private static int getPlayerChoice(String header, ArrayList<String> options, String prompt, int min, int max) {
+    private static int getPlayerChoice(String header, ArrayList<Card> cards, String prompt, int min, int max) {
         int choice;
 
         while (true) {
@@ -317,8 +327,8 @@ public class Game {
                 System.out.println(header);
             }
 
-            for (int i = 0; i < options.size(); i++) {
-                System.out.println((i + 1) + ". " + options.get(i));
+            for (int i = 0; i < cards.size(); i++) {
+                System.out.println((i + 1) + ". " + cards.get(i).toString());
             }
             
             System.out.print(prompt);
@@ -347,22 +357,25 @@ public class Game {
     
     // Plant up to two cards to tableau, must spend soil in upper left of card(flaura and terrain cards, not event)
     // Draw 4 Earth cards and select 1 for hand, discard 3
-    private static void activePlant(int playerIndex) {
+    private static boolean activePlant(int playerIndex) {
         Player player = players.get(playerIndex);
+        boolean triggerEnd = false;
 
         for (int i = 0; i < 2; i++) {
-            plantCard(playerIndex);
+            triggerEnd = plantCard(playerIndex);
+
+            if (triggerEnd) {
+                break;
+            }
         }
 
         ArrayList<Card> cardChoices = new ArrayList<Card>();
-        ArrayList<String> cardStrings = new ArrayList<String>();
  
         for (int i = 0; i < 4; i++) {
             cardChoices.add(drawCard(earthCards));
-            cardStrings.add(cardChoices.get(i).toString());
         }
 
-        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards: ", cardStrings, "Player " + (playerIndex + 1) + ", select a card(1-4 or): ", 1, 4);
+        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards: ", cardChoices, "Player " + (playerIndex + 1) + ", select a card(1-4 or): ", 1, 4);
         Card cardSelection = cardChoices.get(cardIndex - 1);
         player.addCardToHand(cardSelection);
 
@@ -375,18 +388,20 @@ public class Game {
 
         System.out.println();
         System.out.println(player.toString());
+        return triggerEnd;
     }
 
     // Plant one card, or draw one card
-    private static void secondaryPlant(int playerIndex) {
+    private static boolean secondaryPlant(int playerIndex) {
         Player player = players.get(playerIndex);
 
         int secondaryAction = getPlayerChoice("Secondary Plant Action List", new String[]{"Plant 1 Card", "+1 card"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
 
         if (secondaryAction == 1) {
-            plantCard(playerIndex);
+            boolean triggerEnd = plantCard(playerIndex);
             System.out.println();
             System.out.println(player.toString());
+            return triggerEnd;
         } 
         else {
             player.addCardToHand(drawCard(earthCards));
@@ -394,40 +409,40 @@ public class Game {
             System.out.println(player.toString());
         }
 
+        return false;
     }
 
     // Handles the procedure of planting
-    private static void plantCard(int playerIndex) {
+    private static boolean plantCard(int playerIndex) {
         Player player = players.get(playerIndex);
 
         if (player.tableauFull()) {
             System.out.println("Unable to plant. Tableau is full!");
+            return true;
         }
 
-        ArrayList<Card> playableCards = new ArrayList<Card>();
-        ArrayList<String> cardStrings = new ArrayList<String>();
+        ArrayList<Card> cardChoices = new ArrayList<Card>();
 
         for (Card c : player.getHandList()) 
         {
             if (c.getPlantCost() <= player.getSoil()) {
-                playableCards.add(c);
-                cardStrings.add(c.toString());
+                cardChoices.add(c);
             }
         }
 
-        if (playableCards.size() == 0) {
+        if (cardChoices.size() == 0) {
             System.out.println("Player " + (playerIndex + 1) + ", you have no cards to plant.");
-            return;
+            return false;
         }
 
-        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to plant: ", cardStrings, "Player " + (playerIndex + 1) + ", select a card(1-" +  playableCards.size() + " or 0 to pass): ", 0, playableCards.size());
+        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to plant: ", cardChoices, "Player " + (playerIndex + 1) + ", select a card(1-" +  cardChoices.size() + " or 0 to pass): ", 0, cardChoices.size());
 
         if (cardIndex == 0) {
-            return;
+            return false;
         }
         else {
             while (true) {
-                Card cardSelection = playableCards.get(cardIndex - 1);
+                Card cardSelection = cardChoices.get(cardIndex - 1);
                 int tableauIndex = getPlayerChoice("", new String[]{}, "Player " + (playerIndex + 1) + ", select the tableau index to plant the card: ", 1, 16);
                 int x = (tableauIndex - 1) % 4;
                 int y = (tableauIndex - 1) / 4;
@@ -444,6 +459,8 @@ public class Game {
                 }
             }
         }
+
+        return player.tableauFull();
     }
 
     // +5 soil +2 compost cards from deck
@@ -505,50 +522,34 @@ public class Game {
     // Handles the procedure to apply sprouts to tableau cards
     private static void applySprouts(int playerIndex, int numSprouts) {
         Player player = players.get(playerIndex);
-        ArrayList<Card> sproutCards = player.getSproutCards();
-        ArrayList<String> cardStrings = new ArrayList<String>();
+        ArrayList<Card> cardChoices = player.getSproutCards();
 
-        for (Card c : sproutCards)  
-        {
-            cardStrings.add(c.toString());
-        }
-
-        if (sproutCards.size() == 0) {
+        if (cardChoices.size() == 0) {
             System.out.println("Player " + (playerIndex + 1) + ", you have no cards to sprout.");
             return;
         }
 
-        int totalSprouts = 0;
-
-        for (Card c : sproutCards) {
-            if (c.getNumSprouts() > 0) {
-                totalSprouts += c.getNumSprouts();
-            }
-        }
+        int totalSprouts = player.getTotalSprouts();
 
         if (totalSprouts >= 3) {
             ArrayList<Card> subCards = new ArrayList<Card>(); // Sprout cards that contain sprouts
-            ArrayList<String> subCardStrings = new ArrayList<String>();
 
-            for (Card c : sproutCards) {
+            for (Card c : cardChoices) {
                 if (c.getNumSprouts() > 0) {
                     totalSprouts += c.getNumSprouts();
                     subCards.add(c);
-                    subCardStrings.add(c.toString());
                 }
             }
 
             int totalRemoved = 0;
-            int option = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to remove sprouts: ", subCardStrings, "Player " + (playerIndex + 1) + ", would you like remove any sprouts?(0 for no, 1 for yes): ", 0, 1);
+            int option = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to remove sprouts: ", subCards, "Player " + (playerIndex + 1) + ", would you like remove any sprouts?(0 for no, 1 for yes): ", 0, 1);
 
             if (option == 1) {
                 while(true) {
                     subCards.clear();
-                    subCardStrings.clear();
-                    for (Card c : sproutCards) {
+                    for (Card c : cardChoices) {
                         if (c.getNumSprouts() > 0) {
                             subCards.add(c);
-                            subCardStrings.add(c.toString());
                         }
                     }
 
@@ -557,7 +558,7 @@ public class Game {
                         break;
                     }
 
-                    int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to remove sprouts: ", subCardStrings, "Player " + (playerIndex + 1) + ", select a card(1-" +  subCards.size() + "): ", 1, subCards.size());
+                    int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to remove sprouts: ", subCards, "Player " + (playerIndex + 1) + ", select a card(1-" +  subCards.size() + "): ", 1, subCards.size());
                     Card cardSelection = subCards.get(cardIndex - 1);
 
                     int removalCount = getPlayerChoice("", new String[]{}, "Player " + (playerIndex + 1) + ", how many sprouts would you like to remove?(1-" +  cardSelection.getNumSprouts() + "): ", 1, cardSelection.getNumSprouts());
@@ -578,8 +579,8 @@ public class Game {
 
         int emptySpots = 0;
 
-        for (Card c : sproutCards) {
-            emptySpots = c.getMaxSprouts() - c.getNumSprouts();
+        for (Card c : cardChoices) {
+            emptySpots = c.getMaximumSprouts() - c.getNumSprouts();
         }
 
         while (true) {
@@ -589,14 +590,12 @@ public class Game {
             }
             
             ArrayList<Card> subCards = new ArrayList<Card>(); // Sprout cards that contain sprouts
-            ArrayList<String> subCardStrings = new ArrayList<String>();
 
-            for (Card c : sproutCards) {
+            for (Card c : cardChoices) {
 
-                if (c.getMaxSprouts() - c.getNumSprouts() > 0) {
+                if (c.getMaximumSprouts() - c.getNumSprouts() > 0) {
                     emptySpots += c.getNumSprouts();
                     subCards.add(c);
-                    subCardStrings.add(c.toString());
                 }
             }
 
@@ -605,10 +604,10 @@ public class Game {
                 break;
             }
 
-            int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to add sprouts: ", subCardStrings, "Player " + (playerIndex + 1) + ", you have " + numSprouts + " to add. Select a card(1-" + subCards.size() + "): ", 1, subCards.size());
-            Card cardSelection = sproutCards.get(cardIndex);
+            int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to add sprouts: ", subCards, "Player " + (playerIndex + 1) + ", you have " + numSprouts + " to add. Select a card(1-" + subCards.size() + "): ", 1, subCards.size());
+            Card cardSelection = subCards.get(cardIndex);
 
-            int empty = cardSelection.getMaxSprouts() - cardSelection.getNumSprouts();
+            int empty = cardSelection.getMaximumSprouts() - cardSelection.getNumSprouts();
             int max = Integer.min(empty, numSprouts);
 
             int addCount = getPlayerChoice("", new String[]{}, "Player " + (playerIndex + 1) + ", how many sprouts would you like to add?(1-" +  max + "): ", 1, max);
@@ -661,22 +660,16 @@ public class Game {
     // Handles procedure of applying growth
     private static void applyGrowth(int playerIndex) {
         Player player = players.get(playerIndex);
-        ArrayList<Card> growthCards = player.getGrowthCards();
-        ArrayList<String> cardStrings = new ArrayList<String>();
+        ArrayList<Card> cardChocies = player.getGrowthCards();
 
-        for (Card c : growthCards)  
-        {
-            cardStrings.add(c.toString());
-        }
-
-        if (growthCards.size() == 0) {
+        if (cardChocies.size() == 0) {
             System.out.println("Player " + (playerIndex + 1) + ", you have no cards to grow.");
             return;
         }
 
-        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to grow: ", cardStrings, "Player " + (playerIndex + 1) + ", select a card(1-" +  growthCards.size() + "): ", 1, growthCards.size());
+        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to grow: ", cardChocies, "Player " + (playerIndex + 1) + ", select a card(1-" +  cardChocies.size() + "): ", 1, cardChocies.size());
 
-        Card cardSelection = growthCards.get(cardIndex - 1);
+        Card cardSelection = cardChocies.get(cardIndex - 1);
         cardSelection.addGrowth(1);
     }
 

@@ -59,6 +59,8 @@ public class Card {
     	String scientific_name;
     	int growth_space;
     	int maximum_growth_number;
+		int numSprouts;
+		int maxSprouts;
     	String canopy_completion_vp;
     	int ability_color;
     	String ability1;
@@ -231,7 +233,7 @@ public class Card {
 		return numSprouts;
 	}
 
-	public int getMaxSprouts() {
+	public int getMaximumSprouts() {
 		return maxSprouts;
 	}
 
