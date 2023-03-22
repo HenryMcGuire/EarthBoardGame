@@ -140,7 +140,6 @@ public class Game {
                     System.out.println(action);
                 }
 
-                Player active = players.get(i);
                 int action = getPlayerChoice("", new String[]{}, "Player " + (i + 1) + ", choose an action (1-" + Integer.toString(ACTIONS.length) + "): ", 1, ACTIONS.length);
 
                 System.out.println();
@@ -310,6 +309,32 @@ public class Game {
         return choice;
     }
 
+    private static int getPlayerChoice(String header, ArrayList<String> options, String prompt, int min, int max) {
+        int choice;
+
+        while (true) {
+            if (!header.equals("")) {
+                System.out.println(header);
+            }
+
+            for (int i = 0; i < options.size(); i++) {
+                System.out.println((i + 1) + ". " + options.get(i));
+            }
+            
+            System.out.print(prompt);
+            choice = stdin.nextInt();
+            
+            if (choice >= min && choice <= max) {
+                break;
+            }
+            else {
+                System.out.println("Invalid input! Try again!");
+            }
+        }
+
+        return choice;
+    }
+
     // Returns a random card from the deck input
     // Card is removed from the deck
     private static Card drawCard(ArrayList<Card> deck) {
@@ -324,18 +349,21 @@ public class Game {
     // Draw 4 Earth cards and select 1 for hand, discard 3
     private static void activePlant(int playerIndex) {
         Player player = players.get(playerIndex);
-        // NEED TO IMPLEMENT PLANTING
 
-        Card[] cardChoices = new Card[4];
-        String[] cardChoicesAsString = new String[4];
- 
-        for (int i = 0; i < cardChoices.length; i++) {
-            cardChoices[i] = drawCard(earthCards);
-            cardChoicesAsString[i] = cardChoices[i].toString();
+        for (int i = 0; i < 2; i++) {
+            plantCard(playerIndex);
         }
 
-        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards: ", cardChoicesAsString, "Player " + (playerIndex + 1) + ", select a card(1-4): ", 1, 4);
-        Card cardSelection = cardChoices[cardIndex - 1];
+        ArrayList<Card> cardChoices = new ArrayList<Card>();
+        ArrayList<String> cardStrings = new ArrayList<String>();
+ 
+        for (int i = 0; i < 4; i++) {
+            cardChoices.add(drawCard(earthCards));
+            cardStrings.add(cardChoices.get(i).toString());
+        }
+
+        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards: ", cardStrings, "Player " + (playerIndex + 1) + ", select a card(1-4 or): ", 1, 4);
+        Card cardSelection = cardChoices.get(cardIndex - 1);
         player.addCardToHand(cardSelection);
 
         // Add unselected cards back to deck
@@ -356,7 +384,7 @@ public class Game {
         int secondaryAction = getPlayerChoice("Secondary Plant Action List", new String[]{"Plant 1 Card", "+1 card"}, "Player " + (playerIndex + 1) + ", choose an action (1-" + 2 + "): ", 1, 2);
 
         if (secondaryAction == 1) {
-            // NEED TO IMPLEMENT
+            plantCard(playerIndex);
             System.out.println();
             System.out.println(player.toString());
         } 
@@ -366,6 +394,56 @@ public class Game {
             System.out.println(player.toString());
         }
 
+    }
+
+    // Goes through the procedure of planting a card from a players hand to their tableau
+    private static void plantCard(int playerIndex) {
+        Player player = players.get(playerIndex);
+
+        if (player.tableauFull()) {
+            System.out.println("Unable to plant. Tableau is full!");
+        }
+
+        ArrayList<Card> playableCards = new ArrayList<Card>();
+        ArrayList<String> cardStrings = new ArrayList<String>();
+
+        for (Card c : player.getHandList()) 
+        {
+            if (c.getPlantCost() <= player.getSoil()) {
+                playableCards.add(c);
+                cardStrings.add(c.toString());
+            }
+        }
+
+        if (playableCards.size() == 0) {
+            System.out.println("Player " + (playerIndex + 1) + ", you have no cards to plant.");
+            return;
+        }
+
+        int cardIndex = getPlayerChoice("Player " + (playerIndex + 1) + "'s choices for cards to plant: ", cardStrings, "Player " + (playerIndex + 1) + ", select a card(1-" +  playableCards.size() + " or 0 to pass): ", 0, playableCards.size());
+
+        if (cardIndex == 0) {
+            return;
+        }
+        else {
+            while (true) {
+                Card cardSelection = playableCards.get(cardIndex - 1);
+                int tableauIndex = getPlayerChoice("", new String[]{}, "Player " + (playerIndex + 1) + ", select the tableau index to plant the card: ", 1, 16);
+                int x = (tableauIndex - 1) % 4;
+                int y = (tableauIndex - 1) / 4;
+
+                if (player.getTableauCard(x, y) == null) {
+                    player.tableauAdd(cardSelection, x, y);
+                    player.handRemove(cardSelection);
+                    player.addSoil(cardSelection.getPlantCost() * -1);
+                    break;
+                }
+                else {
+                    System.out.println("Tableau index already contains a card. Retry!");
+                    // Need to implement ability to shift the tableau
+                }
+            }
+        }
     }
 
     // +5 soil +2 compost cards from deck
