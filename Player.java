@@ -91,6 +91,10 @@ public class Player {
 	Card getHandCard(int x) {
 		return handList.get(x);
 	}
+
+	ArrayList<Card> getHandList() {
+		return handList;
+	}
 	
 	Card getIsland(){
 		return this.island;
@@ -127,14 +131,32 @@ public class Player {
 		return sproutCount;
 	}
 	
-	//remove card from hand
+	//remove card from hand by index
 	void handRemove(int x) {
 		handList.remove(x);
+	}
+
+	//remove card from hand by Card
+	void handRemove(Card val) {
+		handList.remove(val);
 	}
 
 	//add a card to tableau
 	void tableauAdd(Card card, int x, int y) {
 		tableauList[x][y] = card;
+	}
+
+	//returns whether the tableau is full or not
+	boolean tableauFull() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (tableauList[i][j] == null) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 	
 	//remove a card from tableau

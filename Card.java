@@ -197,4 +197,20 @@ public class Card {
     public String getName() {
         return name;
     }
+
+	public int getPlantCost() {
+		return plant_cost;
+	}
+
+	@Override 
+	public boolean equals(Object o) {
+		if (o == null || !(o instanceof Card)) {
+			return false;
+		}
+
+		Card c = (Card) o;
+
+		return this.name.equals(c.getName());
+	}
+
 }
