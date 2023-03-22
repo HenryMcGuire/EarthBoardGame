@@ -205,14 +205,15 @@ public class Game {
             }
         }
 
+        System.out.println("Game completed!");
+
         // Determine winner
         ArrayList<Integer> winnerIndexes = getWinners();
 
         for (int i = 0; i < winnerIndexes.size(); i++) {
             System.out.println("Congratulations Player " + (winnerIndexes.get(i) + 1) + "! You won!");
         }
-
-
+        
         stdin.close();
     }
 
@@ -678,6 +679,7 @@ public class Game {
 
     }
     
+    // Possible argument values for getWinnersByCategory
     private final static int MAXPOINTS = 1,
             MAXSOIL = 2,
             MAXHAND = 3,
@@ -744,8 +746,6 @@ public class Game {
         int maxVal = 0;
 
         for (int i : indexesToCheck) {
-            int valToCheck = 0;
-
             if (category == MAXPOINTS) {
                 maxVal = Integer.max(maxVal, players.get(i).getScore());
             }
