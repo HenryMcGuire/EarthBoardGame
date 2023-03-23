@@ -10,7 +10,7 @@ public class Card {
 	private int numSprouts;
 	private int maxSprouts;
 	private String canopy_completion_vp;
-	private int ability_color;
+	private int ability_color; // See in Game.java GREEN, RED, BLUE, etc...
 	private String ability1;
 	private String ability2;
 	private String flavour_text;
@@ -239,5 +239,9 @@ public class Card {
 
 	public void addSprouts(int val) {
 		numSprouts += val;
+	}
+
+	public int getAbilityColor() {
+		return ability_color;
 	}
 }

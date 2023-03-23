@@ -16,13 +16,12 @@ public class Game {
     private static ArrayList<Card> climateCards = new ArrayList<>();
     private static ArrayList<Card> earthCards = new ArrayList<>();
     
-    public final static Scanner stdin = new Scanner(System.in);
+    private final static Scanner stdin = new Scanner(System.in);
 
     private final static int PLANT = 1,
             COMPOST = 2,
             WATER = 3,
             GROW = 4;
-
 
     private final static String[] ACTIONS = {
         PLANT + ". Plant",
@@ -30,6 +29,14 @@ public class Game {
         WATER + ". Water",
         GROW + ". Grow"
     };
+
+    public final static int GREEN = 1,
+            RED = 2,
+            BLUE = 3,
+            YELLOW = 4,
+            MULTI = 5,
+            BLACK = 6,
+            BROWN = 7;
 
     public static void main(String[] args) {
         // Intro
@@ -162,9 +169,6 @@ public class Game {
                             }
                         }
                         
-                        for (int j = i; j < i + playerCount; j++) {
-                            activateCards(j, "Green");
-                        }
                         break;
                     case COMPOST:
                         activeCompost(i);
@@ -173,9 +177,6 @@ public class Game {
                             secondaryCompost(j % playerCount);
                         }
                         
-                        for (int j = i; j < i + playerCount; j++) {
-                            activateCards(j, "Red");
-                        }
                         break;
                     case WATER:
                         activeWater(i);
@@ -184,9 +185,6 @@ public class Game {
                             secondaryWater(j % playerCount);
                         }
                         
-                        for (int j = i; j < i + playerCount; j++) {
-                            activateCards(j, "Blue");
-                        }
                         break;
                     case GROW:
                         activeGrow(i);
@@ -195,12 +193,16 @@ public class Game {
                             secondaryGrow(j % playerCount);
                         }
                         
-                        for (int j = i; j < i + playerCount; j++) {
-                            activateCards(j, "Yellow");
-                        }
                         break;
                 }
 
+                System.out.println();
+
+                for (int j = i; j < i + playerCount; j++) {
+                    System.out.println("Player " + (j + 1) + " it is your turn to activate cards.");
+                    activateCards(j, action);
+                    System.out.println();
+                }
                 System.out.println();
             }
         }
@@ -213,7 +215,7 @@ public class Game {
         for (int i = 0; i < winnerIndexes.size(); i++) {
             System.out.println("Congratulations Player " + (winnerIndexes.get(i) + 1) + "! You won!");
         }
-        
+
         stdin.close();
     }
 
@@ -675,8 +677,35 @@ public class Game {
     }
 
     // Activate all cards for players[playerIndex] that action is related to color
-    private static void activateCards(int playerIndex, String color) {
+    private static void activateCards(int playerIndex, int action) {
+        Player player = players.get(playerIndex);
+        int option = getPlayerChoice("", new String[]{}, "Player " + (playerIndex + 1) + " would you like to activate cards on player card(1) or tableau(2) first?)", 1, 2);
 
+        if (option == 1) {
+            activateCard(playerIndex, player.getIsland(), action);
+            activateCard(playerIndex, player.getClimate(), action);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Card tableauCard = player.getTableauCard(i, j);
+
+                if (tableauCard != null) {
+                    activateCard(playerIndex, tableauCard, action);
+                }
+            }
+        }
+
+        if (option == 2) {
+            activateCard(playerIndex, player.getIsland(), action);
+            activateCard(playerIndex, player.getClimate(), action);
+        }
+    }
+
+    private static void activateCard(int playerIndex, Card c, int action) {
+        if (c.getAbilityColor() == action) {
+            // Implement activation of cards
+        }
     }
     
     // Possible argument values for getWinnersByCategory
@@ -746,23 +775,25 @@ public class Game {
         int maxVal = 0;
 
         for (int i : indexesToCheck) {
-            if (category == MAXPOINTS) {
-                maxVal = Integer.max(maxVal, players.get(i).getScore());
-            }
-            else if (category == MAXSOIL) {
-                maxVal = Integer.max(maxVal, players.get(i).getSoil());
-            }
-            else if (category == MAXHAND) {
-                maxVal = Integer.max(maxVal, players.get(i).getHandList().size());
-            }
-            else if (category == MAXGROWTH) {
-                maxVal = Integer.max(maxVal, players.get(i).getTotalGrowth());
-            }
-            if (category == MAXSPROUTS) {
-                maxVal = Integer.max(maxVal, players.get(i).getTotalSprouts());
-            }
-            else if (category == MAXCOMPOST) {
-                maxVal = Integer.max(maxVal, players.get(i).getCompost());
+            switch(category) {
+                case MAXPOINTS:
+                    maxVal = Integer.max(maxVal, players.get(i).getScore());
+                    break;
+                case MAXSOIL:
+                    maxVal = Integer.max(maxVal, players.get(i).getSoil());
+                    break;
+                case MAXHAND:
+                    maxVal = Integer.max(maxVal, players.get(i).getHandList().size());
+                    break;
+                case MAXGROWTH:
+                    maxVal = Integer.max(maxVal, players.get(i).getTotalGrowth());
+                    break;
+                case MAXSPROUTS:
+                    maxVal = Integer.max(maxVal, players.get(i).getTotalSprouts());
+                    break;
+                case MAXCOMPOST:
+                    maxVal = Integer.max(maxVal, players.get(i).getCompost());
+                    break;
             }
         }
 
@@ -770,24 +801,26 @@ public class Game {
 
         for (int i : indexesToCheck) {
             int valToCheck = 0;
-
-            if (category == MAXPOINTS) {
-                valToCheck = players.get(i).getScore();
-            }
-            else if (category == MAXSOIL) {
-                valToCheck = players.get(i).getSoil();
-            }
-            else if (category == MAXHAND) {
-                valToCheck = players.get(i).getHandList().size();
-            }
-            else if (category == MAXGROWTH) {
-                valToCheck = players.get(i).getTotalGrowth();
-            }
-            if (category == MAXSPROUTS) {
-                valToCheck = players.get(i).getTotalSprouts();
-            }
-            else if (category == MAXCOMPOST) {
-                valToCheck = players.get(i).getCompost();
+            
+            switch(category) {
+                case MAXPOINTS:
+                    valToCheck = players.get(i).getScore();
+                    break;
+                case MAXSOIL:
+                    valToCheck = players.get(i).getSoil();
+                    break;
+                case MAXHAND:
+                    valToCheck = players.get(i).getHandList().size();
+                    break;
+                case MAXGROWTH:
+                    valToCheck = players.get(i).getTotalGrowth();
+                    break;
+                case MAXSPROUTS:
+                    valToCheck = players.get(i).getTotalSprouts();
+                    break;
+                case MAXCOMPOST:
+                    valToCheck = players.get(i).getCompost();
+                    break;
             }
 
             if (valToCheck == maxVal) {
