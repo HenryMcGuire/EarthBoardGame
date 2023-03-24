@@ -532,7 +532,7 @@ public class Game {
             return;
         }
 
-        int totalSprouts = player.getTotalSprouts();
+        int totalSprouts = player.getNumSprouts();
 
         if (totalSprouts >= 3) {
             ArrayList<Card> subCards = new ArrayList<Card>(); // Sprout cards that contain sprouts
@@ -663,7 +663,7 @@ public class Game {
     // Handles procedure of applying growth
     private static void applyGrowth(int playerIndex) {
         Player player = players.get(playerIndex);
-        ArrayList<Card> cardChocies = player.getGrowthCards();
+        ArrayList<Card> cardChocies = player.getMaxGrowthCards();
 
         if (cardChocies.size() == 0) {
             System.out.println("Player " + (playerIndex + 1) + ", you have no cards to grow.");
@@ -789,7 +789,7 @@ public class Game {
                     maxVal = Integer.max(maxVal, players.get(i).getTotalGrowth());
                     break;
                 case MAXSPROUTS:
-                    maxVal = Integer.max(maxVal, players.get(i).getTotalSprouts());
+                    maxVal = Integer.max(maxVal, players.get(i).getNumSprouts());
                     break;
                 case MAXCOMPOST:
                     maxVal = Integer.max(maxVal, players.get(i).getCompost());
@@ -816,7 +816,7 @@ public class Game {
                     valToCheck = players.get(i).getTotalGrowth();
                     break;
                 case MAXSPROUTS:
-                    valToCheck = players.get(i).getTotalSprouts();
+                    valToCheck = players.get(i).getNumSprouts();
                     break;
                 case MAXCOMPOST:
                     valToCheck = players.get(i).getCompost();

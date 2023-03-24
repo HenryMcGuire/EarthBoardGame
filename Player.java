@@ -128,7 +128,7 @@ public class Player {
 	}
 	
 	//get sprout count, return value
-	int getgetSprouts() {
+	int getNumSprouts() {
 		return sproutCount;
 	}
 	
@@ -168,7 +168,7 @@ public class Player {
 	//add getNumSprouts() to a card
 	//requires coordinates and amount
 	void addgetSprouts(int amount, int x, int y) {
-		tableauList[x][y].getNumSprouts() += amount;
+		tableauList[x][y].setNumSprouts(tableauList[x][y].getNumSprouts()+=amount);
 		if(tableauList[x][y].getNumSprouts() > tableauList[x][y].sproutMax) {
 			tableauList[x][y].getNumSprouts() = tableauList[x][y].sproutMax;
 		}
@@ -317,7 +317,7 @@ public class Player {
 	}
 
 	// returns list of cards that can have getMaximumGrowth() applied
-	public ArrayList<Card> getgetMaxGrowthCards() {
+	public ArrayList<Card> getMaxGrowthCards() {
 		ArrayList<Card> getMaxGrowthCards = new ArrayList<Card>();
 		
 		for (Card[] row : tableauList) {
@@ -333,7 +333,7 @@ public class Player {
 	}
 
 	// returns the total number of getMaximumGrowth() on tableau cards 
-	public int getTotalgetMaxGrowth() {
+	public int getTotalGrowth() {
 		int totalgetMaxGrowth = 0;
 
 		for (Card[] row : tableauList) {
@@ -363,7 +363,7 @@ public class Player {
 	}
 
 	// returns the total number of getNumSprouts() on tableau cards
-	public int getTotalgetSprouts() {
+	public int getTotalSprouts() {
 		int totalgetSprouts = 0;
 
 		for (Card[] row : tableauList) {
