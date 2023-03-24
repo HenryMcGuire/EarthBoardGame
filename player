@@ -1,8 +1,0 @@
-//represents a single player
-//has a two dimensional array representing the card tableau
-//has a one dimensional array representing the player's hand
-//has functions for each of the possible player actions, takes user input from driver
-//keeps track of all player resources and points
-//for now, compost cards get deleted and simply increments the compost attribute
-//calls functions from the card class to perform abilities
-//has an independent variable tracking the amount of sprouts, updated by iterating through the card tableau and fetching sprout values from the card class
