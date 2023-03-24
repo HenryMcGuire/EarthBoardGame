@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player {
 
 	//represents hand, dynamic
@@ -39,51 +41,6 @@ public class Player {
 	//if the card is already constructed, this can add it to the hand manually
 	void drawCard(Card newCard) {
 		this.handList.add(newCard);
-	}
-	
-	//draw a card and add it to hand
-	void drawCard() {
-		Card newCard = new Card(); //the constructor in the card class would randomize which card it is
-		this.handList.add(newCard);
-	}
-	
-	//plant up to two cards from hand to tableau
-	//first card can be anywhere, subsequent cards must be adjacent to another card
-	//planting requires paying soil cost
-	//asks user for which card to pick from hand, then coordinates for where to put it
-	//increments tableau total for each card planted
-	//then draws 4 cards SEPARATE from drawCard() function, asks user which they want to keep
-	//adds the chosen card to handlist and deletes the other 3
-	void plantAction() {
-		//TODO: user input
-	}
-	
-	//gain 5 soil and 2 compost, doesn't draw any cards
-	void compostAction() {
-		this.soil+=5;
-		this.compost+=2;
-	}
-	
-	//gain 6 temporary sprouts that can be placed on open sprout spaces
-	//player chooses where to put sprouts and how many until they run out,
-	//until there's no more sprout spaces, or they decide to end early
-	//remaining temporary sprouts are lost
-	void waterAction() {
-		this.soil+=2;
-		int tempSprouts = 6;
-		//TODO: user input
-	}
-	
-	//draw 4 cards
-	//gain 2 temporary growth tokens, user chooses a valid card on tableau to place growth and how many
-	//input continues until they run out or there are no more growth spaces
-	void growAction() {
-		drawCard();
-		drawCard();
-		drawCard();
-		drawCard();
-		int tempGrowth = 2;
-		//TODO: user input
 	}
 	
 	//choose a card within the tableau, return card reference
@@ -230,19 +187,14 @@ public class Player {
 		tableauList[x][y].ability(); //placeholder call, change to whatever the real class uses
 	}
 	
+	/*
 	//removes card from specified hand coordinate, deletes it, and adds a compost point
 	void compostCard(int x) {
-		Card temp = handList.get(x);
 		handList.remove(x);
-		deleteCard(temp);
 		compost+=1;
 	}
-	
-	//delete a card from memory, might be obsolete later
-	void deleteCard(Card card) {
-		//TODO
-	}
-	
+	*/
+
 	//toString() method that prints out the player's entire tableau,
 	//the player's entire hand, and all of their resources
 	@Override
