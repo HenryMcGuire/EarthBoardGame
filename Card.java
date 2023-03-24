@@ -244,4 +244,8 @@ public class Card {
 	public int getAbilityColor() {
 		return ability_color;
 	}
+
+	public void ability() {
+	//TODO	
+	}
 }

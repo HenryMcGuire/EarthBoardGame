@@ -60,28 +60,29 @@ public class Player {
 		this.compost+=2;
 	}
 	
-	//gain 6 temporary sprouts that can be placed on open sprout spaces
-	//player chooses where to put sprouts and how many until they run out,
+	//gain 6 temporary getNumSprouts() that can be placed on open sprout spaces
+	//player chooses where to put getNumSprouts() and how many until they run out,
 	//until there's no more sprout spaces, or they decide to end early
-	//remaining temporary sprouts are lost
+	//remaining temporary getNumSprouts() are lost
 	void waterAction() {
 		this.soil+=2;
-		int tempSprouts = 6;
+		int tempgetSprouts = 6;
 		//TODO: user input
 	}
 	
 	//draw 4 cards
-	//gain 2 temporary growth tokens, user chooses a valid card on tableau to place growth and how many
-	//input continues until they run out or there are no more growth spaces
+	//gain 2 temporary getMaximumGrowth() tokens, user chooses a valid card on tableau to place getMaximumGrowth() and how many
+	//input continues until they run out or there are no more getMaximumGrowth() spaces
 	void growAction() {
 		drawCard();
 		drawCard();
 		drawCard();
 		drawCard();
-		int tempGrowth = 2;
+		int tempgetMaxGrowth = 2;
 		//TODO: user input
 	}
 	
+
 	//choose a card within the tableau, return card reference
 	Card getTableauCard(int x, int y) {
 		return tableauList[x][y];
@@ -121,13 +122,13 @@ public class Player {
 		return this.ecosystem;
 	}
 	
-	//scan and count the sprouts
-	void countSprouts() {
-		//TODO: iterate through tableau and count sprouts on cards
+	//scan and count the getNumSprouts()
+	void countgetSprouts() {
+		//TODO: iterate through tableau and count getNumSprouts() on cards
 	}
 	
 	//get sprout count, return value
-	int getSprouts() {
+	int getgetSprouts() {
 		return sproutCount;
 	}
 	
@@ -164,40 +165,40 @@ public class Player {
 		
 	}
 	
-	//add sprouts to a card
+	//add getNumSprouts() to a card
 	//requires coordinates and amount
-	void addSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts += amount;
-		if(tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
-			tableauList[x][y].sprouts = tableauList[x][y].sproutMax;
+	void addgetSprouts(int amount, int x, int y) {
+		tableauList[x][y].getNumSprouts() += amount;
+		if(tableauList[x][y].getNumSprouts() > tableauList[x][y].sproutMax) {
+			tableauList[x][y].getNumSprouts() = tableauList[x][y].sproutMax;
 		}
 	}
 	
-	//subtract sprouts from a card
+	//subtract getNumSprouts() from a card
 	//requires coordinates and amount
-	void removeSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts -= amount;
-		if(tableauList[x][y].sprouts < 0) {
-			tableauList[x][y].sprouts = 0;
+	void removegetSprouts(int amount, int x, int y) {
+		tableauList[x][y].getNumSprouts() -= amount;
+		if(tableauList[x][y].getNumSprouts() < 0) {
+			tableauList[x][y].getNumSprouts() = 0;
 		}
 	}
 	//placeholder code, adjust with card class if necessary
 	
-	//add growth to a card
+	//add getMaximumGrowth() to a card
 	//requires coordinates and amount
-	void addGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth += amount;
-		if(tableauList[x][y].growth > tableauList[x][y].growthMax) {
-			tableauList[x][y].growth = tableauList[x][y].growthMax;
+	void addgetMaxGrowth(int amount, int x, int y) {
+		tableauList[x][y].getMaximumGrowth() += amount;
+		if(tableauList[x][y].getMaximumGrowth() > tableauList[x][y].getMaximumGrowth()()) {
+			tableauList[x][y].getMaximumGrowth() = tableauList[x][y].getMaximumGrowth()();
 		}
 	}
 	
-	//remove growth from a card
+	//remove getMaximumGrowth() from a card
 	//requires coordinates and amount
-	void removeGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth -= amount;
-		if(tableauList[x][y].growth < 0) {
-			tableauList[x][y].growth = 0;
+	void removegetMaxGrowth(int amount, int x, int y) {
+		tableauList[x][y].getMaximumGrowth() -= amount;
+		if(tableauList[x][y].getMaximumGrowth() < 0) {
+			tableauList[x][y].getMaximumGrowth() = 0;
 		}
 	}
 
@@ -301,7 +302,7 @@ public class Player {
 			}
 		}
 		//resources
-		String str3 = ("Resources: " +soil+" Soil, " +compost+ " Compost, " +sproutCount+ " Sprouts");
+		String str3 = ("Resources: " +soil+" Soil, " +compost+ " Compost, " +sproutCount+ " getNumSprouts()");
 		return str+str2+str3;
 	}
 	
@@ -315,37 +316,37 @@ public class Player {
 		return tableauList[x][y].toString();
 	}
 
-	// returns list of cards that can have growth applied
-	public ArrayList<Card> getGrowthCards() {
-		ArrayList<Card> growthCards = new ArrayList<Card>();
+	// returns list of cards that can have getMaximumGrowth() applied
+	public ArrayList<Card> getgetMaxGrowthCards() {
+		ArrayList<Card> getMaxGrowthCards = new ArrayList<Card>();
 		
 		for (Card[] row : tableauList) {
 			for (Card c : row) 
 			{
-				if (c.getMaximumGrowth() > 0 && c.getMaximumGrowth() > c.getGrowthSpace()) {
-					growthCards.add(c);
+				if (c.getMaximumGrowth() > 0 && c.getMaximumGrowth() > c.getMaximumGrowth()) {
+					getMaxGrowthCards.add(c);
 				}
 			}
 		}
 
-		return growthCards;
+		return getMaxGrowthCards;
 	}
 
-	// returns the total number of growth on tableau cards 
-	public int getTotalGrowth() {
-		int totalGrowth = 0;
+	// returns the total number of getMaximumGrowth() on tableau cards 
+	public int getTotalgetMaxGrowth() {
+		int totalgetMaxGrowth = 0;
 
 		for (Card[] row : tableauList) {
 			for (Card c : row) 
 			{
-				totalGrowth += c.getGrowthSpace();
+				totalgetMaxGrowth += c.getMaximumGrowth();
 			}
 		}
 
-		return totalGrowth;
+		return totalgetMaxGrowth;
 	}
 
-	// returns list of cards that can have sprouts applied
+	// returns list of cards that can have getNumSprouts() applied
 	public ArrayList<Card> getSproutCards() {
 		ArrayList<Card> sproutCards = new ArrayList<Card>();
 		
@@ -361,18 +362,18 @@ public class Player {
 		return sproutCards;
 	}
 
-	// returns the total number of sprouts on tableau cards
-	public int getTotalSprouts() {
-		int totalSprouts = 0;
+	// returns the total number of getNumSprouts() on tableau cards
+	public int getTotalgetSprouts() {
+		int totalgetSprouts = 0;
 
 		for (Card[] row : tableauList) {
 			for (Card c : row) 
 			{
-				totalSprouts += c.getNumSprouts();
+				totalgetSprouts += c.getNumSprouts();
 			}
 		}
 
-		return totalSprouts;
+		return totalgetSprouts;
 	}
 }
 
