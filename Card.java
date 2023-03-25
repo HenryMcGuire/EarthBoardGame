@@ -59,7 +59,6 @@ public class Card {
 		String ability1;
 		String ability2;
 		String flavour_text;
-		
 	}
 
 	public void FaunaCard() { // Creates attributes for a Fauna-type card.
