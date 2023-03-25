@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class Player {
@@ -14,16 +15,18 @@ public class Player {
 	private int soil = 0;
 	private int compost = 0;
 	private int tableauTotal = 0;
-	private int score = 0; //
-	
-	//constructor that takes two arguments
-	Player(){
-		//default does nothing
+	private int score = 0;
+	private String name;
+
+	// constructor that takes two arguments
+	Player() {
+		// default does nothing
 	}
-	
-	Player(Card island, Card climate){
+
+	Player(Card island, Card climate, int index) {
 		this.island = island;
 		this.climate = climate;
+		this.name = "Player " + index;
 	}
 	
 	Player(Card island, Card climate, Card ecosystem){
@@ -80,9 +83,10 @@ public class Player {
 	
 	//scan and count the sprouts
 	void countSprouts() {
+		sproutCount = 0;
 		for(Card[] r : tableauList){
 			for(Card c : r){
-				
+			
 			}
 		}
 		//TODO: iterate through tableau and count sprouts on cards
@@ -168,13 +172,17 @@ public class Player {
         return soil;
     }
 
-    public int getCompost() {
-        return compost;
-    }
-	
-    public int getTotal() {
-        return tableauTotal;
-    }
+	public void addCompost(int value) {
+		compost += value;
+	}
+
+	public int getCompost() {
+		return compost;
+	}
+
+	public int getTotal() {
+		return tableauTotal;
+	}
 
     public int getScore() {
     	//TODO: Tallying score by iterating through tableau
@@ -220,7 +228,7 @@ public class Player {
 		// "Name, Name, ____, Name"
 		// "____, Name, Name, ____" etc.
 		for(int r = 0; r<4; r++) { //row
-			for (int c = 0; r<4; c++) { //column
+			for (int c = 0; c<4; c++) { //column
 				if(tableauList[r][c]!= null) {
 					str+=tableauList[r][c].getName();
 				}

@@ -1,3 +1,4 @@
+
 public class Card {
 	private String name;
 	private String type;
@@ -42,6 +43,7 @@ public class Card {
 			System.out.println("Earth");
 			System.out.println("Ecosystem");
 			System.out.println("Event");
+
 		}
 	}
 
