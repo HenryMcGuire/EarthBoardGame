@@ -256,4 +256,23 @@ public class Card {
 	public void ability() {
 		// This depends on the card in question.
 	}
+
+	public void generateRandomCard() { // Generates a random card upon request.
+		int rand = (int) (70 * Math.random());
+		if (rand > 0 && rand <= 10) {
+			FloraCard();
+		} else if (rand > 10 && rand <= 20) {
+			FaunaCard();
+		} else if (rand > 20 && rand <= 30) {
+			IslandCard();
+		} else if (rand > 30 && rand <= 40) {
+			ClimateCard();
+		} else if (rand > 40 && rand <= 50) {
+			EarthCard();
+		} else if (rand > 50 && rand <= 60) {
+			EcosystemCard();
+		} else if (rand > 60 && rand <= 70) {
+			EventCard();
+		}
+	}
 }
