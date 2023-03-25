@@ -282,7 +282,7 @@ public class Player {
 		// "Name, Name, ____, Name"
 		// "____, Name, Name, ____" etc.
 		for(int r = 0; r<4; r++) { //row
-			for (int c = 0; r<4; c++) { //column
+			for (int c = 0; c<4; c++) { //column
 				if(tableauList[r][c]!= null) {
 					str+=tableauList[r][c].getName();
 				}
