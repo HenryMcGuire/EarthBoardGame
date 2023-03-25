@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 
 public class Player {
@@ -14,16 +16,18 @@ public class Player {
 	private int soil = 0;
 	private int compost = 0;
 	private int tableauTotal = 0;
-	private int score = 0; //
+	private int score = 0; 
+	private String name;
 	
 	//constructor that takes two arguments
 	Player(){
 		//default does nothing
 	}
 	
-	Player(Card island, Card climate){
+	Player(Card island, Card climate, int index){
 		this.island = island;
 		this.climate = climate;
+		this.name = "Player " + index;
 	}
 	
 	Player(Card island, Card climate, Card ecosystem){
@@ -74,10 +78,10 @@ public class Player {
 	//gain 2 temporary growth tokens, user chooses a valid card on tableau to place growth and how many
 	//input continues until they run out or there are no more growth spaces
 	void growAction() {
-		drawCard();
-		drawCard();
-		drawCard();
-		drawCard();
+		//drawCard();
+		//drawCard();
+		//drawCard();
+		//drawCard();
 		int tempGrowth = 2;
 		//TODO: user input
 	}
@@ -167,38 +171,38 @@ public class Player {
 	//add sprouts to a card
 	//requires coordinates and amount
 	void addSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts += amount;
-		if(tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
-			tableauList[x][y].sprouts = tableauList[x][y].sproutMax;
-		}
+		//tableauList[x][y].sprouts += amount;
+		//if(tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
+		//	tableauList[x][y].sprouts = tableauList[x][y].sproutMax;
+		//}
 	}
 	
 	//subtract sprouts from a card
 	//requires coordinates and amount
 	void removeSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts -= amount;
-		if(tableauList[x][y].sprouts < 0) {
-			tableauList[x][y].sprouts = 0;
-		}
+		//tableauList[x][y].sprouts -= amount;
+		//if(tableauList[x][y].sprouts < 0) {
+		//	tableauList[x][y].sprouts = 0;
+		//}
 	}
 	//placeholder code, adjust with card class if necessary
 	
 	//add growth to a card
 	//requires coordinates and amount
 	void addGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth += amount;
-		if(tableauList[x][y].growth > tableauList[x][y].growthMax) {
-			tableauList[x][y].growth = tableauList[x][y].growthMax;
-		}
+		//tableauList[x][y].growth += amount;
+		//if(tableauList[x][y].growth > tableauList[x][y].growthMax) {
+		//	tableauList[x][y].growth = tableauList[x][y].growthMax;
+		//}
 	}
 	
 	//remove growth from a card
 	//requires coordinates and amount
 	void removeGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth -= amount;
-		if(tableauList[x][y].growth < 0) {
-			tableauList[x][y].growth = 0;
-		}
+		//tableauList[x][y].growth -= amount;
+		//if(tableauList[x][y].growth < 0) {
+		//	tableauList[x][y].growth = 0;
+		//}
 	}
 
 	public void addSoil(int value) {
@@ -248,12 +252,12 @@ public class Player {
 	//use an ability
 	//input 1 argument for a hand position
 	void useAbility(int x) {
-		handList.get(x).ability(); //placeholder call, change to whatever the real class uses
+		//handList.get(x).ability(); //placeholder call, change to whatever the real class uses
 	}
 	
 	//input 2 arguments for a tableau position
 	void useAbility(int x, int y) {
-		tableauList[x][y].ability(); //placeholder call, change to whatever the real class uses
+		//tableauList[x][y].ability(); //placeholder call, change to whatever the real class uses
 	}
 	
 	//removes card from specified hand coordinate, deletes it, and adds a compost point
@@ -338,7 +342,9 @@ public class Player {
 		for (Card[] row : tableauList) {
 			for (Card c : row) 
 			{
-				totalGrowth += c.getGrowthSpace();
+				if (c != null) {
+					totalGrowth += c.getGrowthSpace();
+				}
 			}
 		}
 
@@ -368,11 +374,21 @@ public class Player {
 		for (Card[] row : tableauList) {
 			for (Card c : row) 
 			{
-				totalSprouts += c.getNumSprouts();
+				if (c != null) {
+					totalSprouts += c.getNumSprouts();
+				}
 			}
 		}
 
 		return totalSprouts;
+	}
+
+	public void addScore(int val) {
+		score += val;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
 
