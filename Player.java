@@ -110,7 +110,7 @@ public class Player {
 	}
 
 	//get growth count, return value
-	int getMaximumGrowth(){
+	int getTotalGrowth(){
 		this.countGrowth();
 		return growthCount;
 	}
@@ -149,7 +149,7 @@ public class Player {
 	}
 
 	//return an arraylist reference to the tableau cards that have open growth spots
-	public ArrayList<Card> getGrowthCards(){
+	public ArrayList<Card> getMaxGrowthCards(){
 		ArrayList<Card> growthCards = new ArrayList<Card>();
 		for(Card[] r : tableauList){
 			for(Card c : r){
