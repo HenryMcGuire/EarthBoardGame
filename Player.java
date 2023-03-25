@@ -106,38 +106,47 @@ public class Player {
 	//add sprouts to a card
 	//requires coordinates and amount
 	void addSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts += amount;
-		if(tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
-			tableauList[x][y].sprouts = tableauList[x][y].sproutMax;
+		Card temp = tableauList[x][y];
+		temp.addSprouts(amount);
+		if(temp.getNumSprouts() > temp.getMaximumSprouts()) {
+			int difference = temp.getNumSprouts() - temp.getMaximumSprouts();
+			temp.addSprouts((difference*-1));
 		}
+		//prevents adding sprouts over maximum
 	}
 	
 	//subtract sprouts from a card
 	//requires coordinates and amount
 	void removeSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts -= amount;
-		if(tableauList[x][y].sprouts < 0) {
-			tableauList[x][y].sprouts = 0;
+		Card temp = tableauList[x][y];
+		temp.addSprouts((amount*-1));
+		if(temp.getNumSprouts() < 0) {
+			temp.addSprouts((temp.getNumSprouts()*-1));
 		}
+		//prevents subtracting sprouts below 0
 	}
-	//placeholder code, adjust with card class if necessary
 	
 	//add growth to a card
 	//requires coordinates and amount
 	void addGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth += amount;
-		if(tableauList[x][y].growth > tableauList[x][y].growthMax) {
-			tableauList[x][y].growth = tableauList[x][y].growthMax;
+		Card temp = tableauList[x][y];
+		temp.addGrowth(amount);
+		if(temp.getGrowthSpace() > temp.getMaximumGrowth()) {
+			int difference = temp.getGrowthSpace() - temp.getMaximumGrowth();
+			temp.addGrowth((difference*-1));
 		}
+		//prevents adding growth over maximum
 	}
 	
 	//remove growth from a card
 	//requires coordinates and amount
 	void removeGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth -= amount;
-		if(tableauList[x][y].growth < 0) {
-			tableauList[x][y].growth = 0;
+		Card temp = tableauList[x][y];
+		temp.addGrowth((amount*-1));
+		if(temp.getGrowthSpace() < 0) {
+			temp.addGrowth((temp.getGrowthSpace()*-1));
 		}
+		//prevents subtracting growth below 0
 	}
 	
 	public int getSoil() {
