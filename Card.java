@@ -221,6 +221,7 @@ public class Card {
 
 	public int getMaximumSprouts() {
 		return maxSprouts;
+
 	}
 
 	public void setMaximumGrowth(int val) {
