@@ -12,6 +12,7 @@ public class Player {
 	private Card ecosystem = null;
 	private Card event = null;
 	int sproutCount;
+	int growthCount;
 	private int soil = 0;
 	private int compost = 0;
 	private int tableauTotal = 0;
@@ -90,6 +91,17 @@ public class Player {
 			}
 		}
 	}
+
+	//scan and count the growth
+	void countGrowth() {
+		growthCount = 0;
+		for(Card[] r : tableauList){
+			for(Card c : r){
+				growthCount += c.getGrowth();
+			}
+		}
+	}
+
 	
 	//get sprout count, return value
 	int getSprouts() {
