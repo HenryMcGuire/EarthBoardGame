@@ -112,6 +112,11 @@ public class Player {
 		handList.remove(card);
 	}
 
+	//return an arraylist reference to the cards in the player's hand
+	public ArrayList<Card> getHandList(){
+		return handList;
+	}
+
 	//add a card to tableau
 	void tableauAdd(Card card, int x, int y) {
 		tableauList[x][y] = card;
@@ -171,6 +176,10 @@ public class Player {
 	public int getSoil() {
         return soil;
     }
+
+	public void addSoil(int value) {
+		soil += value;
+	}
 
 	public void addCompost(int value) {
 		compost += value;
@@ -263,6 +272,10 @@ public class Player {
 	//for printing card information in the player's tableau
 	public String toString(int x, int y) {
 		return tableauList[x][y].toString();
+	}
+
+	public String getName(){
+		return name;
 	}
 
 
