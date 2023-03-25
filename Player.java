@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 
 public class Player {
@@ -14,16 +16,18 @@ public class Player {
 	private int soil = 0;
 	private int compost = 0;
 	private int tableauTotal = 0;
-	private int score = 0; //
-
-	// constructor that takes two arguments
-	Player() {
-		// default does nothing
+	private int score = 0; 
+	private String name;
+	
+	//constructor that takes two arguments
+	Player(){
+		//default does nothing
 	}
-
-	Player(Card island, Card climate) {
+	
+	Player(Card island, Card climate, int index){
 		this.island = island;
 		this.climate = climate;
+		this.name = "Player " + index;
 	}
 
 	Player(Card island, Card climate, Card ecosystem) {
@@ -284,6 +288,10 @@ public class Player {
 		return tableauTotal;
 	}
 
+	public void addScore(int val) {
+		score += val;
+	}
+
 	public int getScore() {
 		// TODO: Tallying score by iterating through tableau
 		return score;
@@ -326,15 +334,16 @@ public class Player {
 		// tableau should appear like:
 		// "Name, Name, ____, Name"
 		// "____, Name, Name, ____" etc.
-		for (int r = 0; r < 4; r++) { // row
-			for (int c = 0; r < 4; c++) { // column
-				if (tableauList[r][c] != null) {
-					str += tableauList[r][c].getName();
-				} else {
-					str += "____";
+		for(int r = 0; r<4; r++) { //row
+			for (int c = 0; r<4; c++) { //column
+				if(tableauList[r][c]!= null) {
+					str+=tableauList[r][c].getName();
 				}
-				if (r < 3) {
-					str += ", ";
+				else {
+					str+="____";
+				}
+				if(r < 3) {
+					str+=", ";
 				}
 			}
 			str += "\n";
@@ -411,11 +420,18 @@ public class Player {
 		int totalgetSprouts = 0;
 
 		for (Card[] row : tableauList) {
-			for (Card c : row) {
-				totalgetSprouts += c.getSprouts();
+			for (Card c : row) 
+			{
+				if (c != null) {
+					totalgetSprouts += c.getSprouts();
+				}
 			}
 		}
 
 		return totalgetSprouts;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
