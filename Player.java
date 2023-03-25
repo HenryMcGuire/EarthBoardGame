@@ -127,8 +127,8 @@ public class Player {
 	void addSprouts(int amount, int x, int y) {
 		Card temp = tableauList[x][y];
 		temp.addSprouts(amount);
-		if(temp.getNumSprouts() > temp.getMaximumSprouts()) {
-			int difference = temp.getNumSprouts() - temp.getMaximumSprouts();
+		if(temp.getSprouts() > temp.getMaxSprouts()) {
+			int difference = temp.getSprouts() - temp.getMaxSprouts();
 			temp.addSprouts((difference*-1));
 		}
 		//prevents adding sprouts over maximum
@@ -139,8 +139,8 @@ public class Player {
 	void removeSprouts(int amount, int x, int y) {
 		Card temp = tableauList[x][y];
 		temp.addSprouts((amount*-1));
-		if(temp.getNumSprouts() < 0) {
-			temp.addSprouts((temp.getNumSprouts()*-1));
+		if(temp.getSprouts() < 0) {
+			temp.addSprouts((temp.getSprouts()*-1));
 		}
 		//prevents subtracting sprouts below 0
 	}
@@ -150,8 +150,8 @@ public class Player {
 	void addGrowth(int amount, int x, int y) {
 		Card temp = tableauList[x][y];
 		temp.addGrowth(amount);
-		if(temp.getGrowthSpace() > temp.getMaximumGrowth()) {
-			int difference = temp.getGrowthSpace() - temp.getMaximumGrowth();
+		if(temp.getGrowth() > temp.getMaximumGrowth()) {
+			int difference = temp.getGrowth() - temp.getMaximumGrowth();
 			temp.addGrowth((difference*-1));
 		}
 		//prevents adding growth over maximum
@@ -162,8 +162,8 @@ public class Player {
 	void removeGrowth(int amount, int x, int y) {
 		Card temp = tableauList[x][y];
 		temp.addGrowth((amount*-1));
-		if(temp.getGrowthSpace() < 0) {
-			temp.addGrowth((temp.getGrowthSpace()*-1));
+		if(temp.getGrowth() < 0) {
+			temp.addGrowth((temp.getGrowth()*-1));
 		}
 		//prevents subtracting growth below 0
 	}
