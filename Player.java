@@ -116,6 +116,32 @@ public class Player {
 		return handList;
 	}
 
+	//return an arraylist reference to the tableau cards that have open sprout spots
+	public ArrayList<Card> getSproutCards(){
+		ArrayList<Card> sproutCards = new ArrayList<Card>();
+		for(Card[] r : tableauList){
+			for(Card c : r){
+				if(c.getSprouts() < c.getMaxSprouts()){
+					sproutCards.add(c);
+				}
+			}
+		}
+		return sproutCards;
+	}
+
+	//return an arraylist reference to the tableau cards that have open growth spots
+	public ArrayList<Card> getGrowthCards(){
+		ArrayList<Card> growthCards = new ArrayList<Card>();
+		for(Card[] r : tableauList){
+			for(Card c : r){
+				if(c.getGrowth() < c.getMaximumGrowth()){
+					growthCards.add(c);
+				}
+			}
+		}
+		return growthCards;
+	}
+
 	//add a card to tableau
 	void tableauAdd(Card card, int x, int y) {
 		tableauList[x][y] = card;
