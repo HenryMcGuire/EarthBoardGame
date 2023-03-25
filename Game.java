@@ -363,7 +363,7 @@ public class Game {
     
     // Plant up to two cards to tableau, must spend soil in upper left of card(flaura and terrain cards, not event)
     // Draw 4 Earth cards and select 1 for hand, discard 3
-    private static boolean activePlant(Scanner in, PrintStream out, Player player) {
+    protected static boolean activePlant(Scanner in, PrintStream out, Player player) {
         boolean triggerEnd = false;
 
         for (int i = 0; i < 2; i++) {
@@ -397,7 +397,7 @@ public class Game {
     }
 
     // Plant one card, or draw one card
-    private static boolean secondaryPlant(Scanner in, PrintStream out, Player player) {
+    protected static boolean secondaryPlant(Scanner in, PrintStream out, Player player) {
 
         int secondaryAction = getChoice(in, out, "Secondary Plant Action List", new String[]{"Plant 1 Card", "+1 card"}, player.getName() + ", choose an action (1-" + 2 + "): ", 1, 2);
 
@@ -466,19 +466,22 @@ public class Game {
     }
 
     // +5 soil +2 compost cards from deck
-    private static void activeCompost(PrintStream out, Player player) {
+    protected static void activeCompost(PrintStream out, Player player) {
         player.addSoil(5);
-        drawCard(earthCards);
-        drawCard(earthCards);
+        // CHANGE TO STORING COMPOSTED CARDS
+        if (!earthCards.isEmpty()) {
+            drawCard(earthCards);
+            drawCard(earthCards);
+        }
         player.addCompost(2);
 
-        out.println(player.toString());
         out.println();
+        out.println(player.toString());
     }
     
     // +2 soil or +2 compost cards from deck
-    private static void secondaryCompost(Scanner in, PrintStream out, Player player) {
-        int secondaryAction = getChoice(in, out, "Secondary Compost Action List", new String[]{"+2 soil", "+2 compost"}, player.getName() + ", choose an action (1-" + 2 + "): ", 1, 2);
+    protected static void secondaryCompost(Scanner in, PrintStream out, Player player) {
+        int secondaryAction = getChoice(in, out, "Secondary Compost Action List", new String[]{"+2 soil", "+2 compost"}, player.getName() + ", choose an action (1-2) ", 1, 2);
 
         if (secondaryAction == 1) {
             player.addSoil(2);
@@ -487,8 +490,12 @@ public class Game {
         } 
         else {
             player.addCompost(2);
-            drawCard(earthCards);
-            drawCard(earthCards);
+            // CHANGE TO STORING COMPOSTED CARDS
+            if (!earthCards.isEmpty()) {
+                drawCard(earthCards);
+                drawCard(earthCards);
+            }
+
             out.println();
             out.println(player.toString());
         }
@@ -496,13 +503,13 @@ public class Game {
     
     // Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
     // 3 sprouts can be converted from tableau cards to +2 soil
-    private static void activeWater(Scanner in, PrintStream out, Player player) {
+    protected static void activeWater(Scanner in, PrintStream out, Player player) {
         applySprouts(in, out, player, 6);
     }
     
     // +2 sprouts or +2 soil
-    private static void secondaryWater(Scanner in, PrintStream out, Player player) {
-        int secondaryAction = getChoice(in, out, "Secondary Grow Action List", new String[]{"+2 cards", "+2 growth tokens"}, player.getName() + ", choose an action (1-" + 2 + "): ", 1, 2);
+    protected static void secondaryWater(Scanner in, PrintStream out, Player player) {
+        int secondaryAction = getChoice(in, out, "Secondary Grow Action List", new String[]{"+2 cards", "+2 growth tokens"}, player.getName() + ", choose an action (1-2: ", 1, 2);
 
         if (secondaryAction == 1) {
             applySprouts(in, out, player, 2);
@@ -614,7 +621,7 @@ public class Game {
     }
     
     // +4 cards to hand from deck, +2 growth tokens on tableau cards
-    private static void activeGrow(Scanner in, PrintStream out, Player player) {
+    protected static void activeGrow(Scanner in, PrintStream out, Player player) {
         for (int i = 0; i < 4; i++) {
             player.addCardToHand(drawCard(earthCards));
         }
@@ -628,7 +635,7 @@ public class Game {
     }
     
     // +2 cards to hand from deck or +2 growth tokens
-    private static void secondaryGrow(Scanner in, PrintStream out, Player player) {
+    protected static void secondaryGrow(Scanner in, PrintStream out, Player player) {
         int secondaryAction = getChoice(in, out, "Secondary Grow Action List", new String[]{"+2 cards", "+2 growth tokens"}, player.getName() + ", choose an action (1-" + 2 + "): ", 1, 2);
 
         if (secondaryAction == 1) {
@@ -665,7 +672,7 @@ public class Game {
     }
 
     // Activate all cards for players[playerIndex] that action is related to color
-    private static void activateCards(Scanner in, PrintStream out, Player player, int action) {
+    protected static void activateCards(Scanner in, PrintStream out, Player player, int action) {
         int option = getChoice(in, out, "", new String[]{}, player.getName() + " would you like to activate cards on player card(1) or tableau(2) first?)", 1, 2);
 
         if (option == 1) {
