@@ -80,6 +80,11 @@ public class Player {
 	
 	//scan and count the sprouts
 	void countSprouts() {
+		for(Card[] r : tableauList){
+			for(Card c : r){
+				
+			}
+		}
 		//TODO: iterate through tableau and count sprouts on cards
 	}
 	
@@ -88,9 +93,19 @@ public class Player {
 		return sproutCount;
 	}
 	
-	//remove card from hand
+	//add card to hand
+    void addCardToHand(Card card) {
+		handList.add(card);
+	}
+
+	//remove card from hand at specified coordinate
 	void handRemove(int x) {
 		handList.remove(x);
+	}
+
+	//remove card from hand from specified reference
+	void handRemove(Card card) {
+		handList.remove(card);
 	}
 
 	//add a card to tableau
@@ -195,14 +210,6 @@ public class Player {
 	void useAbility(int x, int y) {
 		tableauList[x][y].ability(); //placeholder call, change to whatever the real class uses
 	}
-	
-	/*
-	//removes card from specified hand coordinate, deletes it, and adds a compost point
-	void compostCard(int x) {
-		handList.remove(x);
-		compost+=1;
-	}
-	*/
 
 	//toString() method that prints out the player's entire tableau,
 	//the player's entire hand, and all of their resources
@@ -249,5 +256,7 @@ public class Player {
 	public String toString(int x, int y) {
 		return tableauList[x][y].toString();
 	}
+
+
 }
 
