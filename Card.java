@@ -121,32 +121,17 @@ public class Card {
 					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
 					"Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Fauna") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Island") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Climate") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Earth") {
 			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
 					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
@@ -157,32 +142,15 @@ public class Card {
 					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
 					"Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Ecosystem") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Event") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "This card doesn't fit neatly into any categories.";
 		}
 	}
 
@@ -195,7 +163,7 @@ public class Card {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o) { // This provides a better version of the default equals method in object.
 		if (o == null || !(o instanceof Card)) {
 			return false;
 		}

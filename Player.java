@@ -87,7 +87,6 @@ public class Player {
 		addCardToHand(climate);
 		addCardToHand(climate);
 		int tempgetMaxGrowth = 2;
-		// TODO: user input
 	}
 
 	// choose a card within the tableau, return card reference
