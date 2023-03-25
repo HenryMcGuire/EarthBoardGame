@@ -86,10 +86,9 @@ public class Player {
 		sproutCount = 0;
 		for(Card[] r : tableauList){
 			for(Card c : r){
-			
+				sproutCount += c.getSprouts();
 			}
 		}
-		//TODO: iterate through tableau and count sprouts on cards
 	}
 	
 	//get sprout count, return value
@@ -197,24 +196,16 @@ public class Player {
     	//TODO: Tallying score by iterating through tableau
         return score;
     }
-    
-	//resolve abilities
-	//takes an action color as an argument, called upon when other players do their action
-	//iterates through the tableau checking if that card matches the action color
-	//asks user if they'd like to use the ability when it finds a valid card
-    //may be obsolete from what game.java uses
-	void resolveAbilities(int action) {
-		//1 = plant action 2 = compost action 3 = water action 4 = grow action
-		switch(action) {
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
+
+	public boolean tableauFull() {
+		for(Card[] r : tableauList){
+			for(Card c : r){
+				if (c == null){
+					return false;
+				}
+			}
 		}
+		return true;
 	}
 	
 	//use an ability
