@@ -253,18 +253,18 @@ public class Player {
 	// add growth to a card
 	// requires coordinates and amount
 	void addGrowth(int amount, int x, int y) {
-		tableauList[x][y].getGrowthSpace() += amount;
-		if (tableauList[x][y].getGrowthSpace() > tableauList[x][y].getGrowthSpace()) {
-			tableauList[x][y].getGrowthSpace() = tableauList[x][y].getGrowthSpace();
+		tableauList[x][y].setGrowth(tableauList[x][y].getGrowth() + amount);
+		if (tableauList[x][y].getGrowth() > tableauList[x][y].getGrowth()) {
+			tableauList[x][y].setGrowth(tableauList[x][y].getGrowth());
 		}
 	}
 
 	// remove growth from a card
 	// requires coordinates and amount
 	void removeGrowth(int amount, int x, int y) {
-		tableauList[x][y].getGrowthSpace() -= amount;
-		if (tableauList[x][y].getGrowthSpace() < 0) {
-			tableauList[x][y].getGrowthSpace() = 0;
+		tableauList[x][y].setGrowth(tableauList[x][y].getGrowth() - amount);
+		if (tableauList[x][y].getGrowth() < 0) {
+			tableauList[x][y].setGrowth(0);
 		}
 	}
 
