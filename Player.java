@@ -36,8 +36,7 @@ public class Player {
 	void firstTurn() {
 		// for loop that draws the amount of cards as given by island
 		soil += 0; // placeholder. will add soil as given by island
-	}
-<<<<<<< HEAD
+	}<<<<<<<HEAD
 
 	// if the card is already constructed, this can add it to the hand manually
 	void addCardToHand(Card newCard) {
@@ -89,24 +88,28 @@ public class Player {
 	}
 
 	// choose a card within the tableau, return card reference
-=======
-	
-	//if the card is already constructed, this can add it to the hand manually
+	=======
+
+	// if the card is already constructed, this can add it to the hand manually
 	void drawCard(Card newCard) {
 		this.handList.add(newCard);
 	}
-	
-	//choose a card within the tableau, return card reference
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
-	Card getTableauCard(int x, int y) {
+
+	// choose a card within the tableau, return card reference
+	>>>>>>>937
+
+	c8b60c387b304d5c429c830d9c47875821e1d Card
+
+	getTableauCard(int x, int y) {
 		return tableauList[x][y];
 	}
 
 	// choose a card within the hand, return card reference
 	Card getHandCard(int x) {
 		return handList.get(x);
-	}
-<<<<<<< HEAD
+	}<<<<<<<
+
+	HEAD
 
 	ArrayList<Card> getHandList() {
 		return handList;
@@ -114,7 +117,7 @@ public class Player {
 
 	Card getIsland() {
 =======
-	
+
 	Card getIsland(){
 >>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
 		return this.island;
@@ -139,8 +142,7 @@ public class Player {
 
 	Card getEcosystem() {
 		return this.ecosystem;
-	}
-<<<<<<< HEAD
+	}<<<<<<<HEAD
 
 	// scan and count the getNumSprouts()
 	void countgetSprouts() {
@@ -153,25 +155,25 @@ public class Player {
 	}
 
 	// remove card from hand by index
-=======
-	
-	//scan and count the sprouts
+	=======
+
+	// scan and count the sprouts
 	void countSprouts() {
-		//TODO: iterate through tableau and count sprouts on cards
+		// TODO: iterate through tableau and count sprouts on cards
 	}
-	
-	//get sprout count, return value
+
+	// get sprout count, return value
 	int getSprouts() {
 		return sproutCount;
 	}
-	
-	//remove card from hand
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
+
+	// remove card from hand
+	>>>>>>>937 c8b60c387b304d5c429c830d9c47875821e1d
+
 	void handRemove(int x) {
 		handList.remove(x);
 	}
 
-<<<<<<< HEAD
 	// remove card from hand by Card
 	void handRemove(Card val) {
 		handList.remove(val);
@@ -196,18 +198,15 @@ public class Player {
 	}
 
 	// remove a card from tableau
-=======
-	//add a card to tableau
+	// add a card to tableau
 	void tableauAdd(Card card, int x, int y) {
 		tableauList[x][y] = card;
 	}
-	
-	//remove a card from tableau
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
+
+	// remove a card from tableau
 	void tableauRemove() {
 
-	}
-<<<<<<< HEAD
+	}<<<<<<<HEAD
 
 	// add getNumSprouts() to a card
 	// requires coordinates and amount
@@ -250,51 +249,49 @@ public class Player {
 		soil += value;
 	}
 
-=======
-	
-	//add sprouts to a card
-	//requires coordinates and amount
+	=======
+
+	// add sprouts to a card
+	// requires coordinates and amount
 	void addSprouts(int amount, int x, int y) {
 		tableauList[x][y].sprouts += amount;
-		if(tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
+		if (tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
 			tableauList[x][y].sprouts = tableauList[x][y].sproutMax;
 		}
 	}
-	
-	//subtract sprouts from a card
-	//requires coordinates and amount
+
+	// subtract sprouts from a card
+	// requires coordinates and amount
 	void removeSprouts(int amount, int x, int y) {
 		tableauList[x][y].sprouts -= amount;
-		if(tableauList[x][y].sprouts < 0) {
+		if (tableauList[x][y].sprouts < 0) {
 			tableauList[x][y].sprouts = 0;
 		}
 	}
-	//placeholder code, adjust with card class if necessary
-	
-	//add growth to a card
-	//requires coordinates and amount
+	// placeholder code, adjust with card class if necessary
+
+	// add growth to a card
+	// requires coordinates and amount
 	void addGrowth(int amount, int x, int y) {
 		tableauList[x][y].growth += amount;
-		if(tableauList[x][y].growth > tableauList[x][y].growthMax) {
+		if (tableauList[x][y].growth > tableauList[x][y].growthMax) {
 			tableauList[x][y].growth = tableauList[x][y].growthMax;
 		}
 	}
-	
-	//remove growth from a card
-	//requires coordinates and amount
+
+	// remove growth from a card
+	// requires coordinates and amount
 	void removeGrowth(int amount, int x, int y) {
 		tableauList[x][y].growth -= amount;
-		if(tableauList[x][y].growth < 0) {
+		if (tableauList[x][y].growth < 0) {
 			tableauList[x][y].growth = 0;
 		}
 	}
-	
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
+
 	public int getSoil() {
 		return soil;
 	}
 
-<<<<<<< HEAD
 	public void addCompost(int value) {
 		compost += value;
 	}
@@ -302,15 +299,14 @@ public class Player {
 	public int getCompost() {
 		return compost;
 	}
-=======
-    public int getCompost() {
-        return compost;
-    }
-	
-    public int getTotal() {
-        return tableauTotal;
-    }
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
+
+	public int getCompost() {
+		return compost;
+	}
+
+	public int getTotal() {
+		return tableauTotal;
+	}
 
 	public int getTotal() {
 		return tableauTotal;
@@ -351,37 +347,7 @@ public class Player {
 	void useAbility(int x, int y) {
 		tableauList[x][y].ability(); // placeholder call, change to whatever the real class uses
 	}
-<<<<<<< HEAD
 
-	// removes card from specified hand coordinate, deletes it, and adds a compost
-	// point
-=======
-	
-	/*
-	//removes card from specified hand coordinate, deletes it, and adds a compost point
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
-	void compostCard(int x) {
-		handList.remove(x);
-<<<<<<< HEAD
-		deleteCard(temp);
-		compost += 1;
-	}
-
-	// delete a card from memory, might be obsolete later
-	void deleteCard(Card card) {
-		// TODO
-	}
-
-	// toString() method that prints out the player's entire tableau,
-	// the player's entire hand, and all of their resources
-=======
-		compost+=1;
-	}
-	*/
-
-	//toString() method that prints out the player's entire tableau,
-	//the player's entire hand, and all of their resources
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
 	@Override
 	public String toString() {
 		String str = "Tableau: \n";
@@ -429,8 +395,7 @@ public class Player {
 	// for printing card information in the player's tableau
 	public String toString(int x, int y) {
 		return tableauList[x][y].toString();
-	}
-<<<<<<< HEAD
+	}<<<<<<<HEAD
 
 	// returns list of cards that can have getMaximumGrowth() applied
 	public ArrayList<Card> getMaxGrowthCards() {
@@ -486,7 +451,5 @@ public class Player {
 		}
 
 		return totalgetSprouts;
-	}
-=======
->>>>>>> 937c8b60c387b304d5c429c830d9c47875821e1d
+	}=======>>>>>>>937 c8b60c387b304d5c429c830d9c47875821e1d
 }
