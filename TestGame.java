@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
+//You may need to install Jupiter/Junit into your XML file for the repos to run this.
+
 public class TestGame {
 
     String input;
