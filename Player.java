@@ -1,3 +1,8 @@
+//
+// Group 3
+// 03/03/23
+// Earth Board Game
+//
 
 import java.util.ArrayList;
 
@@ -41,7 +46,7 @@ public class Player {
 		//for loop that draws the amount of cards as given by island
 		soil+=0; //placeholder. will add soil as given by island
 	}
-	
+  
 	//if the card is already constructed, this can add it to the hand manually
 	void drawCard(Card newCard) {
 		this.handList.add(newCard);

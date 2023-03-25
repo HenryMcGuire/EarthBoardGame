@@ -1,3 +1,8 @@
+//
+// Group 3
+// 03/03/23
+// Earth Board Game
+//
 
 public class Card {
 	private String name;
@@ -20,19 +25,19 @@ public class Card {
 		name = n;
 		type = t;
 		if (type == "Flora") {
-			FloraCard();
+			FloraCard(n, t);
 		} else if (type == "Fauna") {
-			FaunaCard();
+			FaunaCard(n, t);
 		} else if (type == "Island") {
-			IslandCard();
+			IslandCard(n, t);
 		} else if (type == "Climate") {
-			ClimateCard();
+			ClimateCard(n, t);
 		} else if (type == "Earth") {
-			EarthCard();
+			EarthCard(n, t);
 		} else if (type == "Ecosystem") {
-			EcosystemCard();
+			EcosystemCard(n, t);
 		} else if (type == "Event") {
-			EventCard();
+			EventCard(n, t);
 		} else {
 			System.out.println("Card has an invalid type.");
 			System.out.println("Only valid card types are: ");
@@ -43,11 +48,10 @@ public class Card {
 			System.out.println("Earth");
 			System.out.println("Ecosystem");
 			System.out.println("Event");
-
 		}
 	}
 
-	public void FloraCard() { // Creates attributes for a Flora-type card.
+	public void FloraCard(String n, String t) { // Creates attributes for a Flora-type card.
 		int plant_cost;
 		int victory_value;
 		String habitable_elements;
@@ -63,28 +67,28 @@ public class Card {
 		String flavour_text;
 	}
 
-	public void FaunaCard() { // Creates attributes for a Fauna-type card.
+	public void FaunaCard(String n, String t) { // Creates attributes for a Fauna-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void IslandCard() { // Creates attributes for a Island-type card.
+	public void IslandCard(String n, String t) { // Creates attributes for a Island-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void ClimateCard() { // Creates attributes for a Climate-type card.
+	public void ClimateCard(String n, String t) { // Creates attributes for a Climate-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void EarthCard() { // Creates attributes for a Earth-type card.
+	public void EarthCard(String n, String t) { // Creates attributes for a Earth-type card.
 		int plant_cost;
 		int victory_value;
 		String habitable_elements;
@@ -95,14 +99,14 @@ public class Card {
 		String flavour_text;
 	}
 
-	public void EcosystemCard() { // Creates attributes for a Ecosystem-type card.
+	public void EcosystemCard(String n, String t) { // Creates attributes for a Ecosystem-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void EventCard() { // Creates attributes for a Event-type card.
+	public void EventCard(String n, String t) { // Creates attributes for a Event-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
@@ -121,32 +125,17 @@ public class Card {
 					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
 					"Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Fauna") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Island") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Climate") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Earth") {
 			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
 					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
@@ -157,45 +146,20 @@ public class Card {
 					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
 					"Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Ecosystem") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else if (type == "Event") {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
+					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
+					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
 		} else {
-			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
-					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
-					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
-					"Growth space: " + growth_space + "\n" + "Maximum growth number: " +
-					maximum_growth_number + " \n" + "Canopy completion victory points" +
-					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
-					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
-					"Flavour Text: " + flavour_text + "\n";
+			return "This card doesn't fit neatly into any categories.";
 		}
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public int getPlantCost() {
-		return plant_cost;
-	}
-
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o) { // This provides a better version of the default equals method in object.
 		if (o == null || !(o instanceof Card)) {
 			return false;
 		}
@@ -205,47 +169,112 @@ public class Card {
 		return this.name.equals(c.getName());
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String s) {
+		name = s;
+	}
+
+	public int getPlantCost() {
+		return plant_cost;
+	}
+
+	public void setPlantCost(int val) {
+		plant_cost = val;
+	}
+
+	public void addPlantCost(int val) {
+		plant_cost += val;
+	}
+
+	public void subtractPlantCost(int val) {
+		plant_cost -= val;
+	}
+
 	public int getMaximumGrowth() {
 		return maximum_growth_number;
-	}
-
-	public int getGrowth() {
-		return growth_space;
-	}
-
-	public void addGrowth(int val) {
-		growth_space += val;
-	}
-
-	public void setGrowth(int val) {
-		growth_space = val;
-	}
-
-	public int getSprouts() {
-		return numSprouts;
-	}
-
-	public int getMaxSprouts() {
-		return maxSprouts;
 	}
 
 	public void setMaximumGrowth(int val) {
 		maximum_growth_number = val;
 	}
 
-	public void addSprouts(int val) {
-		numSprouts += val;
+	public int getGrowth() {
+		return growth_space;
+	}
+
+	public void setGrowth(int val) {
+		growth_space = val;
+	}
+
+	public void addGrowth(int val) {
+		growth_space += val;
+	}
+
+	public void subtractGrowth(int val) {
+		growth_space -= val;
+	}
+
+	public int getSprouts() {
+		return numSprouts;
 	}
 
 	public void setSprouts(int val) {
 		numSprouts = val;
 	}
 
+	public void addSprouts(int val) {
+		numSprouts += val;
+	}
+
+	public void subtractSprouts(int val) {
+		numSprouts -= val;
+	}
+
 	public int getAbilityColor() {
 		return ability_color;
 	}
 
+	public int getMaxSprouts() {
+		return maxSprouts;
+	}
+
+	public void setMaxSprouts(int val) {
+		maxSprouts = val;
+	}
+
+	public void addMaxSprouts(int val) {
+		maxSprouts += val;
+	}
+
+	public void subtractMaxSprouts(int val) {
+		maxSprouts -= val;
+	}
+
 	public void ability() {
 		// This depends on the card in question.
+	}
+
+	public void generateRandomCard() { // Generates a random card upon request.
+		int rand = (int) (70 * Math.random());
+		String n = "";
+		String t = "";
+		if (rand > 0 && rand <= 10) {
+			FloraCard(n, t);
+		} else if (rand > 10 && rand <= 20) {
+			FaunaCard(n, t);
+		} else if (rand > 20 && rand <= 30) {
+			IslandCard(n, t);
+		} else if (rand > 30 && rand <= 40) {
+			ClimateCard(n, t);
+		} else if (rand > 40 && rand <= 50) {
+			EarthCard(n, t);
+		} else if (rand > 50 && rand <= 60) {
+			EcosystemCard(n, t);
+		} else if (rand > 60 && rand <= 70) {
+			EventCard(n, t);
+		}
 	}
 }
