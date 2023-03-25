@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Player {
 
-	//represents hand, dynamic
+	// represents hand, dynamic
 	ArrayList<Card> handList = new ArrayList<Card>();
-	//represents tableau, rigid positions and sizes
+	// represents tableau, rigid positions and sizes
 	Card[][] tableauList = new Card[4][4];
 	private Card island = null;
 	private Card climate = null;
@@ -15,80 +15,84 @@ public class Player {
 	private int compost = 0;
 	private int tableauTotal = 0;
 	private int score = 0; //
-	
-	//constructor that takes two arguments
-	Player(){
-		//default does nothing
+
+	// constructor that takes two arguments
+	Player() {
+		// default does nothing
 	}
-	
-	Player(Card island, Card climate){
+
+	Player(Card island, Card climate) {
 		this.island = island;
 		this.climate = climate;
 	}
-	
-	Player(Card island, Card climate, Card ecosystem){
+
+	Player(Card island, Card climate, Card ecosystem) {
 		this.island = island;
 		this.climate = climate;
 		this.ecosystem = ecosystem;
 	}
-	
-	//first turn that resolves island ability
+
+	// first turn that resolves island ability
 	void firstTurn() {
-		//for loop that draws the amount of cards as given by island
-		soil+=0; //placeholder. will add soil as given by island
+		// for loop that draws the amount of cards as given by island
+		soil += 0; // placeholder. will add soil as given by island
 	}
-	
-	//if the card is already constructed, this can add it to the hand manually
+
+	// if the card is already constructed, this can add it to the hand manually
 	void addCardToHand(Card newCard) {
 		this.handList.add(newCard);
 	}
-	
-	//plant up to two cards from hand to tableau
-	//first card can be anywhere, subsequent cards must be adjacent to another card
-	//planting requires paying soil cost
-	//asks user for which card to pick from hand, then coordinates for where to put it
-	//increments tableau total for each card planted
-	//then draws 4 cards SEPARATE from drawCard() function, asks user which they want to keep
-	//adds the chosen card to handlist and deletes the other 3
-	void plantAction() {
-		//TODO: user input
-	}
-	
-	//gain 5 soil and 2 compost, doesn't draw any cards
-	void compostAction() {
-		this.soil+=5;
-		this.compost+=2;
-	}
-	
-	//gain 6 temporary getNumSprouts() that can be placed on open sprout spaces
-	//player chooses where to put getNumSprouts() and how many until they run out,
-	//until there's no more sprout spaces, or they decide to end early
-	//remaining temporary getNumSprouts() are lost
-	void waterAction() {
-		this.soil+=2;
-		int tempgetSprouts = 6;
-		//TODO: user input
-	}
-	
-	//draw 4 cards
-	//gain 2 temporary getMaximumGrowth() tokens, user chooses a valid card on tableau to place getMaximumGrowth() and how many
-	//input continues until they run out or there are no more getMaximumGrowth() spaces
-	void growAction() {
-		drawCard();
-		drawCard();
-		drawCard();
-		drawCard();
-		int tempgetMaxGrowth = 2;
-		//TODO: user input
-	}
-	
 
-	//choose a card within the tableau, return card reference
+	// plant up to two cards from hand to tableau
+	// first card can be anywhere, subsequent cards must be adjacent to another card
+	// planting requires paying soil cost
+	// asks user for which card to pick from hand, then coordinates for where to put
+	// it
+	// increments tableau total for each card planted
+	// then draws 4 cards SEPARATE from drawCard() function, asks user which they
+	// want to keep
+	// adds the chosen card to handlist and deletes the other 3
+	void plantAction() {
+		// TODO: user input
+	}
+
+	// gain 5 soil and 2 compost, doesn't draw any cards
+	void compostAction() {
+		this.soil += 5;
+		this.compost += 2;
+	}
+
+	// gain 6 temporary getNumSprouts() that can be placed on open sprout spaces
+	// player chooses where to put getNumSprouts() and how many until they run out,
+	// until there's no more sprout spaces, or they decide to end early
+	// remaining temporary getNumSprouts() are lost
+	void waterAction() {
+		this.soil += 2;
+		int tempgetSprouts = 6;
+		// TODO: user input
+	}
+
+	// draw 4 cards
+	// gain 2 temporary getMaximumGrowth() tokens, user chooses a valid card on
+	// tableau to place getMaximumGrowth() and how many
+	// input continues until they run out or there are no more getMaximumGrowth()
+	// spaces
+	void growAction() {
+		// Climate is a placeholder for a random card here.
+		addCardToHand(climate);
+		addCardToHand(climate);
+		addCardToHand(climate);
+		addCardToHand(climate);
+		int tempgetMaxGrowth = 2;
+		// TODO: user input
+	}
+
+	// choose a card within the tableau, return card reference
 	Card getTableauCard(int x, int y) {
 		return tableauList[x][y];
 	}
-	
-	//choose a card within the hand, return card reference
+
+	// choose a card within the hand, return card reference
 	Card getHandCard(int x) {
 		return handList.get(x);
 	}
@@ -96,58 +100,58 @@ public class Player {
 	ArrayList<Card> getHandList() {
 		return handList;
 	}
-	
-	Card getIsland(){
+
+	Card getIsland() {
 		return this.island;
 	}
-	
+
 	Card getClimate() {
 		return this.climate;
 	}
-	
+
 	void setEvent(Card e) {
 		this.event = e;
-		//TODO: trigger event ability
+		// TODO: trigger event ability
 	}
-	
+
 	Card getEvent() {
 		return this.event;
 	}
-	
+
 	void setEcosystem(Card e) {
 		this.ecosystem = e;
 	}
-	
+
 	Card getEcosystem() {
 		return this.ecosystem;
 	}
-	
-	//scan and count the getNumSprouts()
+
+	// scan and count the getNumSprouts()
 	void countgetSprouts() {
-		//TODO: iterate through tableau and count getNumSprouts() on cards
+		// TODO: iterate through tableau and count getNumSprouts() on cards
 	}
-	
-	//get sprout count, return value
+
+	// get sprout count, return value
 	int getNumSprouts() {
 		return sproutCount;
 	}
-	
-	//remove card from hand by index
+
+	// remove card from hand by index
 	void handRemove(int x) {
 		handList.remove(x);
 	}
 
-	//remove card from hand by Card
+	// remove card from hand by Card
 	void handRemove(Card val) {
 		handList.remove(val);
 	}
 
-	//add a card to tableau
+	// add a card to tableau
 	void tableauAdd(Card card, int x, int y) {
 		tableauList[x][y] = card;
 	}
 
-	//returns whether the tableau is full or not
+	// returns whether the tableau is full or not
 	boolean tableauFull() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -159,159 +163,160 @@ public class Player {
 
 		return true;
 	}
-	
-	//remove a card from tableau
+
+	// remove a card from tableau
 	void tableauRemove() {
-		
+
 	}
-	
-	//add getNumSprouts() to a card
-	//requires coordinates and amount
+
+	// add getNumSprouts() to a card
+	// requires coordinates and amount
 	void addgetSprouts(int amount, int x, int y) {
-		tableauList[x][y].setNumSprouts(tableauList[x][y].getNumSprouts()+=amount);
-		if(tableauList[x][y].getNumSprouts() > tableauList[x][y].sproutMax) {
-			tableauList[x][y].getNumSprouts() = tableauList[x][y].sproutMax;
+		tableauList[x][y].setNumSprouts(tableauList[x][y].getNumSprouts() + amount);
+		if (tableauList[x][y].getNumSprouts() > tableauList[x][y].getMaximumSprouts()) {
+			tableauList[x][y].setNumSprouts(tableauList[x][y].getMaximumSprouts());
 		}
 	}
-	
-	//subtract getNumSprouts() from a card
-	//requires coordinates and amount
+
+	// subtract getNumSprouts() from a card
+	// requires coordinates and amount
 	void removegetSprouts(int amount, int x, int y) {
-		tableauList[x][y].getNumSprouts() -= amount;
-		if(tableauList[x][y].getNumSprouts() < 0) {
-			tableauList[x][y].getNumSprouts() = 0;
+		tableauList[x][y].setNumSprouts(tableauList[x][y].getNumSprouts() - amount);
+		if (tableauList[x][y].getNumSprouts() < 0) {
+			tableauList[x][y].setNumSprouts(0);
 		}
 	}
-	//placeholder code, adjust with card class if necessary
-	
-	//add getMaximumGrowth() to a card
-	//requires coordinates and amount
+	// placeholder code, adjust with card class if necessary
+
+	// add getMaximumGrowth() to a card
+	// requires coordinates and amount
 	void addgetMaxGrowth(int amount, int x, int y) {
-		tableauList[x][y].getMaximumGrowth() += amount;
-		if(tableauList[x][y].getMaximumGrowth() > tableauList[x][y].getMaximumGrowth()()) {
-			tableauList[x][y].getMaximumGrowth() = tableauList[x][y].getMaximumGrowth()();
+		tableauList[x][y].setMaximumGrowth(tableauList[x][y].getMaximumGrowth() + amount);
+		if (tableauList[x][y].getMaximumGrowth() > tableauList[x][y].getMaximumGrowth()) {
+			tableauList[x][y].setMaximumGrowth(tableauList[x][y].getMaximumGrowth());
 		}
 	}
-	
-	//remove getMaximumGrowth() from a card
-	//requires coordinates and amount
+
+	// remove getMaximumGrowth() from a card
+	// requires coordinates and amount
 	void removegetMaxGrowth(int amount, int x, int y) {
-		tableauList[x][y].getMaximumGrowth() -= amount;
-		if(tableauList[x][y].getMaximumGrowth() < 0) {
-			tableauList[x][y].getMaximumGrowth() = 0;
+		tableauList[x][y].setMaximumGrowth(tableauList[x][y].getMaximumGrowth() - amount);
+		if (tableauList[x][y].getMaximumGrowth() < 0) {
+			tableauList[x][y].setMaximumGrowth(0);
 		}
 	}
 
 	public void addSoil(int value) {
 		soil += value;
 	}
-	
+
 	public int getSoil() {
-        return soil;
-    }
+		return soil;
+	}
 
 	public void addCompost(int value) {
 		compost += value;
 	}
 
-    public int getCompost() {
-        return compost;
-    }
-	
-    public int getTotal() {
-        return tableauTotal;
-    }
+	public int getCompost() {
+		return compost;
+	}
 
-    public int getScore() {
-    	//TODO: Tallying score by iterating through tableau
-        return score;
-    }
-    
-	//resolve abilities
-	//takes an action color as an argument, called upon when other players do their action
-	//iterates through the tableau checking if that card matches the action color
-	//asks user if they'd like to use the ability when it finds a valid card
-    //may be obsolete from what game.java uses
+	public int getTotal() {
+		return tableauTotal;
+	}
+
+	public int getScore() {
+		// TODO: Tallying score by iterating through tableau
+		return score;
+	}
+
+	// resolve abilities
+	// takes an action color as an argument, called upon when other players do their
+	// action
+	// iterates through the tableau checking if that card matches the action color
+	// asks user if they'd like to use the ability when it finds a valid card
+	// may be obsolete from what game.java uses
 	void resolveAbilities(int action) {
-		//1 = plant action 2 = compost action 3 = water action 4 = grow action
-		switch(action) {
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
+		// 1 = plant action 2 = compost action 3 = water action 4 = grow action
+		switch (action) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
 		}
 	}
-	
-	//use an ability
-	//input 1 argument for a hand position
+
+	// use an ability
+	// input 1 argument for a hand position
 	void useAbility(int x) {
-		handList.get(x).ability(); //placeholder call, change to whatever the real class uses
+		handList.get(x).ability(); // placeholder call, change to whatever the real class uses
 	}
-	
-	//input 2 arguments for a tableau position
+
+	// input 2 arguments for a tableau position
 	void useAbility(int x, int y) {
-		tableauList[x][y].ability(); //placeholder call, change to whatever the real class uses
+		tableauList[x][y].ability(); // placeholder call, change to whatever the real class uses
 	}
-	
-	//removes card from specified hand coordinate, deletes it, and adds a compost point
+
+	// removes card from specified hand coordinate, deletes it, and adds a compost
+	// point
 	void compostCard(int x) {
 		Card temp = handList.get(x);
 		handList.remove(x);
 		deleteCard(temp);
-		compost+=1;
+		compost += 1;
 	}
-	
-	//delete a card from memory, might be obsolete later
+
+	// delete a card from memory, might be obsolete later
 	void deleteCard(Card card) {
-		//TODO
+		// TODO
 	}
-	
-	//toString() method that prints out the player's entire tableau,
-	//the player's entire hand, and all of their resources
+
+	// toString() method that prints out the player's entire tableau,
+	// the player's entire hand, and all of their resources
 	@Override
 	public String toString() {
 		String str = "Tableau: \n";
-		//tableau should appear like:
+		// tableau should appear like:
 		// "Name, Name, ____, Name"
 		// "____, Name, Name, ____" etc.
-		for(int r = 0; r<4; r++) { //row
-			for (int c = 0; r<4; c++) { //column
-				if(tableauList[r][c]!= null) {
-					str+=tableauList[r][c].getName();
+		for (int r = 0; r < 4; r++) { // row
+			for (int c = 0; r < 4; c++) { // column
+				if (tableauList[r][c] != null) {
+					str += tableauList[r][c].getName();
+				} else {
+					str += "____";
 				}
-				else {
-					str+="____";
-				}
-				if(r < 3) {
-					str+=", ";
+				if (r < 3) {
+					str += ", ";
 				}
 			}
 			str += "\n";
 		}
-		//hand should appear like:
+		// hand should appear like:
 		// "Name, Name, Name, Name, Name"
 		String str2 = "Hand: \n";
-		for(int i=0; i<handList.size(); i++) {
-			str2+=handList.get(i).getName();
-			if(i<handList.size()-1) {
-				str2+=", ";
+		for (int i = 0; i < handList.size(); i++) {
+			str2 += handList.get(i).getName();
+			if (i < handList.size() - 1) {
+				str2 += ", ";
 			}
 		}
-		//resources
-		String str3 = ("Resources: " +soil+" Soil, " +compost+ " Compost, " +sproutCount+ " getNumSprouts()");
-		return str+str2+str3;
+		// resources
+		String str3 = ("Resources: " + soil + " Soil, " + compost + " Compost, " + sproutCount + " getNumSprouts()");
+		return str + str2 + str3;
 	}
-	
-	//for printing card information in the player's hand
+
+	// for printing card information in the player's hand
 	public String toString(int x) {
 		return handList.get(x).toString();
 	}
-	
-	//for printing card information in the player's tableau
+
+	// for printing card information in the player's tableau
 	public String toString(int x, int y) {
 		return tableauList[x][y].toString();
 	}
@@ -319,10 +324,9 @@ public class Player {
 	// returns list of cards that can have getMaximumGrowth() applied
 	public ArrayList<Card> getMaxGrowthCards() {
 		ArrayList<Card> getMaxGrowthCards = new ArrayList<Card>();
-		
+
 		for (Card[] row : tableauList) {
-			for (Card c : row) 
-			{
+			for (Card c : row) {
 				if (c.getMaximumGrowth() > 0 && c.getMaximumGrowth() > c.getMaximumGrowth()) {
 					getMaxGrowthCards.add(c);
 				}
@@ -332,13 +336,12 @@ public class Player {
 		return getMaxGrowthCards;
 	}
 
-	// returns the total number of getMaximumGrowth() on tableau cards 
+	// returns the total number of getMaximumGrowth() on tableau cards
 	public int getTotalGrowth() {
 		int totalgetMaxGrowth = 0;
 
 		for (Card[] row : tableauList) {
-			for (Card c : row) 
-			{
+			for (Card c : row) {
 				totalgetMaxGrowth += c.getMaximumGrowth();
 			}
 		}
@@ -349,10 +352,9 @@ public class Player {
 	// returns list of cards that can have getNumSprouts() applied
 	public ArrayList<Card> getSproutCards() {
 		ArrayList<Card> sproutCards = new ArrayList<Card>();
-		
+
 		for (Card[] row : tableauList) {
-			for (Card c : row) 
-			{
+			for (Card c : row) {
 				if (c.getMaximumSprouts() > 0 && c.getMaximumSprouts() > c.getNumSprouts()) {
 					sproutCards.add(c);
 				}
@@ -367,8 +369,7 @@ public class Player {
 		int totalgetSprouts = 0;
 
 		for (Card[] row : tableauList) {
-			for (Card c : row) 
-			{
+			for (Card c : row) {
 				totalgetSprouts += c.getNumSprouts();
 			}
 		}
@@ -376,4 +377,3 @@ public class Player {
 		return totalgetSprouts;
 	}
 }
-
