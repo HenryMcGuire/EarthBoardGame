@@ -21,11 +21,11 @@ public class TestGame {
         in = new Scanner(input);
 
         int choice;
-        
+
         try (PrintStream out = new PrintStream(baos, true, utf8)) {
-            choice = Game.getChoice(in, out, "", new String[]{}, "Enter 0: ", 0, 0);
+            choice = Game.getChoice(in, out, "", new String[] {}, "Enter 0: ", 0, 0);
         }
-        
+
         String output = baos.toString(utf8);
 
         assertTrue(choice == 0);
@@ -42,11 +42,11 @@ public class TestGame {
         cards.add(c);
 
         int choice;
-        
+
         try (PrintStream out = new PrintStream(baos, true, utf8)) {
             choice = Game.getCardChoice(in, out, "", cards, "Enter 0: ", 0, 0);
         }
-        
+
         String output = baos.toString(utf8);
 
         assertTrue(choice == 0);
@@ -73,7 +73,7 @@ public class TestGame {
     @Test
     public void testActiveCompost() throws IOException {
         Player p = new Player();
-        
+
         try (PrintStream out = new PrintStream(baos, true, utf8)) {
             Game.activeCompost(out, p);
         }
@@ -82,23 +82,23 @@ public class TestGame {
         assertTrue(p.getCompost() == 2);
     }
 
-    @Test 
+    @Test
     public void testSecondaryCompost() throws IOException {
         Player p = new Player();
 
         input = "1\n";
         in = new Scanner(input);
-        
+
         try (PrintStream out = new PrintStream(baos, true, utf8)) {
             Game.secondaryCompost(in, out, p);
         }
 
         assertTrue(p.getSoil() == 2);
         assertTrue(p.getCompost() == 0);
-        
+
         input = "2\n";
         in = new Scanner(input);
-        
+
         try (PrintStream out = new PrintStream(baos, true, utf8)) {
             Game.secondaryCompost(in, out, p);
         }

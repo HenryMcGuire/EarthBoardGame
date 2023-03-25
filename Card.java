@@ -1,3 +1,8 @@
+//
+// Group 3
+// 03/03/23
+// Earth Board Game
+//
 
 public class Card {
 	private String name;
@@ -43,7 +48,6 @@ public class Card {
 			System.out.println("Earth");
 			System.out.println("Ecosystem");
 			System.out.println("Event");
-
 		}
 	}
 

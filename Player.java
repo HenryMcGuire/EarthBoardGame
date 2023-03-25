@@ -1,3 +1,8 @@
+//
+// Group 3
+// 03/03/23
+// Earth Board Game
+//
 
 import java.util.ArrayList;
 
