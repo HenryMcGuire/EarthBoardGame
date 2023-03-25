@@ -193,6 +193,8 @@ public class Game {
 
                 out.println();
 
+                // NEED TO ADD IMPLEMENTATION OF SCORING VIA FAUNA CARDS
+
                 for (int j = i; j < i + playerCount; j++) {
                     Player player = players.get(j % playerCount);
                     out.println("Player " + (j % playerCount + 1) + " it is your turn to activate cards.");
