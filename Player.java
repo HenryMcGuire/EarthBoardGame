@@ -166,11 +166,6 @@ public class Player {
 		handList.remove(val);
 	}
 
-	// add a card to tableau
-	void tableauAdd(Card card, int x, int y) {
-		tableauList[x][y] = card;
-	}
-
 	// returns whether the tableau is full or not
 	boolean tableauFull() {
 		for (int i = 0; i < 4; i++) {
@@ -249,7 +244,7 @@ public class Player {
 	// requires coordinates and amount
 	void removeSprouts(int amount, int x, int y) {
 		tableauList[x][y].sprouts -= amount;
-		if (tableauList[x][y].sprouts < 0) {
+		if (tableauList[x][y].getNumSprouts() < 0) {
 			tableauList[x][y].sprouts = 0;
 		}
 	}
@@ -258,18 +253,18 @@ public class Player {
 	// add growth to a card
 	// requires coordinates and amount
 	void addGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth += amount;
-		if (tableauList[x][y].growth > tableauList[x][y].growthMax) {
-			tableauList[x][y].growth = tableauList[x][y].growthMax;
+		tableauList[x][y].getGrowthSpace() += amount;
+		if (tableauList[x][y].getGrowthSpace() > tableauList[x][y].getGrowthSpace()) {
+			tableauList[x][y].getGrowthSpace() = tableauList[x][y].getGrowthSpace();
 		}
 	}
 
 	// remove growth from a card
 	// requires coordinates and amount
 	void removeGrowth(int amount, int x, int y) {
-		tableauList[x][y].growth -= amount;
-		if (tableauList[x][y].growth < 0) {
-			tableauList[x][y].growth = 0;
+		tableauList[x][y].getGrowthSpace() -= amount;
+		if (tableauList[x][y].getGrowthSpace() < 0) {
+			tableauList[x][y].getGrowthSpace() = 0;
 		}
 	}
 
