@@ -105,7 +105,14 @@ public class Player {
 	
 	//get sprout count, return value
 	int getSprouts() {
+		this.countSprouts();
 		return sproutCount;
+	}
+
+	//get growth count, return value
+	int getMaximumGrowth(){
+		this.countGrowth();
+		return growthCount;
 	}
 	
 	//add card to hand
