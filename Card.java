@@ -240,6 +240,6 @@ public class Card {
 	}
 
 	public void ability() {
-
+		// This depends on the card in question.
 	}
 }
