@@ -158,14 +158,6 @@ public class Card {
 		}
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public int getPlantCost() {
-		return plant_cost;
-	}
-
 	@Override
 	public boolean equals(Object o) { // This provides a better version of the default equals method in object.
 		if (o == null || !(o instanceof Card)) {
@@ -177,44 +169,88 @@ public class Card {
 		return this.name.equals(c.getName());
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String s) {
+		name = s;
+	}
+
+	public int getPlantCost() {
+		return plant_cost;
+	}
+
+	public void setPlantCost(int val) {
+		plant_cost = val;
+	}
+
+	public void addPlantCost(int val) {
+		plant_cost += val;
+	}
+
+	public void subtractPlantCost(int val) {
+		plant_cost -= val;
+	}
+
 	public int getMaximumGrowth() {
 		return maximum_growth_number;
-	}
-
-	public int getGrowth() {
-		return growth_space;
-	}
-
-	public void addGrowth(int val) {
-		growth_space += val;
-	}
-
-	public void setGrowth(int val) {
-		growth_space = val;
-	}
-
-	public int getSprouts() {
-		return numSprouts;
-	}
-
-	public int getMaxSprouts() {
-		return maxSprouts;
 	}
 
 	public void setMaximumGrowth(int val) {
 		maximum_growth_number = val;
 	}
 
-	public void addSprouts(int val) {
-		numSprouts += val;
+	public int getGrowth() {
+		return growth_space;
+	}
+
+	public void setGrowth(int val) {
+		growth_space = val;
+	}
+
+	public void addGrowth(int val) {
+		growth_space += val;
+	}
+
+	public void subtractGrowth(int val) {
+		growth_space -= val;
+	}
+
+	public int getSprouts() {
+		return numSprouts;
 	}
 
 	public void setSprouts(int val) {
 		numSprouts = val;
 	}
 
+	public void addSprouts(int val) {
+		numSprouts += val;
+	}
+
+	public void subtractSprouts(int val) {
+		numSprouts -= val;
+	}
+
 	public int getAbilityColor() {
 		return ability_color;
+	}
+
+	public int getMaxSprouts() {
+		return maxSprouts;
+	}
+
+	public void setMaxSprouts(int val) {
+		maxSprouts = val;
+	}
+
+	public void addMaxSprouts(int val) {
+		maxSprouts += val;
+	}
+
+	public void subtractMaxSprouts(int val) {
+		maxSprouts -= val;
 	}
 
 	public void ability() {
