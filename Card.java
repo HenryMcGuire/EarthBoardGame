@@ -25,19 +25,19 @@ public class Card {
 		name = n;
 		type = t;
 		if (type == "Flora") {
-			FloraCard();
+			FloraCard(n, t);
 		} else if (type == "Fauna") {
-			FaunaCard();
+			FaunaCard(n, t);
 		} else if (type == "Island") {
-			IslandCard();
+			IslandCard(n, t);
 		} else if (type == "Climate") {
-			ClimateCard();
+			ClimateCard(n, t);
 		} else if (type == "Earth") {
-			EarthCard();
+			EarthCard(n, t);
 		} else if (type == "Ecosystem") {
-			EcosystemCard();
+			EcosystemCard(n, t);
 		} else if (type == "Event") {
-			EventCard();
+			EventCard(n, t);
 		} else {
 			System.out.println("Card has an invalid type.");
 			System.out.println("Only valid card types are: ");
@@ -51,7 +51,7 @@ public class Card {
 		}
 	}
 
-	public void FloraCard() { // Creates attributes for a Flora-type card.
+	public void FloraCard(String n, String t) { // Creates attributes for a Flora-type card.
 		int plant_cost;
 		int victory_value;
 		String habitable_elements;
@@ -67,28 +67,28 @@ public class Card {
 		String flavour_text;
 	}
 
-	public void FaunaCard() { // Creates attributes for a Fauna-type card.
+	public void FaunaCard(String n, String t) { // Creates attributes for a Fauna-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void IslandCard() { // Creates attributes for a Island-type card.
+	public void IslandCard(String n, String t) { // Creates attributes for a Island-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void ClimateCard() { // Creates attributes for a Climate-type card.
+	public void ClimateCard(String n, String t) { // Creates attributes for a Climate-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void EarthCard() { // Creates attributes for a Earth-type card.
+	public void EarthCard(String n, String t) { // Creates attributes for a Earth-type card.
 		int plant_cost;
 		int victory_value;
 		String habitable_elements;
@@ -99,14 +99,14 @@ public class Card {
 		String flavour_text;
 	}
 
-	public void EcosystemCard() { // Creates attributes for a Ecosystem-type card.
+	public void EcosystemCard(String n, String t) { // Creates attributes for a Ecosystem-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
 		String flavour_text;
 	}
 
-	public void EventCard() { // Creates attributes for a Event-type card.
+	public void EventCard(String n, String t) { // Creates attributes for a Event-type card.
 		String scientific_name;
 		int ability_color;
 		String ability;
@@ -259,20 +259,22 @@ public class Card {
 
 	public void generateRandomCard() { // Generates a random card upon request.
 		int rand = (int) (70 * Math.random());
+		String n = "";
+		String t = "";
 		if (rand > 0 && rand <= 10) {
-			FloraCard();
+			FloraCard(n, t);
 		} else if (rand > 10 && rand <= 20) {
-			FaunaCard();
+			FaunaCard(n, t);
 		} else if (rand > 20 && rand <= 30) {
-			IslandCard();
+			IslandCard(n, t);
 		} else if (rand > 30 && rand <= 40) {
-			ClimateCard();
+			ClimateCard(n, t);
 		} else if (rand > 40 && rand <= 50) {
-			EarthCard();
+			EarthCard(n, t);
 		} else if (rand > 50 && rand <= 60) {
-			EcosystemCard();
+			EcosystemCard(n, t);
 		} else if (rand > 60 && rand <= 70) {
-			EventCard();
+			EventCard(n, t);
 		}
 	}
 }
