@@ -193,8 +193,8 @@ public class Player {
 	// add getNumSprouts() to a card
 	// requires coordinates and amount
 	void addgetSprouts(int amount, int x, int y) {
-		tableauList[x][y].setNumSprouts(tableauList[x][y].getNumSprouts() + amount);
-		if (tableauList[x][y].getNumSprouts() > tableauList[x][y].getMaximumSprouts()) {
+		tableauList[x][y].setNumSprouts(tableauList[x][y].getSprouts() + amount);
+		if (tableauList[x][y].getSprouts() > tableauList[x][y].getMaximumSprouts()) {
 			tableauList[x][y].setNumSprouts(tableauList[x][y].getMaximumSprouts());
 		}
 	}
@@ -202,8 +202,8 @@ public class Player {
 	// subtract getNumSprouts() from a card
 	// requires coordinates and amount
 	void removegetSprouts(int amount, int x, int y) {
-		tableauList[x][y].setNumSprouts(tableauList[x][y].getNumSprouts() - amount);
-		if (tableauList[x][y].getNumSprouts() < 0) {
+		tableauList[x][y].setNumSprouts(tableauList[x][y].getSprouts() - amount);
+		if (tableauList[x][y].getSprouts() < 0) {
 			tableauList[x][y].setNumSprouts(0);
 		}
 	}
@@ -234,18 +234,18 @@ public class Player {
 	// add sprouts to a card
 	// requires coordinates and amount
 	void addSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts += amount;
-		if (tableauList[x][y].sprouts > tableauList[x][y].sproutMax) {
-			tableauList[x][y].sprouts = tableauList[x][y].sproutMax;
+		tableauList[x][y].getSprouts() += amount;
+		if (tableauList[x][y].getSprouts() > tableauList[x][y].sproutMax) {
+			tableauList[x][y].getSprouts() = tableauList[x][y].sproutMax;
 		}
 	}
 
 	// subtract sprouts from a card
 	// requires coordinates and amount
 	void removeSprouts(int amount, int x, int y) {
-		tableauList[x][y].sprouts -= amount;
-		if (tableauList[x][y].getNumSprouts() < 0) {
-			tableauList[x][y].sprouts = 0;
+		tableauList[x][y].setSprouts(tableauList[x][y].getSprouts() - amount);
+		if (tableauList[x][y].getSprouts() < 0) {
+			tableauList[x][y].setSprouts(0);
 		}
 	}
 	// placeholder code, adjust with card class if necessary
@@ -397,7 +397,7 @@ public class Player {
 
 		for (Card[] row : tableauList) {
 			for (Card c : row) {
-				if (c.getMaximumSprouts() > 0 && c.getMaximumSprouts() > c.getNumSprouts()) {
+				if (c.getMaximumSprouts() > 0 && c.getMaximumSprouts() > c.getSprouts()) {
 					sproutCards.add(c);
 				}
 			}
@@ -412,7 +412,7 @@ public class Player {
 
 		for (Card[] row : tableauList) {
 			for (Card c : row) {
-				totalgetSprouts += c.getNumSprouts();
+				totalgetSprouts += c.getSprouts();
 			}
 		}
 

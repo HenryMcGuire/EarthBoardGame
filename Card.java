@@ -207,7 +207,7 @@ public class Card {
 		return maximum_growth_number;
 	}
 
-	public int getGrowthSpace() {
+	public int getGrowth() {
 		return growth_space;
 	}
 
@@ -215,7 +215,11 @@ public class Card {
 		growth_space += val;
 	}
 
-	public int getNumSprouts() {
+	public void setGrowth(int val) {
+		growth_space = val;
+	}
+
+	public int getSprouts() {
 		return numSprouts;
 	}
 
@@ -231,7 +235,7 @@ public class Card {
 		numSprouts += val;
 	}
 
-	public void setNumSprouts(int val) {
+	public void setSprouts(int val) {
 		numSprouts = val;
 	}
 
