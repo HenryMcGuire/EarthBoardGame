@@ -193,18 +193,18 @@ public class Player {
 	// add getNumSprouts() to a card
 	// requires coordinates and amount
 	void addgetSprouts(int amount, int x, int y) {
-		tableauList[x][y].setNumSprouts(tableauList[x][y].getSprouts() + amount);
-		if (tableauList[x][y].getSprouts() > tableauList[x][y].getMaximumSprouts()) {
-			tableauList[x][y].setNumSprouts(tableauList[x][y].getMaximumSprouts());
+		tableauList[x][y].setSprouts(tableauList[x][y].getSprouts() + amount);
+		if (tableauList[x][y].getSprouts() > tableauList[x][y].getMaxSprouts()) {
+			tableauList[x][y].setSprouts(tableauList[x][y].getMaxSprouts());
 		}
 	}
 
 	// subtract getNumSprouts() from a card
 	// requires coordinates and amount
 	void removegetSprouts(int amount, int x, int y) {
-		tableauList[x][y].setNumSprouts(tableauList[x][y].getSprouts() - amount);
+		tableauList[x][y].setSprouts(tableauList[x][y].getSprouts() - amount);
 		if (tableauList[x][y].getSprouts() < 0) {
-			tableauList[x][y].setNumSprouts(0);
+			tableauList[x][y].setSprouts(0);
 		}
 	}
 	// placeholder code, adjust with card class if necessary
@@ -234,9 +234,9 @@ public class Player {
 	// add sprouts to a card
 	// requires coordinates and amount
 	void addSprouts(int amount, int x, int y) {
-		tableauList[x][y].getSprouts() += amount;
-		if (tableauList[x][y].getSprouts() > tableauList[x][y].sproutMax) {
-			tableauList[x][y].getSprouts() = tableauList[x][y].sproutMax;
+		tableauList[x][y].setSprouts(tableauList[x][y].getSprouts() + amount);
+		if (tableauList[x][y].getSprouts() > tableauList[x][y].getMaxSprouts()) {
+			tableauList[x][y].setSprouts(tableauList[x][y].getMaxSprouts());
 		}
 	}
 
@@ -397,7 +397,7 @@ public class Player {
 
 		for (Card[] row : tableauList) {
 			for (Card c : row) {
-				if (c.getMaximumSprouts() > 0 && c.getMaximumSprouts() > c.getSprouts()) {
+				if (c.getMaxSprouts() > 0 && c.getMaxSprouts() > c.getSprouts()) {
 					sproutCards.add(c);
 				}
 			}

@@ -603,7 +603,7 @@ public class Game {
         int emptySpots = 0;
 
         for (Card c : cardChoices) {
-            emptySpots = c.getMaximumSprouts() - c.getSprouts();
+            emptySpots = c.getMaxSprouts() - c.getSprouts();
         }
 
         while (true) {
@@ -616,7 +616,7 @@ public class Game {
 
             for (Card c : cardChoices) {
 
-                if (c.getMaximumSprouts() - c.getSprouts() > 0) {
+                if (c.getMaxSprouts() - c.getSprouts() > 0) {
                     emptySpots += c.getSprouts();
                     subCards.add(c);
                 }
@@ -633,7 +633,7 @@ public class Game {
                     1, subCards.size());
             Card cardSelection = subCards.get(cardIndex);
 
-            int empty = cardSelection.getMaximumSprouts() - cardSelection.getSprouts();
+            int empty = cardSelection.getMaxSprouts() - cardSelection.getSprouts();
             int max = Integer.min(empty, numSprouts);
 
             int addCount = getPlayerChoice("", new String[] {},

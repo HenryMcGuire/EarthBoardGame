@@ -223,7 +223,7 @@ public class Card {
 		return numSprouts;
 	}
 
-	public int getMaximumSprouts() {
+	public int getMaxSprouts() {
 		return maxSprouts;
 	}
 
