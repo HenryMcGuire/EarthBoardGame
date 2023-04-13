@@ -243,6 +243,10 @@ public class Player {
 		return tableauTotal;
 	}
 
+	public void addScore(int value) {
+		score += value;
+	}
+
 	public int getScore() {
 		// TODO: Tallying score by iterating through tableau
 		return score;
