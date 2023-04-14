@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
+//You may need to install Jupiter/Junit into your XML file for the repos to run this.
+
 public class TestGame {
 
     String input;
@@ -51,19 +53,6 @@ public class TestGame {
 
         assertTrue(choice == 0);
         assertTrue(output.toString().contains("Invalid input! Try again!"));
-    }
-
-    @Test
-    public void testDrawCard() {
-        ArrayList<Card> deck = new ArrayList<>();
-        Card c1 = new Card("Test", "Flora");
-        Card c2 = new Card("ing", "Flora");
-        deck.add(c1);
-        deck.add(c2);
-
-        Card c = Game.drawCard(deck);
-        assertTrue(c == c1 || c == c2);
-        assertFalse(deck.contains(c));
     }
 
     // Active plant needed

@@ -1,18 +1,18 @@
-//
-// Group 3
-// 03/03/23
-// Earth Board Game
-//
-
 import java.util.Scanner;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/*
+ * Game
+ * 
+ * Handles the game flow of EARTH.
+ */
 public class Game {
-    private static ArrayList<Card> faunaCards = new ArrayList<>();
-    private static ArrayList<Card> islandCards = new ArrayList<>();
-    private static ArrayList<Card> climateCards = new ArrayList<>();
-    private static ArrayList<Card> earthCards = new ArrayList<>();
+    private static Deck faunaDeck;
+    private static Deck islandDeck;
+    private static Deck climateDeck;
+    private static Deck earthDeck;
 
     private final static int PLANT = 1,
             COMPOST = 2,
@@ -59,7 +59,15 @@ public class Game {
         out.println();
 
         // Initialization of cards
-        initializeCards();
+        try {
+            faunaDeck = new Deck("fauna.csv");
+            islandDeck = new Deck("island.csv");
+            climateDeck = new Deck("climate.csv");
+            earthDeck = new Deck("earth.csv");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Pick and display fauna
         int faunaCount = 4;
@@ -67,7 +75,7 @@ public class Game {
         out.println("Fauna Cards: ");
 
         for (int i = 0; i < faunaCount; i++) {
-            Card toAdd = drawCard(faunaCards);
+            Card toAdd = faunaDeck.draw();
             fauna[i] = toAdd;
             out.println(toAdd.toString());
         }
@@ -83,11 +91,11 @@ public class Game {
             ArrayList<Card> climateChoices = new ArrayList<>();
 
             for (int j = 0; j < islandCount; j++) {
-                islandChoices.add(drawCard(islandCards));
+                islandChoices.add(islandDeck.draw());
             }
 
             for (int j = 0; j < climateCount; j++) {
-                climateChoices.add(drawCard(climateCards));
+                climateChoices.add(climateDeck.draw());
             }
 
             int islandIndex = getCardChoice(in, out, "Player " + (i + 1) + "'s choices for island cards: ",
@@ -97,7 +105,7 @@ public class Game {
             // Add unselected cards back to deck
             for (Card c : islandChoices) {
                 if (c != islandSelection) {
-                    islandCards.add(c);
+                    islandDeck.add(c);
                 }
             }
 
@@ -110,7 +118,7 @@ public class Game {
             // Add unselected cards back to deck
             for (Card c : climateChoices) {
                 if (c != climateSelection) {
-                    climateCards.add(c);
+                    climateDeck.add(c);
                 }
             }
 
@@ -198,6 +206,8 @@ public class Game {
 
                 out.println();
 
+                // NEED TO ADD IMPLEMENTATION OF SCORING VIA FAUNA CARDS
+
                 for (int j = i; j < i + playerCount; j++) {
                     Player player = players.get(j % playerCount);
                     out.println("Player " + (j % playerCount + 1) + " it is your turn to activate cards.");
@@ -222,85 +232,18 @@ public class Game {
         out.close();
     }
 
-    // Initializes all decks
-    private static void initializeCards() {
-        /*
-         * To be added
-         * for (Card c : cards) {
-         * switch(c.getType()) {
-         * case "Fauna":
-         * faunaCards.add(c);
-         * break;
-         * case "Island":
-         * islandCards.add(c);
-         * break;
-         * case "Climate":
-         * climateCards.add(c);
-         * break;
-         * case "Earth":
-         * earthCards.add(c);
-         * break;
-         * }
-         * }
-         */
-        // Hardcoded
-        // Fauna
-        faunaCards.add(new Card("Pale-Billed Woodpecker", "Fauna"));
-        faunaCards.add(new Card("King Penguin", "Fauna"));
-        faunaCards.add(new Card("King Penguin", "Fauna"));
-        faunaCards.add(new Card("Brown Bear", "Fauna"));
-        faunaCards.add(new Card("Kingfisher", "Fauna"));
-        faunaCards.add(new Card("Siberian Tiger", "Fauna"));
-        faunaCards.add(new Card("Red-Eyed Tree Frog", "Fauna"));
-        faunaCards.add(new Card("European Mole", "Fauna"));
-
-        // Island
-        islandCards.add(new Card("Barren", "Island"));
-        islandCards.add(new Card("Metis Shoal Island", "Island"));
-        islandCards.add(new Card("Whakaari", "Island"));
-        islandCards.add(new Card("New Guinea", "Island"));
-        islandCards.add(new Card("Hawai'i", "Island"));
-        islandCards.add(new Card("Maui", "Island"));
-        islandCards.add(new Card("O'ahu", "Island"));
-        islandCards.add(new Card("Mindanao", "Island"));
-        islandCards.add(new Card("Majoraca", "Island"));
-        islandCards.add(new Card("Euboea", "Island"));
-        islandCards.add(new Card("Viti Levu", "Island"));
-
-        // Climate
-        climateCards.add(new Card("Semi-Arid", "Climate"));
-        climateCards.add(new Card("Oceanic", "Climate"));
-        climateCards.add(new Card("Dry Winter Subpolar Oceanic", "Climate"));
-        climateCards.add(new Card("Dry Winter Subtropical Highland", "Climate"));
-        climateCards.add(new Card("Desert", "Climate"));
-        climateCards.add(new Card("Tundra", "Climate"));
-        climateCards.add(new Card("Rainforest", "Climate"));
-        climateCards.add(new Card("Tropical Savanna", "Climate"));
-        climateCards.add(new Card("Boreal", "Climate"));
-        climateCards.add(new Card("Mediterranean", "Climate"));
-        climateCards.add(new Card("Tropical Oasis", "Climate"));
-
-        // Earth
-        earthCards.add(new Card("Canary Island Palm", "Earth"));
-        earthCards.add(new Card("Reed Canary Grass", "Earth"));
-        earthCards.add(new Card("Red Cage Fungus", "Earth"));
-        earthCards.add(new Card("Venus Fly Trap", "Earth"));
-        earthCards.add(new Card("Milk-Cap", "Earth"));
-        earthCards.add(new Card("Sensitive Plant", "Earth"));
-        earthCards.add(new Card("Giant Puffball", "Earth"));
-        earthCards.add(new Card("Shaggy Mane", "Earth"));
-        earthCards.add(new Card("Dragon Sprouts", "Earth"));
-        earthCards.add(new Card("Avocado Tree", "Earth"));
-        earthCards.add(new Card("Dwarf Willow", "Earth"));
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                earthCards.add(earthCards.get(i));
-            }
-        }
-    }
-
-    // Outputs options to the user and returns the users selection
+    /*
+     * Outputs options to the user and returns the users selection
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param header The message to provide the user before the options are displayed.
+     * @param options The list of options for the user to choose from.
+     * @param prompt The message to provide the user after the options are displayed.
+     * @param min The minimum acceptable value.
+     * @param max The maximum acceptable value.
+     * @return choice The users choice from the options provided.
+     */
     protected static int getChoice(Scanner in, PrintStream out, String header, String[] options, String prompt, int min,
             int max) {
         int choice;
@@ -319,7 +262,8 @@ public class Game {
 
             if (validChoice(choice, min, max)) {
                 break;
-            } else {
+            } 
+            else {
                 out.println("Invalid input! Try again!");
             }
         }
@@ -327,7 +271,18 @@ public class Game {
         return choice;
     }
 
-    // Outputs card options to the user and returns the users selection
+    /*
+     * Outputs card options to the user and returns the users selection
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param header The message to provide the user before the options are displayed.
+     * @param cards The list of cards for the user to choose from.
+     * @param prompt The message to provide the user after the options are displayed.
+     * @param min The minimum acceptable value.
+     * @param max The maximum acceptable value.
+     * @return The users choice from the options provided.
+     */
     protected static int getCardChoice(Scanner in, PrintStream out, String header, ArrayList<Card> cards, String prompt,
             int min, int max) {
         int choice;
@@ -346,7 +301,8 @@ public class Game {
 
             if (validChoice(choice, min, max)) {
                 break;
-            } else {
+            } 
+            else {
                 out.println("Invalid input! Try again!");
             }
         }
@@ -354,22 +310,30 @@ public class Game {
         return choice;
     }
 
+    /*
+     * Determines whether or not a choice is valid.
+     * 
+     * @param choice The users selection.
+     * @param min The minimum acceptable value.
+     * @param max The maximum acceptable value.
+     * @return Whether or not choice falls within the range created by min and max.
+     */
     private static boolean validChoice(int choice, int min, int max) {
         return choice >= min && choice <= max;
     }
 
-    // Returns a random card from the deck input
-    // Card is removed from the deck
-    protected static Card drawCard(ArrayList<Card> deck) {
-        int index = (int) (Math.random() * deck.size());
-        Card card = deck.get(index);
-        deck.remove(index);
-        return card;
-    }
-
-    // Plant up to two cards to tableau, must spend soil in upper left of
-    // card(flaura and terrain cards, not event)
-    // Draw 4 Earth cards and select 1 for hand, discard 3
+    /*
+     * Plant move performed by active player.
+     * 
+     * Plant up to two cards to tableau, must spend soil in upper left of
+     * card(flaura and terrain cards, not event)
+     * Draw 4 Earth cards and select 1 for hand, discard 3
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     * @return Whether or not the end game has been triggered.
+     */
     protected static boolean activePlant(Scanner in, PrintStream out, Player player) {
         boolean triggerEnd = false;
 
@@ -384,7 +348,7 @@ public class Game {
         ArrayList<Card> cardChoices = new ArrayList<Card>();
 
         for (int i = 0; i < 4; i++) {
-            cardChoices.add(drawCard(earthCards));
+            cardChoices.add(earthDeck.draw());
         }
 
         int cardIndex = getCardChoice(in, out, player.getName() + "'s choices for cards: ", cardChoices,
@@ -395,7 +359,7 @@ public class Game {
         // Add unselected cards back to deck
         for (Card c : cardChoices) {
             if (c != cardSelection) {
-                earthCards.add(c);
+                earthDeck.add(c);
             }
         }
 
@@ -404,7 +368,16 @@ public class Game {
         return triggerEnd;
     }
 
-    // Plant one card, or draw one card
+    /*
+     * Plant move performed by secondary player.
+     * 
+     * Plant one card, or draw one card
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     * @return Whether or not the end game has been triggered.
+     */
     protected static boolean secondaryPlant(Scanner in, PrintStream out, Player player) {
 
         int secondaryAction = getChoice(in, out, "Secondary Plant Action List",
@@ -416,8 +389,9 @@ public class Game {
             out.println();
             out.println(player.toString());
             return triggerEnd;
-        } else {
-            player.addCardToHand(drawCard(earthCards));
+        } 
+        else {
+            player.addCardToHand(earthDeck.draw());
             out.println();
             out.println(player.toString());
         }
@@ -425,7 +399,14 @@ public class Game {
         return false;
     }
 
-    // Handles the procedure of planting
+    /*
+     * Player plants card to tableau.
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     * @return Whether or not the end game has been triggered.
+     */
     private static boolean plantCard(Scanner in, PrintStream out, Player player) {
         if (player.tableauFull()) {
             out.println("Unable to plant. Tableau is full!");
@@ -451,7 +432,8 @@ public class Game {
 
         if (cardIndex == 0) {
             return false;
-        } else {
+        } 
+        else {
             while (true) {
                 Card cardSelection = cardChoices.get(cardIndex - 1);
                 int tableauIndex = getChoice(in, out, "", new String[] {},
@@ -464,7 +446,8 @@ public class Game {
                     player.handRemove(cardSelection);
                     player.addSoil(cardSelection.getPlantCost() * -1);
                     break;
-                } else {
+                } 
+                else {
                     out.println("Tableau index already contains a card. Retry!");
                     // Need to implement ability to shift the tableau
                 }
@@ -474,21 +457,35 @@ public class Game {
         return player.tableauFull();
     }
 
-    // +5 soil +2 compost cards from deck
+    /* 
+     * Compost move performed by the active player.
+     * 
+     * +5 soil +2 compost cards from deck
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     protected static void activeCompost(PrintStream out, Player player) {
         player.addSoil(5);
         // CHANGE TO STORING COMPOSTED CARDS
-        if (!earthCards.isEmpty()) {
-            drawCard(earthCards);
-            drawCard(earthCards);
-        }
+        earthDeck.draw();
+        earthDeck.draw();
         player.addCompost(2);
 
         out.println();
         out.println(player.toString());
     }
 
-    // +2 soil or +2 compost cards from deck
+    /* 
+     * Compost move performed by the secondary player.
+     * 
+     * +2 soil or +2 compost cards from deck
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     protected static void secondaryCompost(Scanner in, PrintStream out, Player player) {
         int secondaryAction = getChoice(in, out, "Secondary Compost Action List",
                 new String[] { "+2 soil", "+2 compost" }, player.getName() + ", choose an action (1-2) ", 1, 2);
@@ -497,27 +494,41 @@ public class Game {
             player.addSoil(2);
             out.println();
             out.println(player.toString());
-        } else {
+        } 
+        else {
             player.addCompost(2);
             // CHANGE TO STORING COMPOSTED CARDS
-            if (!earthCards.isEmpty()) {
-                drawCard(earthCards);
-                drawCard(earthCards);
-            }
+            earthDeck.draw();
+            earthDeck.draw();
 
             out.println();
             out.println(player.toString());
         }
     }
 
-    // Gain up to 6 sprouts to be placed on tableau cards, those that cannot be
-    // placed are lost
-    // 3 sprouts can be converted from tableau cards to +2 soil
+    /* 
+     * Water move performed by the active player.
+     * 
+     * Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
+     * 3 sprouts can be converted from tableau cards to +2 soil
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     protected static void activeWater(Scanner in, PrintStream out, Player player) {
         applySprouts(in, out, player, 6);
     }
 
-    // +2 sprouts or +2 soil
+    /* 
+     * Water move performed by the secondary player.
+     * 
+     * +2 sprouts or +2 soil
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     protected static void secondaryWater(Scanner in, PrintStream out, Player player) {
         int secondaryAction = getChoice(in, out, "Secondary Grow Action List",
                 new String[] { "+2 cards", "+2 growth tokens" }, player.getName() + ", choose an action (1-2: ", 1, 2);
@@ -526,14 +537,22 @@ public class Game {
             applySprouts(in, out, player, 2);
             out.println();
             out.println(player.toString());
-        } else {
+        } 
+        else {
             player.addSoil(2);
             out.println();
             out.println(player.toString());
         }
     }
 
-    // Handles the procedure to apply sprouts to tableau cards
+    /* 
+     * Handles the procedure of applying sprouts to tableau cards.
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     * @param numSprouts The number of sprouts the player has to apply.
+     */
     private static void applySprouts(Scanner in, PrintStream out, Player player, int numSprouts) {
         ArrayList<Card> cardChoices = player.getSproutCards();
 
@@ -643,10 +662,18 @@ public class Game {
         }
     }
 
-    // +4 cards to hand from deck, +2 growth tokens on tableau cards
+    /* 
+     * Grow move performed by the active player.
+     * 
+     * +4 cards to hand from deck, +2 growth tokens on tableau cards
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     protected static void activeGrow(Scanner in, PrintStream out, Player player) {
         for (int i = 0; i < 4; i++) {
-            player.addCardToHand(drawCard(earthCards));
+            player.addCardToHand(earthDeck.draw());
         }
 
         for (int i = 0; i < 2; i++) {
@@ -657,7 +684,15 @@ public class Game {
         out.println();
     }
 
-    // +2 cards to hand from deck or +2 growth tokens
+    /* 
+     * Grow move performed by the secondary player.
+     * 
+     * +2 cards to hand from deck or +2 growth tokens
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     protected static void secondaryGrow(Scanner in, PrintStream out, Player player) {
         int secondaryAction = getChoice(in, out, "Secondary Grow Action List",
                 new String[] { "+2 cards", "+2 growth tokens" },
@@ -665,12 +700,13 @@ public class Game {
 
         if (secondaryAction == 1) {
             for (int i = 0; i < 2; i++) {
-                player.addCardToHand(drawCard(earthCards));
+                player.addCardToHand(earthDeck.draw());
             }
 
             out.println();
             out.println(player.toString());
-        } else {
+        } 
+        else {
             for (int i = 0; i < 2; i++) {
                 applyGrowth(in, out, player);
             }
@@ -680,7 +716,13 @@ public class Game {
         }
     }
 
-    // Handles procedure of applying growth
+    /* 
+     * Handles the procedure of applying growth.
+     * 
+     * @param in The Scanner that reads user input.
+     * @param out The PrintStream that outputs information to the user.
+     * @param player The Player instance whose turn it is.
+     */
     private static void applyGrowth(Scanner in, PrintStream out, Player player) {
         ArrayList<Card> cardChocies = player.getMaxGrowthCards();
 
@@ -735,8 +777,12 @@ public class Game {
             MAXGROWTH = 4,
             MAXSPROUTS = 5,
             MAXCOMPOST = 6;
-
-    // Determines the winners and returns the player's index
+    /* 
+     * Determines the winners.
+     * 
+     * @param players The list of players.
+     * @return A list of indexes corresponding to the winners.
+     */
     protected static ArrayList<Integer> getWinners(ArrayList<Player> players) {
         ArrayList<Integer> winnerIndexes = new ArrayList<>();
 
@@ -790,6 +836,13 @@ public class Game {
     }
 
     // Returns list of winners according to category given
+    /* 
+     * Determines the winners according to category.
+     * 
+     * @param players The list of players.
+     * @param indexesToCheck A list of indexes corresponding to players in contention.
+     * @return A list of indexes corresponding to the winners for that category.
+     */
     private static ArrayList<Integer> getWinnersByCategory(ArrayList<Player> players, ArrayList<Integer> indexesToCheck,
             int category) {
         int maxVal = 0;
