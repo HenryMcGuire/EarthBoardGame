@@ -24,19 +24,19 @@ public class Card {
 	public Card(String n, String t) { // Default constructor for Card Class.
 		name = n;
 		type = t;
-		if (type == "Flora") {
+		if (type.equals("Flora")) {
 			FloraCard(n, t);
-		} else if (type == "Fauna") {
+		} else if (type.equals("Fauna")) {
 			FaunaCard(n, t);
-		} else if (type == "Island") {
+		} else if (type.equals("Island")) {
 			IslandCard(n, t);
-		} else if (type == "Climate") {
+		} else if (type.equals("Climate")) {
 			ClimateCard(n, t);
-		} else if (type == "Earth") {
+		} else if (type.equals("Earth")) {
 			EarthCard(n, t);
-		} else if (type == "Ecosystem") {
+		} else if (type.equals("Ecosystem")) {
 			EcosystemCard(n, t);
-		} else if (type == "Event") {
+		} else if (type.equals("Event")) {
 			EventCard(n, t);
 		} else {
 			System.out.println("Card has an invalid type.");
@@ -115,7 +115,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		if (type == "Flora") {
+		if (type.equals("Flora")) {
 			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
 					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
 					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
@@ -124,19 +124,19 @@ public class Card {
 					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
 					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
 					"Flavour Text: " + flavour_text + "\n";
-		} else if (type == "Fauna") {
+		} else if (type.equals("Fauna")) {
 			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
 					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
 					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
-		} else if (type == "Island") {
+		} else if (type.equals("Island")) {
 			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
 					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
 					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
-		} else if (type == "Climate") {
+		} else if (type.equals("Climate")) {
 			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
 					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
 					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
-		} else if (type == "Earth") {
+		} else if (type.equals("Earth")) {
 			return "Name: " + name + "\n" + "Type: " + type + "\n" + "Plant cost: " +
 					plant_cost + "\n" + "Victory value: " + victory_value + "\n" + "Habitable elements: "
 					+ habitable_elements + "\n" + "Scientific name: " + scientific_name + "\n" +
@@ -145,11 +145,11 @@ public class Card {
 					canopy_completion_vp + "\n" + "Ability color " + ability_color + "\n" +
 					"Ability One: " + ability1 + "\n" + "Ability Two:" + ability2 + "\n" +
 					"Flavour Text: " + flavour_text + "\n";
-		} else if (type == "Ecosystem") {
+		} else if (type.equals("Ecosystem")) {
 			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
 					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
 					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";
-		} else if (type == "Event") {
+		} else if (type.equals("Event")) {
 			return "Name: " + name + "\n" + "Scientific name: " + scientific_name + "\n" +
 					"Ability color " + ability_color + "\n" + "Ability One: " + ability1 + "\n" +
 					"Ability Two:" + ability2 + "\n" + "Flavour Text: " + flavour_text + "\n";

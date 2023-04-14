@@ -1,18 +1,18 @@
-//
-// Group 3
-// 03/03/23
-// Earth Board Game
-//
-
 import java.util.Scanner;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
+/*
+ * Game
+ * 
+ * Handles the game flow of EARTH.
+ */
 public class Game {
-    private static ArrayList<Card> faunaCards = new ArrayList<>();
-    private static ArrayList<Card> islandCards = new ArrayList<>();
-    private static ArrayList<Card> climateCards = new ArrayList<>();
-    private static ArrayList<Card> earthCards = new ArrayList<>();
+    private static Deck faunaDeck;
+    private static Deck islandDeck;
+    private static Deck climateDeck;
+    private static Deck earthDeck;
 
     private final static int PLANT = 1,
             COMPOST = 2,
@@ -59,7 +59,15 @@ public class Game {
         out.println();
 
         // Initialization of cards
-        initializeCards();
+        try {
+            faunaDeck = new Deck("fauna.csv");
+            islandDeck = new Deck("island.csv");
+            climateDeck = new Deck("climate.csv");
+            earthDeck = new Deck("earth.csv");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Pick and display fauna
         int faunaCount = 4;
@@ -67,7 +75,7 @@ public class Game {
         out.println("Fauna Cards: ");
 
         for (int i = 0; i < faunaCount; i++) {
-            Card toAdd = drawCard(faunaCards);
+            Card toAdd = faunaDeck.draw();
             fauna[i] = toAdd;
             out.println(toAdd.toString());
         }
@@ -83,11 +91,11 @@ public class Game {
             ArrayList<Card> climateChoices = new ArrayList<>();
 
             for (int j = 0; j < islandCount; j++) {
-                islandChoices.add(drawCard(islandCards));
+                islandChoices.add(islandDeck.draw());
             }
 
             for (int j = 0; j < climateCount; j++) {
-                climateChoices.add(drawCard(climateCards));
+                climateChoices.add(climateDeck.draw());
             }
 
             int islandIndex = getCardChoice(in, out, "Player " + (i + 1) + "'s choices for island cards: ",
@@ -97,7 +105,7 @@ public class Game {
             // Add unselected cards back to deck
             for (Card c : islandChoices) {
                 if (c != islandSelection) {
-                    islandCards.add(c);
+                    islandDeck.add(c);
                 }
             }
 
@@ -110,7 +118,7 @@ public class Game {
             // Add unselected cards back to deck
             for (Card c : climateChoices) {
                 if (c != climateSelection) {
-                    climateCards.add(c);
+                    climateDeck.add(c);
                 }
             }
 
@@ -224,84 +232,6 @@ public class Game {
         out.close();
     }
 
-    // Initializes all decks
-    private static void initializeCards() {
-        /*
-         * To be added
-         * for (Card c : cards) {
-         * switch(c.getType()) {
-         * case "Fauna":
-         * faunaCards.add(c);
-         * break;
-         * case "Island":
-         * islandCards.add(c);
-         * break;
-         * case "Climate":
-         * climateCards.add(c);
-         * break;
-         * case "Earth":
-         * earthCards.add(c);
-         * break;
-         * }
-         * }
-         */
-        // Hardcoded
-        // Fauna
-        faunaCards.add(new Card("Pale-Billed Woodpecker", "Fauna"));
-        faunaCards.add(new Card("King Penguin", "Fauna"));
-        faunaCards.add(new Card("King Penguin", "Fauna"));
-        faunaCards.add(new Card("Brown Bear", "Fauna"));
-        faunaCards.add(new Card("Kingfisher", "Fauna"));
-        faunaCards.add(new Card("Siberian Tiger", "Fauna"));
-        faunaCards.add(new Card("Red-Eyed Tree Frog", "Fauna"));
-        faunaCards.add(new Card("European Mole", "Fauna"));
-
-        // Island
-        islandCards.add(new Card("Barren", "Island"));
-        islandCards.add(new Card("Metis Shoal Island", "Island"));
-        islandCards.add(new Card("Whakaari", "Island"));
-        islandCards.add(new Card("New Guinea", "Island"));
-        islandCards.add(new Card("Hawai'i", "Island"));
-        islandCards.add(new Card("Maui", "Island"));
-        islandCards.add(new Card("O'ahu", "Island"));
-        islandCards.add(new Card("Mindanao", "Island"));
-        islandCards.add(new Card("Majoraca", "Island"));
-        islandCards.add(new Card("Euboea", "Island"));
-        islandCards.add(new Card("Viti Levu", "Island"));
-
-        // Climate
-        climateCards.add(new Card("Semi-Arid", "Climate"));
-        climateCards.add(new Card("Oceanic", "Climate"));
-        climateCards.add(new Card("Dry Winter Subpolar Oceanic", "Climate"));
-        climateCards.add(new Card("Dry Winter Subtropical Highland", "Climate"));
-        climateCards.add(new Card("Desert", "Climate"));
-        climateCards.add(new Card("Tundra", "Climate"));
-        climateCards.add(new Card("Rainforest", "Climate"));
-        climateCards.add(new Card("Tropical Savanna", "Climate"));
-        climateCards.add(new Card("Boreal", "Climate"));
-        climateCards.add(new Card("Mediterranean", "Climate"));
-        climateCards.add(new Card("Tropical Oasis", "Climate"));
-
-        // Earth
-        earthCards.add(new Card("Canary Island Palm", "Earth"));
-        earthCards.add(new Card("Reed Canary Grass", "Earth"));
-        earthCards.add(new Card("Red Cage Fungus", "Earth"));
-        earthCards.add(new Card("Venus Fly Trap", "Earth"));
-        earthCards.add(new Card("Milk-Cap", "Earth"));
-        earthCards.add(new Card("Sensitive Plant", "Earth"));
-        earthCards.add(new Card("Giant Puffball", "Earth"));
-        earthCards.add(new Card("Shaggy Mane", "Earth"));
-        earthCards.add(new Card("Dragon Sprouts", "Earth"));
-        earthCards.add(new Card("Avocado Tree", "Earth"));
-        earthCards.add(new Card("Dwarf Willow", "Earth"));
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                earthCards.add(earthCards.get(i));
-            }
-        }
-    }
-
     // Outputs options to the user and returns the users selection
     protected static int getChoice(Scanner in, PrintStream out, String header, String[] options, String prompt, int min,
             int max) {
@@ -321,7 +251,8 @@ public class Game {
 
             if (validChoice(choice, min, max)) {
                 break;
-            } else {
+            } 
+            else {
                 out.println("Invalid input! Try again!");
             }
         }
@@ -348,7 +279,8 @@ public class Game {
 
             if (validChoice(choice, min, max)) {
                 break;
-            } else {
+            } 
+            else {
                 out.println("Invalid input! Try again!");
             }
         }
@@ -358,15 +290,6 @@ public class Game {
 
     private static boolean validChoice(int choice, int min, int max) {
         return choice >= min && choice <= max;
-    }
-
-    // Returns a random card from the deck input
-    // Card is removed from the deck
-    protected static Card drawCard(ArrayList<Card> deck) {
-        int index = (int) (Math.random() * deck.size());
-        Card card = deck.get(index);
-        deck.remove(index);
-        return card;
     }
 
     // Plant up to two cards to tableau, must spend soil in upper left of
@@ -386,7 +309,7 @@ public class Game {
         ArrayList<Card> cardChoices = new ArrayList<Card>();
 
         for (int i = 0; i < 4; i++) {
-            cardChoices.add(drawCard(earthCards));
+            cardChoices.add(earthDeck.draw());
         }
 
         int cardIndex = getCardChoice(in, out, player.getName() + "'s choices for cards: ", cardChoices,
@@ -397,7 +320,7 @@ public class Game {
         // Add unselected cards back to deck
         for (Card c : cardChoices) {
             if (c != cardSelection) {
-                earthCards.add(c);
+                earthDeck.add(c);
             }
         }
 
@@ -418,8 +341,9 @@ public class Game {
             out.println();
             out.println(player.toString());
             return triggerEnd;
-        } else {
-            player.addCardToHand(drawCard(earthCards));
+        } 
+        else {
+            player.addCardToHand(earthDeck.draw());
             out.println();
             out.println(player.toString());
         }
@@ -453,7 +377,8 @@ public class Game {
 
         if (cardIndex == 0) {
             return false;
-        } else {
+        } 
+        else {
             while (true) {
                 Card cardSelection = cardChoices.get(cardIndex - 1);
                 int tableauIndex = getChoice(in, out, "", new String[] {},
@@ -466,7 +391,8 @@ public class Game {
                     player.handRemove(cardSelection);
                     player.addSoil(cardSelection.getPlantCost() * -1);
                     break;
-                } else {
+                } 
+                else {
                     out.println("Tableau index already contains a card. Retry!");
                     // Need to implement ability to shift the tableau
                 }
@@ -480,10 +406,8 @@ public class Game {
     protected static void activeCompost(PrintStream out, Player player) {
         player.addSoil(5);
         // CHANGE TO STORING COMPOSTED CARDS
-        if (!earthCards.isEmpty()) {
-            drawCard(earthCards);
-            drawCard(earthCards);
-        }
+        earthDeck.draw();
+        earthDeck.draw();
         player.addCompost(2);
 
         out.println();
@@ -499,13 +423,12 @@ public class Game {
             player.addSoil(2);
             out.println();
             out.println(player.toString());
-        } else {
+        } 
+        else {
             player.addCompost(2);
             // CHANGE TO STORING COMPOSTED CARDS
-            if (!earthCards.isEmpty()) {
-                drawCard(earthCards);
-                drawCard(earthCards);
-            }
+            earthDeck.draw();
+            earthDeck.draw();
 
             out.println();
             out.println(player.toString());
@@ -528,7 +451,8 @@ public class Game {
             applySprouts(in, out, player, 2);
             out.println();
             out.println(player.toString());
-        } else {
+        } 
+        else {
             player.addSoil(2);
             out.println();
             out.println(player.toString());
@@ -648,7 +572,7 @@ public class Game {
     // +4 cards to hand from deck, +2 growth tokens on tableau cards
     protected static void activeGrow(Scanner in, PrintStream out, Player player) {
         for (int i = 0; i < 4; i++) {
-            player.addCardToHand(drawCard(earthCards));
+            player.addCardToHand(earthDeck.draw());
         }
 
         for (int i = 0; i < 2; i++) {
@@ -667,12 +591,13 @@ public class Game {
 
         if (secondaryAction == 1) {
             for (int i = 0; i < 2; i++) {
-                player.addCardToHand(drawCard(earthCards));
+                player.addCardToHand(earthDeck.draw());
             }
 
             out.println();
             out.println(player.toString());
-        } else {
+        } 
+        else {
             for (int i = 0; i < 2; i++) {
                 applyGrowth(in, out, player);
             }

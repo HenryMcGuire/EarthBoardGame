@@ -55,19 +55,6 @@ public class TestGame {
         assertTrue(output.toString().contains("Invalid input! Try again!"));
     }
 
-    @Test
-    public void testDrawCard() {
-        ArrayList<Card> deck = new ArrayList<>();
-        Card c1 = new Card("Test", "Flora");
-        Card c2 = new Card("ing", "Flora");
-        deck.add(c1);
-        deck.add(c2);
-
-        Card c = Game.drawCard(deck);
-        assertTrue(c == c1 || c == c2);
-        assertFalse(deck.contains(c));
-    }
-
     // Active plant needed
 
     // secondary plant needed
