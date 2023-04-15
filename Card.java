@@ -3,7 +3,10 @@
 // 03/03/23
 // Earth Board Game
 //
-
+//
+//
+//
+//
 public class Card {
 	private String name;
 	private String type;
@@ -255,6 +258,41 @@ public class Card {
 
 	public void ability() {
 		// This depends on the card in question.
+
+		// IMPORTANT: FAUNA CARDS DO NOT HAVE ABILITIES.
+		if (type.equals("Fauna")) {
+			System.out.println("Fauna cards do not have abilities.");
+			System.out.println("Fauna cards are therefore not activated by any player.");
+		} else if (type.equals("Island")) {
+			System.out.print("You can activate your island card and then your climate card ");
+			System.out.print("before or after you've activated your tableau - and you can ");
+			System.out.println("each time depending on what is best for your current turn.");
+			System.out.println("However, you cannot activate one card before your tableau and another after");
+			System.out.print("You are never forced to activate your Island/Climate's ability - you may use ");
+			System.out.println("or skip it at any time it is able to activate");
+		} else if (type.equals("Climate")) {
+			System.out.print("Climate cards give players another ability that can contribute to their strategy, ");
+			System.out.print("so try to choose one that complements your island and helps towards ");
+			System.out.println("Fauna and Ecosystem objectives");
+			System.out.print("Climate cards give players another ability that can contribute to their strategy");
+			System.out.print(", so try to choose one ");
+			System.out.println("that complements your Island and helps towards Fauna and Ecosystem objectives.");
+		} else if (type.equals("Earth")) {
+			System.out.print("Collectively, all cards in the game are referred to as cards,");
+			System.out.print("whereas only the Flora cards are referred to as Flora—this is ");
+			System.out.print("especially important for Fauna and Ecosystem objectives.");
+			System.out.print("Objectives that require “Flora” do not involve Terrain, Event, ");
+			System.out.print("Island, or Climate cards.");
+			System.out.print("Whereas objectives that require “cards” include all cards in a player’s tableau as well");
+			System.out.println("as their Island and Climate cards.");
+		} else if (type.equals("Terrain")) {
+			System.out.print("Terrain cards, like Flora, are planted into your tableau during the Plant action.");
+			System.out.print("They often do not gain resources, but instead they offer in-game passive effects ");
+			System.out.println("or end-game scoring bonuses.");
+		} else if (type.equals("Event")) {
+			System.out.print("Event cards never count for Terrain, Ecosystem or Fauna objectives ");
+			System.out.println("unless specifically stated on a card.");
+		}
 	}
 
 	public void generateRandomCard() { // Generates a random card upon request.
