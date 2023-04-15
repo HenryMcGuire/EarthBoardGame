@@ -64,8 +64,7 @@ public class Game {
             islandDeck = new Deck("island.csv");
             climateDeck = new Deck("climate.csv");
             earthDeck = new Deck("earth.csv");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -236,12 +235,21 @@ public class Game {
      * Outputs options to the user and returns the users selection
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
-     * @param header The message to provide the user before the options are displayed.
+     * 
+     * @param header The message to provide the user before the options are
+     * displayed.
+     * 
      * @param options The list of options for the user to choose from.
-     * @param prompt The message to provide the user after the options are displayed.
+     * 
+     * @param prompt The message to provide the user after the options are
+     * displayed.
+     * 
      * @param min The minimum acceptable value.
+     * 
      * @param max The maximum acceptable value.
+     * 
      * @return choice The users choice from the options provided.
      */
     protected static int getChoice(Scanner in, PrintStream out, String header, String[] options, String prompt, int min,
@@ -262,8 +270,7 @@ public class Game {
 
             if (validChoice(choice, min, max)) {
                 break;
-            } 
-            else {
+            } else {
                 out.println("Invalid input! Try again!");
             }
         }
@@ -275,12 +282,21 @@ public class Game {
      * Outputs card options to the user and returns the users selection
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
-     * @param header The message to provide the user before the options are displayed.
+     * 
+     * @param header The message to provide the user before the options are
+     * displayed.
+     * 
      * @param cards The list of cards for the user to choose from.
-     * @param prompt The message to provide the user after the options are displayed.
+     * 
+     * @param prompt The message to provide the user after the options are
+     * displayed.
+     * 
      * @param min The minimum acceptable value.
+     * 
      * @param max The maximum acceptable value.
+     * 
      * @return The users choice from the options provided.
      */
     protected static int getCardChoice(Scanner in, PrintStream out, String header, ArrayList<Card> cards, String prompt,
@@ -301,8 +317,7 @@ public class Game {
 
             if (validChoice(choice, min, max)) {
                 break;
-            } 
-            else {
+            } else {
                 out.println("Invalid input! Try again!");
             }
         }
@@ -314,8 +329,11 @@ public class Game {
      * Determines whether or not a choice is valid.
      * 
      * @param choice The users selection.
+     * 
      * @param min The minimum acceptable value.
+     * 
      * @param max The maximum acceptable value.
+     * 
      * @return Whether or not choice falls within the range created by min and max.
      */
     private static boolean validChoice(int choice, int min, int max) {
@@ -330,8 +348,11 @@ public class Game {
      * Draw 4 Earth cards and select 1 for hand, discard 3
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
+     * 
      * @return Whether or not the end game has been triggered.
      */
     protected static boolean activePlant(Scanner in, PrintStream out, Player player) {
@@ -374,8 +395,11 @@ public class Game {
      * Plant one card, or draw one card
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
+     * 
      * @return Whether or not the end game has been triggered.
      */
     protected static boolean secondaryPlant(Scanner in, PrintStream out, Player player) {
@@ -389,8 +413,7 @@ public class Game {
             out.println();
             out.println(player.toString());
             return triggerEnd;
-        } 
-        else {
+        } else {
             player.addCardToHand(earthDeck.draw());
             out.println();
             out.println(player.toString());
@@ -403,8 +426,11 @@ public class Game {
      * Player plants card to tableau.
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
+     * 
      * @return Whether or not the end game has been triggered.
      */
     private static boolean plantCard(Scanner in, PrintStream out, Player player) {
@@ -432,8 +458,7 @@ public class Game {
 
         if (cardIndex == 0) {
             return false;
-        } 
-        else {
+        } else {
             while (true) {
                 Card cardSelection = cardChoices.get(cardIndex - 1);
                 int tableauIndex = getChoice(in, out, "", new String[] {},
@@ -446,8 +471,7 @@ public class Game {
                     player.handRemove(cardSelection);
                     player.addSoil(cardSelection.getPlantCost() * -1);
                     break;
-                } 
-                else {
+                } else {
                     out.println("Tableau index already contains a card. Retry!");
                     // Need to implement ability to shift the tableau
                 }
@@ -457,13 +481,15 @@ public class Game {
         return player.tableauFull();
     }
 
-    /* 
+    /*
      * Compost move performed by the active player.
      * 
      * +5 soil +2 compost cards from deck
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     protected static void activeCompost(PrintStream out, Player player) {
@@ -477,13 +503,15 @@ public class Game {
         out.println(player.toString());
     }
 
-    /* 
+    /*
      * Compost move performed by the secondary player.
      * 
      * +2 soil or +2 compost cards from deck
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     protected static void secondaryCompost(Scanner in, PrintStream out, Player player) {
@@ -494,8 +522,7 @@ public class Game {
             player.addSoil(2);
             out.println();
             out.println(player.toString());
-        } 
-        else {
+        } else {
             player.addCompost(2);
             // CHANGE TO STORING COMPOSTED CARDS
             earthDeck.draw();
@@ -506,27 +533,32 @@ public class Game {
         }
     }
 
-    /* 
+    /*
      * Water move performed by the active player.
      * 
-     * Gain up to 6 sprouts to be placed on tableau cards, those that cannot be placed are lost
+     * Gain up to 6 sprouts to be placed on tableau cards, those that cannot be
+     * placed are lost
      * 3 sprouts can be converted from tableau cards to +2 soil
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     protected static void activeWater(Scanner in, PrintStream out, Player player) {
         applySprouts(in, out, player, 6);
     }
 
-    /* 
+    /*
      * Water move performed by the secondary player.
      * 
      * +2 sprouts or +2 soil
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     protected static void secondaryWater(Scanner in, PrintStream out, Player player) {
@@ -537,20 +569,22 @@ public class Game {
             applySprouts(in, out, player, 2);
             out.println();
             out.println(player.toString());
-        } 
-        else {
+        } else {
             player.addSoil(2);
             out.println();
             out.println(player.toString());
         }
     }
 
-    /* 
+    /*
      * Handles the procedure of applying sprouts to tableau cards.
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
+     * 
      * @param numSprouts The number of sprouts the player has to apply.
      */
     private static void applySprouts(Scanner in, PrintStream out, Player player, int numSprouts) {
@@ -662,13 +696,15 @@ public class Game {
         }
     }
 
-    /* 
+    /*
      * Grow move performed by the active player.
      * 
      * +4 cards to hand from deck, +2 growth tokens on tableau cards
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     protected static void activeGrow(Scanner in, PrintStream out, Player player) {
@@ -684,13 +720,15 @@ public class Game {
         out.println();
     }
 
-    /* 
+    /*
      * Grow move performed by the secondary player.
      * 
      * +2 cards to hand from deck or +2 growth tokens
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     protected static void secondaryGrow(Scanner in, PrintStream out, Player player) {
@@ -705,8 +743,7 @@ public class Game {
 
             out.println();
             out.println(player.toString());
-        } 
-        else {
+        } else {
             for (int i = 0; i < 2; i++) {
                 applyGrowth(in, out, player);
             }
@@ -716,11 +753,13 @@ public class Game {
         }
     }
 
-    /* 
+    /*
      * Handles the procedure of applying growth.
      * 
      * @param in The Scanner that reads user input.
+     * 
      * @param out The PrintStream that outputs information to the user.
+     * 
      * @param player The Player instance whose turn it is.
      */
     private static void applyGrowth(Scanner in, PrintStream out, Player player) {
@@ -777,10 +816,12 @@ public class Game {
             MAXGROWTH = 4,
             MAXSPROUTS = 5,
             MAXCOMPOST = 6;
-    /* 
+
+    /*
      * Determines the winners.
      * 
      * @param players The list of players.
+     * 
      * @return A list of indexes corresponding to the winners.
      */
     protected static ArrayList<Integer> getWinners(ArrayList<Player> players) {
@@ -836,11 +877,14 @@ public class Game {
     }
 
     // Returns list of winners according to category given
-    /* 
+    /*
      * Determines the winners according to category.
      * 
      * @param players The list of players.
-     * @param indexesToCheck A list of indexes corresponding to players in contention.
+     * 
+     * @param indexesToCheck A list of indexes corresponding to players in
+     * contention.
+     * 
      * @return A list of indexes corresponding to the winners for that category.
      */
     private static ArrayList<Integer> getWinnersByCategory(ArrayList<Player> players, ArrayList<Integer> indexesToCheck,
