@@ -50,6 +50,21 @@ public class TestDeck {
     }
 
     @Test
+    public void testSize() {
+        deck = new Deck();
+        assertTrue(deck.size() == 0);
+
+        Card c = new Card("Test", "Flora");
+        int count = 10;
+        
+        for (int i = 0; i < count; i++) {
+            deck.add(c);
+        }
+
+        assertTrue(deck.size() == count);
+    }
+
+    @Test
     public void testIsEmpty() {
         deck = new Deck();
         Card c = new Card("Test", "Flora");

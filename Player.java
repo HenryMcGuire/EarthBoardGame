@@ -20,6 +20,7 @@ public class Player {
 	int growthCount;
 	private int soil = 0;
 	private int compost = 0;
+	private ArrayList<Card> compostedCards = new ArrayList<>();
 	private int tableauTotal = 0;
 	private int score = 0;
 	private String name;
@@ -92,7 +93,9 @@ public class Player {
 		sproutCount = 0;
 		for (Card[] r : tableauList) {
 			for (Card c : r) {
-				sproutCount += c.getSprouts();
+				if (c != null) {
+					sproutCount += c.getSprouts();
+				}
 			}
 		}
 	}
@@ -102,7 +105,9 @@ public class Player {
 		growthCount = 0;
 		for (Card[] r : tableauList) {
 			for (Card c : r) {
-				growthCount += c.getGrowth();
+				if (c != null) {
+					growthCount += c.getGrowth();
+				}
 			}
 		}
 	}
@@ -231,12 +236,21 @@ public class Player {
 		soil += value;
 	}
 
-	public void addCompost(int value) {
-		compost += value;
+	public void addCompost(Card c) {
+		compostedCards.add(c);
+		compost += 1;
 	}
 
 	public int getCompost() {
 		return compost;
+	}
+
+	public ArrayList<Card> getCompostedCards() {
+		return compostedCards;
+	}
+
+	public void clearCompostedCards() {
+		compostedCards.clear();
 	}
 
 	public int getTotal() {

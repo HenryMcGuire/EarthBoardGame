@@ -12,7 +12,9 @@ public class Game {
     private static Deck faunaDeck;
     private static Deck islandDeck;
     private static Deck climateDeck;
-    private static Deck earthDeck;
+    protected static Deck earthDeck;
+
+    protected static ArrayList<Player> players = new ArrayList<>();
 
     private final static int PLANT = 1,
             COMPOST = 2,
@@ -51,8 +53,6 @@ public class Game {
         out.println("For game information visit: https://www.youtube.com/watch?v=GQ9rFntr5s4");
         out.println("");
 
-        ArrayList<Player> players = new ArrayList<>();
-
         // Prompt for player count
         int playerCount = getChoice(in, out, "", new String[] {}, "Please enter the number of players(2-5): ", 2, 5);
 
@@ -60,10 +60,10 @@ public class Game {
 
         // Initialization of cards
         try {
-            faunaDeck = new Deck("fauna.csv");
-            islandDeck = new Deck("island.csv");
-            climateDeck = new Deck("climate.csv");
-            earthDeck = new Deck("earth.csv");
+            faunaDeck = new Deck("/cards/fauna.csv");
+            islandDeck = new Deck("/cards/island.csv");
+            climateDeck = new Deck("/cards/climate.csv");
+            earthDeck = new Deck("/cards/earth.csv");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -222,7 +222,7 @@ public class Game {
         out.println("Game completed!");
 
         // Determine winner
-        ArrayList<Integer> winnerIndexes = getWinners(players);
+        ArrayList<Integer> winnerIndexes = getWinners();
 
         for (int i = 0; i < winnerIndexes.size(); i++) {
             out.println("Congratulations Player " + (winnerIndexes.get(i) + 1) + "! You won!");
@@ -323,6 +323,21 @@ public class Game {
     }
 
     /*
+     * Repopulates the earthDeck from composted cards. 
+     * 
+     * Called when the earthDeck is empty.
+     */
+    protected static void repopulateEarthDeck() {
+        for (Player p : players) {
+            for (Card c : p.getCompostedCards()) {
+                earthDeck.add(c);
+            }
+
+            p.clearCompostedCards();
+        }
+    }
+
+    /*
      * Plant move performed by active player.
      * 
      * Plant up to two cards to tableau, must spend soil in upper left of
@@ -348,6 +363,10 @@ public class Game {
         ArrayList<Card> cardChoices = new ArrayList<Card>();
 
         for (int i = 0; i < 4; i++) {
+            if (earthDeck.isEmpty()) {
+                repopulateEarthDeck();
+            }
+
             cardChoices.add(earthDeck.draw());
         }
 
@@ -391,6 +410,10 @@ public class Game {
             return triggerEnd;
         } 
         else {
+            if (earthDeck.isEmpty()) {
+                repopulateEarthDeck();
+            }
+
             player.addCardToHand(earthDeck.draw());
             out.println();
             out.println(player.toString());
@@ -468,10 +491,14 @@ public class Game {
      */
     protected static void activeCompost(PrintStream out, Player player) {
         player.addSoil(5);
-        // CHANGE TO STORING COMPOSTED CARDS
-        earthDeck.draw();
-        earthDeck.draw();
-        player.addCompost(2);
+
+        for (int i = 0; i < 2; i++) {
+            if (earthDeck.isEmpty()) {
+                repopulateEarthDeck();
+            }
+
+            player.addCompost(earthDeck.draw());
+        }
 
         out.println();
         out.println(player.toString());
@@ -496,10 +523,13 @@ public class Game {
             out.println(player.toString());
         } 
         else {
-            player.addCompost(2);
-            // CHANGE TO STORING COMPOSTED CARDS
-            earthDeck.draw();
-            earthDeck.draw();
+            for (int i = 0; i < 2; i++) {
+                if (earthDeck.isEmpty()) {
+                    repopulateEarthDeck();
+                }
+    
+                player.addCompost(earthDeck.draw());
+            }
 
             out.println();
             out.println(player.toString());
@@ -673,6 +703,10 @@ public class Game {
      */
     protected static void activeGrow(Scanner in, PrintStream out, Player player) {
         for (int i = 0; i < 4; i++) {
+            if (earthDeck.isEmpty()) {
+                repopulateEarthDeck();
+            }
+
             player.addCardToHand(earthDeck.draw());
         }
 
@@ -700,6 +734,10 @@ public class Game {
 
         if (secondaryAction == 1) {
             for (int i = 0; i < 2; i++) {
+                if (earthDeck.isEmpty()) {
+                    repopulateEarthDeck();
+                }
+
                 player.addCardToHand(earthDeck.draw());
             }
 
@@ -780,10 +818,9 @@ public class Game {
     /* 
      * Determines the winners.
      * 
-     * @param players The list of players.
      * @return A list of indexes corresponding to the winners.
      */
-    protected static ArrayList<Integer> getWinners(ArrayList<Player> players) {
+    protected static ArrayList<Integer> getWinners() {
         ArrayList<Integer> winnerIndexes = new ArrayList<>();
 
         for (int i = 0; i < players.size(); i++) {
@@ -791,42 +828,42 @@ public class Game {
         }
 
         // Points
-        winnerIndexes = getWinnersByCategory(players, winnerIndexes, MAXPOINTS);
+        winnerIndexes = getWinnersByCategory(winnerIndexes, MAXPOINTS);
 
         if (winnerIndexes.size() == 1) {
             return winnerIndexes;
         }
 
         // Soil
-        winnerIndexes = getWinnersByCategory(players, winnerIndexes, MAXSOIL);
+        winnerIndexes = getWinnersByCategory(winnerIndexes, MAXSOIL);
 
         if (winnerIndexes.size() == 1) {
             return winnerIndexes;
         }
 
         // Hand Size
-        winnerIndexes = getWinnersByCategory(players, winnerIndexes, MAXHAND);
+        winnerIndexes = getWinnersByCategory(winnerIndexes, MAXHAND);
 
         if (winnerIndexes.size() == 1) {
             return winnerIndexes;
         }
 
         // Growth
-        winnerIndexes = getWinnersByCategory(players, winnerIndexes, MAXGROWTH);
+        winnerIndexes = getWinnersByCategory(winnerIndexes, MAXGROWTH);
 
         if (winnerIndexes.size() == 1) {
             return winnerIndexes;
         }
 
         // Sprouts
-        winnerIndexes = getWinnersByCategory(players, winnerIndexes, MAXSPROUTS);
+        winnerIndexes = getWinnersByCategory(winnerIndexes, MAXSPROUTS);
 
         if (winnerIndexes.size() == 1) {
             return winnerIndexes;
         }
 
         // Compost
-        winnerIndexes = getWinnersByCategory(players, winnerIndexes, MAXCOMPOST);
+        winnerIndexes = getWinnersByCategory(winnerIndexes, MAXCOMPOST);
 
         if (winnerIndexes.size() == 1) {
             return winnerIndexes;
@@ -839,11 +876,10 @@ public class Game {
     /* 
      * Determines the winners according to category.
      * 
-     * @param players The list of players.
      * @param indexesToCheck A list of indexes corresponding to players in contention.
      * @return A list of indexes corresponding to the winners for that category.
      */
-    private static ArrayList<Integer> getWinnersByCategory(ArrayList<Player> players, ArrayList<Integer> indexesToCheck,
+    private static ArrayList<Integer> getWinnersByCategory(ArrayList<Integer> indexesToCheck,
             int category) {
         int maxVal = 0;
 

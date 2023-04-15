@@ -27,7 +27,7 @@ public class Deck {
      */
     public Deck(String filename) throws IOException {
         cards = new ArrayList<>();
-        String filepath = System.getProperty("user.dir") + "/cards/" + filename;
+        String filepath = System.getProperty("user.dir") + filename;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
             String line;
@@ -38,12 +38,10 @@ public class Deck {
                     String name = values[0].trim();
                     String type = values[1].trim();
                     Card card = new Card(name, type);
-                    cards.add(card);
+                    add(card);
                 }
             }
         }
-
-        size = cards.size();
     }
 
     /*
@@ -67,6 +65,15 @@ public class Deck {
     public void add(Card c) {
         cards.add(c);
         size++;
+    }
+
+    /*
+     * Returns the size of the deck.
+     * 
+     * @return The size of the deck.
+     */
+    public int size() {
+        return size;
     }
 
     /*
