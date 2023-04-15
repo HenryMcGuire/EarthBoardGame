@@ -3,26 +3,29 @@
 // 03/03/23
 // Earth Board Game
 //
-//
-//
-//
-//
 public class Card {
+	// Note this is all the possible values a card could have, whether or not a
+	// given card has this in their value
+	// is dependent on the type of the card in question.
+	// i.e. some card types like Flora Cards will have quite a lot of types
+	// while other card types like the Island Card type will have few types
+	// instantialized.
 	private String name;
 	private String type;
-	private int plant_cost;
-	private int victory_value;
 	private String habitable_elements;
 	private String scientific_name;
+	private String canopy_completion_vp;
+	private String ability1;
+	private String ability2;
+	private String flavour_text;
+	private int plant_cost;
+	private int victory_value;
 	private int growth_space;
 	private int maximum_growth_number;
 	private int numSprouts;
 	private int maxSprouts;
-	private String canopy_completion_vp;
-	private int ability_color; // See in Game.java GREEN, RED, BLUE, etc...
-	private String ability1;
-	private String ability2;
-	private String flavour_text;
+	private int ability_color;
+	private int soil_count; // See in Game.java GREEN, RED, BLUE, etc...
 
 	public Card(String n, String t) { // Default constructor for Card Class.
 		name = n;
@@ -55,65 +58,66 @@ public class Card {
 	}
 
 	public void FloraCard(String n, String t) { // Creates attributes for a Flora-type card.
-		int plant_cost;
-		int victory_value;
 		String habitable_elements;
 		String scientific_name;
-		int growth_space;
-		int maximum_growth_number;
-		int numSprouts;
-		int maxSprouts;
 		String canopy_completion_vp;
-		int ability_color;
 		String ability1;
 		String ability2;
 		String flavour_text;
+		plant_cost = (int) Math.random() * 10;
+		soil_count = (int) Math.random() * 10;
+		victory_value = (int) Math.random() * 10;
+		growth_space = (int) Math.random() * 10;
+		maximum_growth_number = (int) Math.random() * 10;
+		numSprouts = (int) Math.random() * 10;
+		maxSprouts = (int) Math.random() * 10;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	public void FaunaCard(String n, String t) { // Creates attributes for a Fauna-type card.
 		String scientific_name;
-		int ability_color;
 		String ability;
 		String flavour_text;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	public void IslandCard(String n, String t) { // Creates attributes for a Island-type card.
 		String scientific_name;
-		int ability_color;
 		String ability;
 		String flavour_text;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	public void ClimateCard(String n, String t) { // Creates attributes for a Climate-type card.
 		String scientific_name;
-		int ability_color;
 		String ability;
 		String flavour_text;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	public void EarthCard(String n, String t) { // Creates attributes for a Earth-type card.
-		int plant_cost;
-		int victory_value;
 		String habitable_elements;
 		String scientific_name;
-		int ability_color;
 		String ability1;
 		String ability2;
 		String flavour_text;
+		plant_cost = (int) Math.random() * 10;
+		victory_value = (int) Math.random() * 10;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	public void EcosystemCard(String n, String t) { // Creates attributes for a Ecosystem-type card.
 		String scientific_name;
-		int ability_color;
 		String ability;
 		String flavour_text;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	public void EventCard(String n, String t) { // Creates attributes for a Event-type card.
 		String scientific_name;
-		int ability_color;
 		String ability;
 		String flavour_text;
+		ability_color = (int) Math.random() * 10;
 	}
 
 	@Override
@@ -196,6 +200,14 @@ public class Card {
 		plant_cost -= val;
 	}
 
+	public void multiplyPlantCost(int val) {
+		plant_cost *= val;
+	}
+
+	public void dividePlantCost(int val) {
+		plant_cost /= val;
+	}
+
 	public int getMaximumGrowth() {
 		return maximum_growth_number;
 	}
@@ -220,6 +232,14 @@ public class Card {
 		growth_space -= val;
 	}
 
+	public void multiplyGrowth(int val) {
+		growth_space *= val;
+	}
+
+	public void divideGrowth(int val) {
+		growth_space /= val;
+	}
+
 	public int getSprouts() {
 		return numSprouts;
 	}
@@ -234,6 +254,14 @@ public class Card {
 
 	public void subtractSprouts(int val) {
 		numSprouts -= val;
+	}
+
+	public void multiplySprouts(int val) {
+		numSprouts *= val;
+	}
+
+	public void divideSprouts(int val) {
+		numSprouts /= val;
 	}
 
 	public int getAbilityColor() {
@@ -254,6 +282,38 @@ public class Card {
 
 	public void subtractMaxSprouts(int val) {
 		maxSprouts -= val;
+	}
+
+	public void multiplyMaxSprouts(int val) {
+		maxSprouts *= val;
+	}
+
+	public void divideMaxSprouts(int val) {
+		maxSprouts /= val;
+	}
+
+	public int getSoilCount() {
+		return soil_count;
+	}
+
+	public void setSoilCount(int val) {
+		soil_count = val;
+	}
+
+	public void addSoilCount(int val) {
+		soil_count += val;
+	}
+
+	public void subtractSoilCount(int val) {
+		soil_count -= val;
+	}
+
+	public void multiplySoilCount(int val) {
+		soil_count *= val;
+	}
+
+	public void divideSoilCount(int val) {
+		soil_count /= val;
 	}
 
 	public void ability() {
