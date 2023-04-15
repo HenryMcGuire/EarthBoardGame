@@ -58,12 +58,12 @@ public class Card {
 	}
 
 	public void FloraCard(String n, String t) { // Creates attributes for a Flora-type card.
-		String habitable_elements;
-		String scientific_name;
-		String canopy_completion_vp;
-		String ability1;
-		String ability2;
-		String flavour_text;
+		habitable_elements = "";
+		scientific_name = "";
+		canopy_completion_vp = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		plant_cost = (int) Math.random() * 10;
 		soil_count = (int) Math.random() * 10;
 		victory_value = (int) Math.random() * 10;
@@ -75,48 +75,53 @@ public class Card {
 	}
 
 	public void FaunaCard(String n, String t) { // Creates attributes for a Fauna-type card.
-		String scientific_name;
-		String ability;
-		String flavour_text;
+		scientific_name = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		ability_color = (int) Math.random() * 10;
 	}
 
 	public void IslandCard(String n, String t) { // Creates attributes for a Island-type card.
-		String scientific_name;
-		String ability;
-		String flavour_text;
+		scientific_name = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		ability_color = (int) Math.random() * 10;
 	}
 
 	public void ClimateCard(String n, String t) { // Creates attributes for a Climate-type card.
-		String scientific_name;
-		String ability;
-		String flavour_text;
+		scientific_name = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		ability_color = (int) Math.random() * 10;
 	}
 
 	public void EarthCard(String n, String t) { // Creates attributes for a Earth-type card.
-		String habitable_elements;
-		String scientific_name;
-		String ability1;
-		String ability2;
-		String flavour_text;
+		habitable_elements = "";
+		scientific_name = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		plant_cost = (int) Math.random() * 10;
 		victory_value = (int) Math.random() * 10;
 		ability_color = (int) Math.random() * 10;
 	}
 
 	public void EcosystemCard(String n, String t) { // Creates attributes for a Ecosystem-type card.
-		String scientific_name;
-		String ability;
-		String flavour_text;
+		scientific_name = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		ability_color = (int) Math.random() * 10;
 	}
 
 	public void EventCard(String n, String t) { // Creates attributes for a Event-type card.
-		String scientific_name;
-		String ability;
-		String flavour_text;
+		scientific_name = "";
+		ability1 = "";
+		ability2 = "";
+		flavour_text = "";
 		ability_color = (int) Math.random() * 10;
 	}
 
