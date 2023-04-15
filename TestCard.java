@@ -9,7 +9,7 @@ public class TestCard {
         String name = "Oak";
         String type = "Flora";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
     @Test
@@ -17,7 +17,7 @@ public class TestCard {
         String name = "Pale-Billed Woodpecker";
         String type = "Fauna";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class TestCard {
         String name = "Metis Shoal Island";
         String type = "Island";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class TestCard {
         String name = "Dry Winter Subpolar Oceanic";
         String type = "Climate";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestCard {
         String name = "Canary Island Palm";
         String type = "Earth";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class TestCard {
         String name = "Sahara Desert";
         String type = "Ecosystem";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class TestCard {
         String name = "Hurricane";
         String type = "Event";
         Card card = new Card(name, type);
-        // assertTrue();
+        assertTrue(Card.class);
     }
 
 }
