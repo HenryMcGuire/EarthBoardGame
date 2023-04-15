@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //
 // Group 3
 // 03/03/23
@@ -378,6 +380,13 @@ public class Card {
 			EcosystemCard(n, t);
 		} else if (rand > 60 && rand <= 70) {
 			EventCard(n, t);
+		}
+	}
+
+	public void generateRandomDeck() {
+		ArrayList<Card> card = new ArrayList<Card>();
+		for (int i = 0; i < (int) (Math.random() * 100); i++) {
+			generateRandomCard();
 		}
 	}
 }
